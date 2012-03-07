@@ -1,0 +1,135 @@
+#!/bin/bash
+# 
+# Create, revoke, or display an x509 private key and public certificate 
+# for the given NODEID
+#
+# Matthew Jones, NCEAS, 2012
+
+function main {
+    setoptions
+
+    case "${OP}" in
+         -c)
+               create
+               ;;
+         -r)
+               revoke
+               ;;
+         -d)
+               display
+               ;;
+         -g)
+               gencrl
+               ;;
+         -h)
+               usage
+               ;;
+         *)
+               display
+               ;;
+    esac
+}
+
+function setoptions {
+    # Set default options
+    KEYSIZE=2048
+    DAYS="-days 1095"
+    
+    # Set command shortcuts
+    KEYS="private"
+    PASS="pass:temp"
+    CFG="openssl.cnf"
+    TMPL="openssl.tmpl"
+    KEY="$KEYS/$NODEID.key"
+    PEM="certs/$NODEID.pem"
+    CSR="req/$NODEID.csr"
+    CRL="crl/DataONEIntCA_CRL.pem"
+}
+
+function create {
+
+    if [ -e $KEY -o -e $PEM -o -e $CSR ]; then
+        echo "ERROR: Files for $NODEID already exist. Exiting..."
+        exit 1
+    fi
+    echo "Creating certificate for $NODEID"
+
+    # Set up our config file with the right NODEID
+    sed -e "s/NODEID/${NODEID}/" $TMPL > $CFG
+
+    # Create a private key for the Node, and strip off its password
+    openssl genrsa -passout $PASS -des3 -out $KEYS/${NODEID}-pass.key $KEYSIZE
+    openssl rsa -passin $PASS -in $KEYS/${NODEID}-pass.key -out $KEY
+    rm $KEYS/${NODEID}-pass.key
+
+    # Create a certificate signing request for the node
+    openssl req -config $CFG -batch -new -key $KEY -out $CSR
+
+    # Create the certificate for the node
+    openssl ca -config $CFG -batch -create_serial $DAYS -out $PEM -infiles $CSR
+
+}
+
+function revoke {
+
+    if [ -e $PEM ]; then
+        echo "Revoking certificate for $NODEID"
+        openssl ca -config $CFG -revoke $PEM
+    else
+        echo "ERROR: Certificate for $NODEID does not exist. Exiting..."
+        exit 1
+    fi
+}
+
+function display {
+    echo "Displaying certificate for $NODEID"
+    openssl x509 -in certs/${NODEID}.pem -noout -text -nameopt RFC2253
+}
+
+function gencrl {
+    echo "Generating Certificate Revocation List (CRL)"
+    #openssl ca -config $CFG -gencrl -out $CRL
+}
+
+function usage {
+    # Ensure the OP and NODEID were provided
+    echo " " 
+    echo "Display, create, or revoke a certificate for NODEID." 
+    echo " " 
+    echo "Usage: $0 [-c][-r][-d] NODEID"
+    echo "Usage: $0 [-h][-g]"
+    echo " " 
+    echo "Where:"
+    echo "  NODEID is the identifier of the node certificate to create"
+    echo "  -c: create the certificate for the node"
+    echo "  -r: revoke the certificate for the node"
+    echo "  -d: display the certificate for the node"
+    echo "  -g: generate the certificate revocation list"
+    echo "  -h: display usage help"
+    echo " " 
+    echo "In the first form, absent -c and -r, the certificate is displayed."
+    exit 1
+}
+
+# execute the main function, and then exit
+NUMOPTS=$#
+if [ "$1" = "-h" ]
+then
+    OP=$1
+elif [ "$1" = "-g" ]
+then
+    OP=$1
+elif [ "$NUMOPTS" -eq "2" ]
+then
+    OP=$1
+    NODEID=$2
+elif [ "$NUMOPTS" -eq "1" ]
+then
+    OP="-d"
+    NODEID=$1
+else
+    usage
+fi
+
+main
+exit 0
