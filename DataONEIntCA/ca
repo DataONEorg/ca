@@ -1,10 +1,14 @@
 #!/bin/bash
 # 
 # Create, revoke, or display an x509 private key and public certificate 
-# for the given NODEID
+# for the given NODEID. The NODEID determines the names of various files that
+# are created as well as the Subject of certificates created.
 #
 # Matthew Jones, NCEAS, 2012
 
+###################################################################################
+# Main entrypoint into the application, dispatching to appropriate handler methods
+###################################################################################
 function main {
     setoptions
 
@@ -30,6 +34,9 @@ function main {
     esac
 }
 
+###################################################################################
+# Set the environment options used throughout the functions
+###################################################################################
 function setoptions {
     # Set default options
     KEYSIZE=2048
@@ -46,6 +53,9 @@ function setoptions {
     CRL="crl/DataONEIntCA_CRL.pem"
 }
 
+###################################################################################
+# Create a certificate and associate private key, named using NODEID
+###################################################################################
 function create {
 
     if [ -e $KEY -o -e $PEM -o -e $CSR ]; then
@@ -70,6 +80,9 @@ function create {
 
 }
 
+###################################################################################
+# Revoke the certificate named using NODEID
+###################################################################################
 function revoke {
 
     if [ -e $PEM ]; then
@@ -81,18 +94,27 @@ function revoke {
     fi
 }
 
+###################################################################################
+# Display the certificate named using NODEID
+###################################################################################
 function display {
     echo "Displaying certificate for $NODEID"
     openssl x509 -in certs/${NODEID}.pem -noout -text -nameopt RFC2253
 }
 
+###################################################################################
+# Generate a Certificate Revocation List (CRL) from the certificate database. This
+# must be published at the correct location on the web.
+###################################################################################
 function gencrl {
     echo "Generating Certificate Revocation List (CRL)"
     #openssl ca -config $CFG -gencrl -out $CRL
 }
 
+###################################################################################
+# Display usage information for the program
+###################################################################################
 function usage {
-    # Ensure the OP and NODEID were provided
     echo " " 
     echo "Display, create, or revoke a certificate for NODEID." 
     echo " " 
@@ -111,7 +133,9 @@ function usage {
     exit 1
 }
 
+###################################################################################
 # execute the main function, and then exit
+###################################################################################
 NUMOPTS=$#
 if [ "$1" = "-h" ]
 then
