@@ -108,7 +108,7 @@ function display {
 ###################################################################################
 function gencrl {
     echo "Generating Certificate Revocation List (CRL)"
-    #openssl ca -config $CFG -gencrl -out $CRL
+    openssl ca -config $CFG -gencrl -out $CRL
 }
 
 ###################################################################################
