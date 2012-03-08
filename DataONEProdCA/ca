@@ -50,11 +50,11 @@ function setoptions {
     KEY="$KEYS/$NODEID.key"
     PEM="certs/$NODEID.pem"
     CSR="req/$NODEID.csr"
-    CRL="crl/DataONEIntCA_CRL.pem"
+    CRL="crl/DataONEProdCA_CRL.pem"
 }
 
 ###################################################################################
-# Create a certificate and associate private key, named using NODEID
+# Create a certificate and associated private key, named using NODEID
 ###################################################################################
 function create {
 

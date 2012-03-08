@@ -7,12 +7,12 @@ easily generates all files needed for the CA, including certificate requests,
 keys, certificates, and certificate revocation lists.
 
 The DataONE Certificate Authority is governed by a Root CA, which delegates all
-certificate signing and management to an Intermediate CA.  The private key for
+certificate signing and management to an Production CA.  The private key for
 the Root CA is offline and completely protected, which protects the CA should
-somehow the Intermediate CA private key be compromised. This document shows the
-steps used to create both the Root CA and the Intermediate CA, as well as to
+somehow the Production CA private key be compromised. This document shows the
+steps used to create both the Root CA and the Production CA, as well as to
 perform common options such as creation and revocation of certificates with the
-Intermediate CA.  The operations have been encapsulated in the 'ca' shell
+Production CA.  The operations have been encapsulated in the 'ca' shell
 script.
 
 New DN formats
@@ -20,7 +20,7 @@ New DN formats
 
 CA:
 DC=org, DC=dataone, CN=DataONE Root CA
-DC=org, DC=dataone, CN=DataONE Intermediate CA
+DC=org, DC=dataone, CN=DataONE Production CA
 
 Nodes:
 DC=org, DC=dataone, CN=urn:node:SOMENODE
@@ -37,32 +37,32 @@ $ cd DataONERootCA
 $ mkdir certs crl newcerts private req
 $ touch index.txt
 # Edit the openssl.cnf config file
-$ openssl req -new -newkey rsa:4096 -keyout private/DataONERootCA.key -out req/DataONERootCA.csr -config ./openssl.cnf
-$ openssl ca -create_serial -out certs/DataONERootCA.pem -days 36500 -keyfile private/DataONERootCA.key -selfsign -config ./openssl.cnf -extensions v3_ca -infiles req/DataONERootCA.csr
+$ openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONERootCA.key -out req/DataONERootCA.csr -config ./openssl.cnf 
+$ openssl ca -create_serial -out certs/DataONERootCA.pem -days 36500 -keyfile /Volumes/DataONE/DataONERootCA.key -selfsign -config ./openssl.cnf -extensions v3_ca -infiles req/DataONERootCA.csr
 $ cp serial crlnumber
 # Edit crlnumber to be a different hex number
 $ openssl ca -config ./openssl.cnf -gencrl -out crl/DataONERootCA_CRL.pem
 
-Creating the Intermediate CA
+Creating the Production CA
 ============================
 $ cd ..
-$ mkdir DataONEIntCA
-$ cd DataONEIntCA
+$ mkdir DataONEProdCA
+$ cd DataONEProdCA
 $ mkdir certs crl newcerts private req
 $ touch index.txt
 #  Edit openssl.cnf
-$ openssl req -new -newkey rsa:4096 -keyout private/DataONEIntCA.key -out req/DataONEIntCA.csr -config ../DataONERootCA/openssl.cnf
+$ openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONEProdCA.key -out req/DataONEProdCA.csr -config ../DataONERootCA/openssl.cnf
 $ cd ../DataONERootCA
-$ openssl ca -out ../DataONEIntCA/certs/DataONEIntCA.pem -days 36500 -keyfile private/DataONERootCA.key -config ./openssl.cnf -extensions v3_ca -infiles ../DataONEIntCA/req/DataONEIntCA.csr
+$ openssl ca -out ../DataONEProdCA/certs/DataONEProdCA.pem -days 36500 -keyfile /Volumes/DataONE/DataONERootCA.key -config ./openssl.cnf -extensions v3_ca -infiles ../DataONEProdCA/req/DataONEProdCA.csr
 
 Create the Certificate Chain File
 =================================
 $ cd ..
-$ cat DataONERootCA/certs/DataONERootCA.pem DataONEIntCA/certs/DataONEIntCA.pem > DataONECAChain.crt
+$ cat DataONERootCA/certs/DataONERootCA.pem DataONEProdCA/certs/DataONEProdCA.pem > DataONECAChain.crt
 
 Creating and Signing Node Requests
 ==================================
-$ cd DataONEIntCA
+$ cd DataONEProdCA
 $ openssl genrsa -passout pass:temp -des3 -out private/NodeNPass.key 2048 
 $ openssl rsa -passin pass:temp -in private/NodeNPass.key -out private/NodeN.key
 $ rm private/NodeNPass.key
@@ -72,4 +72,4 @@ $ openssl ca -config ./openssl.cnf  -create_serial -days 1095 -out certs/NodeN.p
 To revoke a certificate
 =======================
 $ openssl ca -config ./openssl.cnf -revoke certs/NodeN.pem 
-$ openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEIntCA_CRL.pem
+$ openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdCA_CRL.pem

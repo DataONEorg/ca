@@ -41,6 +41,7 @@ default_ca	= CA_default		# The default ca section
 ####################################################################
 [ CA_default ]
 
+sec_key  = /Volumes/DataONE      # Where secure private keys are mounted
 dir		 = /var/ca/DataONERootCA # Where everything is kept
 certs	 = $dir/certs		     # Where the issued certs are kept
 crl_dir	 = $dir/crl		         # Where the issued crl are kept
@@ -54,7 +55,7 @@ serial		= $dir/serial 		# The current serial number
 crlnumber	= $dir/crlnumber	# the current crl number
 					# must be commented out to leave a V1 CRL
 crl		= $crl_dir/DataONERootCA_crl.pem 		# The current CRL
-private_key	= $dir/private/DataONERootCA.key # The private key
+private_key	= $sec_key/DataONERootCA.key # The private key
 RANDFILE	= $dir/private/.rand	# private random number file
 
 x509_extensions	= usr_cert		# The extentions to add to the cert
