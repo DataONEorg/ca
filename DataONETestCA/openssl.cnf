@@ -133,7 +133,7 @@ string_mask = utf8only
 
 commonName			            = Common Name (eg, Node ID)
 commonName_max			        = 64
-commonName_default			    = urn:node:NODEID
+commonName_default			    = urn:node:MBJTEST
 
 # SET-ex3			= SET extension number 3
 

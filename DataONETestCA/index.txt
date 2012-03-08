@@ -1,1 +1,2 @@
 V	21120213030113Z		DA3263A2A12D0000	unknown	/dc=org/dc=dataone/CN=DataONE Test CA
+V	150308071548Z		DA3263A2A12D0001	unknown	/dc=org/dc=dataone/CN=urn:node:MBJTEST
