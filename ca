@@ -11,7 +11,7 @@
 ###################################################################################
 function main {
     setoptions
-
+    switch_server_env
     case "${OP}" in
          -c)
                create
@@ -50,7 +50,24 @@ function setoptions {
     KEY="$KEYS/$NODEID.key"
     PEM="certs/$NODEID.pem"
     CSR="req/$NODEID.csr"
-    CRL="crl/DataONEProdCA_CRL.pem"
+}
+
+###################################################################################
+# Switch to the approriate environment for handling requests
+###################################################################################
+function switch_server_env {
+
+    case "${SERVENV}" in
+         Prod)
+               cd DataONEProdCA
+               ;;
+         Test)
+               cd DataONETestCA
+               ;;
+         *)
+               usage
+               ;;
+    esac
 }
 
 ###################################################################################
@@ -108,6 +125,7 @@ function display {
 ###################################################################################
 function gencrl {
     echo "Generating Certificate Revocation List (CRL)"
+    CRL="crl/DataONE${SERVENV}CA_CRL.pem"
     openssl ca -config $CFG -gencrl -out $CRL
 }
 
@@ -118,11 +136,13 @@ function usage {
     echo " " 
     echo "Display, create, or revoke a certificate for NODEID." 
     echo " " 
-    echo "Usage: $0 [-c][-r][-d] NODEID"
-    echo "Usage: $0 [-h][-g]"
+    echo "Usage: $0 [-c][-r][-d] <Prod|Test> <NODEID>"
+    echo "Usage: $0 [-g] <Prod|Test>"
+    echo "Usage: $0 [-h]"
     echo " " 
     echo "Where:"
     echo "  NODEID is the identifier of the node certificate to create"
+    echo "  Prod|Test is an indicator of whether to work in the Production or Test CA"
     echo "  -c: create the certificate for the node"
     echo "  -r: revoke the certificate for the node"
     echo "  -d: display the certificate for the node"
@@ -143,13 +163,21 @@ then
 elif [ "$1" = "-g" ]
 then
     OP=$1
+    SERVENV=$2
+elif [ "$NUMOPTS" -eq "3" ]
+then
+    OP=$1
+    SERVENV=$2
+    NODEID=$3
 elif [ "$NUMOPTS" -eq "2" ]
 then
     OP=$1
+    SERVENV="Prod"
     NODEID=$2
 elif [ "$NUMOPTS" -eq "1" ]
 then
     OP="-d"
+    SERVENV="Prod"
     NODEID=$1
 else
     usage
