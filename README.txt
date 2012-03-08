@@ -15,8 +15,13 @@ perform common options such as creation and revocation of certificates with the
 Production CA.  The operations have been encapsulated in the 'ca' shell
 script.
 
+There is also a Test CA, used for generating certificates for servers in the
+dev, staging, and sandbox environments, but this CA is completely independent of
+the Production CA and its certificates should not be accepted in the production
+server environments.
+
 New DN formats
-==============
+--------------
 
 CA:
 DC=org, DC=dataone, CN=DataONE Root CA
@@ -29,7 +34,7 @@ CA Certificate validity: 100 years
 Node Certificate validity: 3 years
 
 Creating the Root CA
-====================
+--------------------
 $ mkdir /var/ca
 $ cd /var/ca
 $ mkdir DataONERootCA
@@ -44,7 +49,7 @@ $ cp serial crlnumber
 $ openssl ca -config ./openssl.cnf -gencrl -out crl/DataONERootCA_CRL.pem
 
 Creating the Production CA
-============================
+----------------------------
 $ cd ..
 $ mkdir DataONEProdCA
 $ cd DataONEProdCA
@@ -56,12 +61,12 @@ $ cd ../DataONERootCA
 $ openssl ca -out ../DataONEProdCA/certs/DataONEProdCA.pem -days 36500 -keyfile /Volumes/DataONE/DataONERootCA.key -config ./openssl.cnf -extensions v3_ca -infiles ../DataONEProdCA/req/DataONEProdCA.csr
 
 Create the Certificate Chain File
-=================================
+---------------------------------
 $ cd ..
 $ cat DataONERootCA/certs/DataONERootCA.pem DataONEProdCA/certs/DataONEProdCA.pem > DataONECAChain.crt
 
 Creating and Signing Node Requests
-==================================
+----------------------------------
 $ cd DataONEProdCA
 $ openssl genrsa -passout pass:temp -des3 -out private/NodeNPass.key 2048 
 $ openssl rsa -passin pass:temp -in private/NodeNPass.key -out private/NodeN.key
@@ -70,6 +75,22 @@ $ openssl req -config ./openssl.cnf -new -key private/NodeNPass.key -out req/Nod
 $ openssl ca -config ./openssl.cnf  -create_serial -days 1095 -out certs/NodeN.pem -infiles req/NodeN.csr
 
 To revoke a certificate
-=======================
+-----------------------
 $ openssl ca -config ./openssl.cnf -revoke certs/NodeN.pem 
 $ openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdCA_CRL.pem
+
+Creating the Test CA
+--------------------
+$ mkdir /var/ca
+$ cd /var/ca
+$ mkdir DataONETestCA
+$ cd DataONETestCA
+$ mkdir certs crl newcerts private req
+$ touch index.txt
+# Edit the openssl.cnf config file
+$ openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONETestCA.key -out req/DataONETestCA.csr -config ./openssl.cnf 
+$ openssl ca -create_serial -out certs/DataONETestCA.pem -days 36500 -keyfile /Volumes/DataONE/DataONETestCA.key -selfsign -config ./openssl.cnf -extensions v3_ca -infiles req/DataONETestCA.csr
+$ cp serial crlnumber
+# Edit crlnumber to be a different hex number
+$ openssl ca -config ./openssl.cnf -gencrl -out crl/DataONETestCA_CRL.pem
+
