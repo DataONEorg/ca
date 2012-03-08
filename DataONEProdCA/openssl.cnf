@@ -41,7 +41,8 @@ default_ca	= CA_default		# The default ca section
 ####################################################################
 [ CA_default ]
 
-dir		 = /var/ca/DataONEIntCA # Where everything is kept
+sec_key  = /Volumes/DataONE     # Where secure private keys are mounted
+dir		 = /var/ca/DataONEProdCA # Where everything is kept
 certs	 = $dir/certs		    # Where the issued certs are kept
 crl_dir  = $dir/crl		        # Where the issued crl are kept
 database = $dir/index.txt	    # database index file.
@@ -49,12 +50,12 @@ database = $dir/index.txt	    # database index file.
 					            # several certificates with same subject.
 new_certs_dir	= $dir/newcerts	# default place for new certs.
 
-certificate	= $certs/DataONEIntCA.pem 	# The CA certificate
+certificate	= $certs/DataONEProdCA.pem 	# The CA certificate
 serial		= $dir/serial 		# The current serial number
 crlnumber	= $dir/crlnumber	# the current crl number
 					# must be commented out to leave a V1 CRL
-crl		= $crl_dir/DataONEIntCA_crl.pem 		# The current CRL
-private_key	= $dir/private/DataONEIntCA.key # The private key
+crl		= $crl_dir/DataONEProdCA_crl.pem 		# The current CRL
+private_key	= $sec_key/DataONEProdCA.key # The private key
 RANDFILE	= $dir/private/.rand	# private random number file
 
 x509_extensions	= usr_cert		# The extentions to add to the cert
@@ -132,7 +133,7 @@ string_mask = utf8only
 
 commonName			            = Common Name (eg, Node ID)
 commonName_max			        = 64
-commonName_default			    = urn:node:Node5
+commonName_default			    = urn:node:NODEID
 
 # SET-ex3			= SET extension number 3
 
@@ -198,7 +199,7 @@ authorityKeyIdentifier=keyid,issuer
 # extendedKeyUsage = critical,timeStamping
 
 # CRL Distribution Points
-crlDistributionPoints=URI:http://cn-ucsb-1.dataone.org/crl/DataONEInt_CRL.pem,URI:http://cn-unm-1.dataone.org/crl/DataONEInt_CRL.pem,URI:http://cn-orc-1.dataone.org/crl/DataONEInt_CRL.pem
+crlDistributionPoints=URI:http://cn-ucsb-1.dataone.org/crl/DataONEProd_CRL.pem,URI:http://cn-unm-1.dataone.org/crl/DataONEProd_CRL.pem,URI:http://cn-orc-1.dataone.org/crl/DataONEProd_CRL.pem
 
 [ v3_req ]
 
