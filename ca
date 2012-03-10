@@ -98,7 +98,7 @@ function create {
     fi
 
     # Set up our config file with the right subject info block
-    if [ -r $SIFILE_ADJ ]
+    if [ "$SIFILE" -a -r $SIFILE_ADJ ]
     then
         echo "Using SubjectInfo from $SIFILE_ADJ"
         SINFO=`cat $SIFILE_ADJ | tr -d '\n'`
