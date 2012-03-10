@@ -160,14 +160,14 @@ function gencrl {
 ###################################################################################
 function usage {
     echo " " 
-    echo "Display, create, or revoke a certificate for NODEID." 
+    echo "Display, create, or revoke a certificate for CommonName." 
     echo " " 
-    echo "Usage: $0 [-c][-r][-d] <Prod|Test> <NODEID> [subject_info]"
+    echo "Usage: $0 [-c][-r][-d] <Prod|Test> <CommonName> [subject_info]"
     echo "Usage: $0 [-g] <Prod|Test>"
     echo "Usage: $0 [-h]"
     echo " " 
     echo "Where:"
-    echo "  NODEID is the identifier of the node certificate to create"
+    echo "  CommonName is the common name of the certificate to create"
     echo "  Prod|Test is an indicator of whether to work in the Production or Test CA"
     echo "  subject_info is the optional file name containing subjectinfo XML"
     echo " " 
@@ -178,6 +178,10 @@ function usage {
     echo "  -h: display usage help"
     echo " " 
     echo "In the first form, absent -c and -r, the certificate is displayed."
+    echo " " 
+    echo "Example to create a node certificate:"
+    echo "  ./ca -c Test urn:node:SOMENODE somenode.xml"
+    echo " "
     exit 1
 }
 
