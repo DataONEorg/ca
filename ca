@@ -4,6 +4,9 @@
 # for the given NODEID. The NODEID determines the names of various files that
 # are created as well as the Subject of certificates created.
 #
+# Dependencies:
+#   openssl, echo, sed, tr
+#
 # Matthew Jones, NCEAS, 2012
 
 ###################################################################################
@@ -46,6 +49,7 @@ function setoptions {
     KEYS="private"
     PASS="pass:temp"
     CFG="openssl.cnf"
+    CFG_TEMP="openssl.int"
     TMPL="openssl.tmpl"
     KEY="$KEYS/$NODEID.key"
     PEM="certs/$NODEID.pem"
@@ -82,7 +86,27 @@ function create {
     echo "Creating certificate for $NODEID"
 
     # Set up our config file with the right NODEID
-    sed -e "s/NODEID/${NODEID}/" $TMPL > $CFG
+    sed -e "s/NODEID/${NODEID}/" $TMPL > $CFG_TEMP
+
+    # Check if a provided SubjectInfo file is an absolute path or relative
+    ABSOLUTE=`echo $SIFILE | awk '/^\// {print "1"}'`
+    if [ "$ABSOLUTE" ]
+    then
+       SIFILE_ADJ=$SIFILE
+    else
+       SIFILE_ADJ="../$SIFILE"
+    fi
+
+    # Set up our config file with the right subject info block
+    if [ -r $SIFILE_ADJ ]
+    then
+        echo "Using SubjectInfo from $SIFILE_ADJ"
+        SINFO=`cat $SIFILE_ADJ | tr -d '\n'`
+        sed -e "s#<SUBJECT_INFO>#subject_info=ASN1:UTF8String:${SINFO}#" $CFG_TEMP > $CFG
+    else
+        echo "Omitting SubjectInfo from certificate"
+        sed -e "s/<SUBJECT_INFO>//" $CFG_TEMP > $CFG
+    fi
 
     # Create a private key for the Node, and strip off its password
     openssl genrsa -passout $PASS -des3 -out $KEYS/${NODEID}-pass.key $KEYSIZE
@@ -95,6 +119,8 @@ function create {
     # Create the certificate for the node
     openssl ca -config $CFG -batch -create_serial $DAYS -out $PEM -infiles $CSR
 
+    # Clean up temporary files
+    rm $CFG_TEMP $CFG
 }
 
 ###################################################################################
@@ -136,13 +162,15 @@ function usage {
     echo " " 
     echo "Display, create, or revoke a certificate for NODEID." 
     echo " " 
-    echo "Usage: $0 [-c][-r][-d] <Prod|Test> <NODEID>"
+    echo "Usage: $0 [-c][-r][-d] <Prod|Test> <NODEID> [subject_info]"
     echo "Usage: $0 [-g] <Prod|Test>"
     echo "Usage: $0 [-h]"
     echo " " 
     echo "Where:"
     echo "  NODEID is the identifier of the node certificate to create"
     echo "  Prod|Test is an indicator of whether to work in the Production or Test CA"
+    echo "  subject_info is the optional file name containing subjectinfo XML"
+    echo " " 
     echo "  -c: create the certificate for the node"
     echo "  -r: revoke the certificate for the node"
     echo "  -d: display the certificate for the node"
@@ -164,6 +192,12 @@ elif [ "$1" = "-g" ]
 then
     OP=$1
     SERVENV=$2
+elif [ "$NUMOPTS" -eq "4" ]
+then
+    OP=$1
+    SERVENV=$2
+    NODEID=$3
+    SIFILE=$4
 elif [ "$NUMOPTS" -eq "3" ]
 then
     OP=$1
