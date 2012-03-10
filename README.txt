@@ -45,13 +45,13 @@ The 'ca' utility can create, revoke, and display certificates, and can generate
 the Certificate Revocation List (CRL) for either of the CAs. Examples follow:
 
 * To create a Production certificate for the MN with nodeid "KNB"
-** ./ca -c Prod KNB
+** ./ca -c Prod urn:node:KNB
 * To display a Production certificate for the MN with nodeid "KNB"
-** ./ca -d Prod KNB
+** ./ca -d Prod urn:node:KNB
 * To revoke a Production certificate for the MN with nodeid "KNB"
-** ./ca -r Prod KNB
+** ./ca -r Prod urn:node:KNB
 * To generate a CRL for the Prod CA
-** ./ca -g Prod
+** ./ca -g urn:node:Prod
 
 Any of these commands can be made to work on the Test CA instead by switching
 'Prod' to 'Test'.
