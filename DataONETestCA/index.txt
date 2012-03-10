@@ -5,3 +5,10 @@ V	150310010003Z		DA3263A2A12D0003	unknown	/dc=org/dc=dataone/CN=testRightsHolder
 V	150310010031Z		DA3263A2A12D0004	unknown	/dc=org/dc=dataone/CN=testPerson
 V	150310010058Z		DA3263A2A12D0005	unknown	/dc=org/dc=dataone/CN=testMappedPerson
 V	150310010127Z		DA3263A2A12D0006	unknown	/dc=org/dc=dataone/CN=testGroupie
+V	150310011920Z		DA3263A2A12D0007	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB1
+V	150310011948Z		DA3263A2A12D0008	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxORC1
+V	150310012003Z		DA3263A2A12D0009	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUNM1
+V	150310012052Z		DA3263A2A12D000A	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB1
+V	150310012110Z		DA3263A2A12D000B	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB2
+V	150310012222Z		DA3263A2A12D000C	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB3
+V	150310012244Z		DA3263A2A12D000D	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageORC1
