@@ -40,3 +40,4 @@ V	150411001554Z		DA3263A2A12D0026	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandb
 V	150411001611Z		DA3263A2A12D0027	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB2
 V	150411001628Z		DA3263A2A12D0028	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUNM1
 V	150411001642Z		DA3263A2A12D0029	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxORC1
+V	150413225614Z		DA3263A2A12D002A	unknown	/dc=org/dc=dataone/CN=urn:node:D1USGS0
