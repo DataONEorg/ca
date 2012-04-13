@@ -117,7 +117,7 @@ function create {
     openssl req -config $CFG -batch -new -key $KEY -out $CSR
 
     # Create the certificate for the node
-    openssl ca -config $CFG -batch -create_serial $DAYS -out $PEM -infiles $CSR
+    openssl ca -config $CFG -batch -notext -create_serial $DAYS -out $PEM -infiles $CSR
 
     # Clean up temporary files
     rm $CFG_TEMP $CFG
