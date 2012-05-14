@@ -80,6 +80,17 @@ function switch_server_env {
 function create {
 
     if [ -e $KEY -o -e $PEM -o -e $CSR ]; then
+        echo "WARNING: Files for $NODEID already exist. Be sure to revoke as needed...\n"
+        SERIAL=1
+        while [ -e $KEY -o -e $PEM -o -e $CSR ]; do
+            KEY="$KEYS/$NODEID-$SERIAL.key"
+            PEM="certs/$NODEID-$SERIAL.pem"
+            CSR="req/$NODEID-$SERIAL.csr"
+            ((SERIAL++)) 
+        done
+        echo "Using $PEM, $KEY"
+    fi
+    if [ -e $KEY -o -e $PEM -o -e $CSR ]; then
         echo "ERROR: Files for $NODEID already exist. Exiting..."
         exit 1
     fi
