@@ -46,3 +46,8 @@ V	150515000243Z		DA3263A2A12D002C	unknown	/dc=org/dc=dataone/CN=testPerson
 V	150515000513Z		DA3263A2A12D002D	unknown	/dc=org/dc=dataone/CN=testEQPerson1
 V	150515000531Z		DA3263A2A12D002E	unknown	/dc=org/dc=dataone/CN=testEQPerson2
 V	150515000548Z		DA3263A2A12D002F	unknown	/dc=org/dc=dataone/CN=testEQPerson3
+V	150515003407Z		DA3263A2A12D0030	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUCSB1
+V	150515003425Z		DA3263A2A12D0031	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUNM1
+V	150515003922Z		DA3263A2A12D0032	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC1
+V	150515003957Z		DA3263A2A12D0033	unknown	/dc=org/dc=dataone/CN=urn:node:mnStagePISCO
+V	150515004015Z		DA3263A2A12D0034	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageLTER
