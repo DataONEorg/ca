@@ -41,3 +41,7 @@ V	150411001611Z		DA3263A2A12D0027	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandb
 V	150411001628Z		DA3263A2A12D0028	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUNM1
 V	150411001642Z		DA3263A2A12D0029	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxORC1
 V	150413225614Z		DA3263A2A12D002A	unknown	/dc=org/dc=dataone/CN=urn:node:D1USGS0
+V	150508193809Z		DA3263A2A12D002B	unknown	/dc=org/dc=dataone/CN=dev-testing.dataone.org
+V	150515000243Z		DA3263A2A12D002C	unknown	/dc=org/dc=dataone/CN=testPerson
+V	150515000513Z		DA3263A2A12D002D	unknown	/dc=org/dc=dataone/CN=testEQPerson1
+V	150515000531Z		DA3263A2A12D002E	unknown	/dc=org/dc=dataone/CN=testEQPerson2
