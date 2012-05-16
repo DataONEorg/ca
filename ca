@@ -112,7 +112,7 @@ function create {
     if [ "$SIFILE" -a -r $SIFILE_ADJ ]
     then
         echo "Using SubjectInfo from $SIFILE_ADJ"
-        SINFO=`cat $SIFILE_ADJ | tr -d '\n'`
+        SINFO=$(cat $SIFILE_ADJ | tr -d '\n' | sed s/'\"'/'\\\\"'/g | sed s/'#'/'\\\\#'/g)
         sed -e "s#<SUBJECT_INFO>#subject_info=ASN1:UTF8String:${SINFO}#" $CFG_TEMP > $CFG
     else
         echo "Omitting SubjectInfo from certificate"
@@ -153,7 +153,7 @@ function revoke {
 ###################################################################################
 function display {
     echo "Displaying certificate for $NODEID"
-    openssl x509 -in certs/${NODEID}.pem -noout -text -nameopt RFC2253
+    openssl x509 -in certs/${NODEID}.pem -noout -text -nameopt RFC2253 -certopt ext_parse
 }
 
 ###################################################################################
