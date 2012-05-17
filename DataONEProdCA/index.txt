@@ -13,3 +13,4 @@ V	150515014546Z		CF8745F5A16C6CBF	unknown	/dc=org/dc=dataone/CN=urn:node:DRYAD
 V	150515014549Z		CF8745F5A16C6CC0	unknown	/dc=org/dc=dataone/CN=urn:node:ORNLDAAC
 V	150515014553Z		CF8745F5A16C6CC1	unknown	/dc=org/dc=dataone/CN=urn:node:USGSCSAS
 V	150515014558Z		CF8745F5A16C6CC2	unknown	/dc=org/dc=dataone/CN=urn:node:LTER
+V	150517164301Z		CF8745F5A16C6CC3	unknown	/dc=org/dc=dataone/CN=osu.piscoweb.org
