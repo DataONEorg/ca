@@ -51,3 +51,13 @@ V	150515003425Z		DA3263A2A12D0031	unknown	/dc=org/dc=dataone/CN=urn:node:cnStage
 V	150515003922Z		DA3263A2A12D0032	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC1
 V	150515003957Z		DA3263A2A12D0033	unknown	/dc=org/dc=dataone/CN=urn:node:mnStagePISCO
 V	150515004015Z		DA3263A2A12D0034	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageLTER
+V	150517000236Z		DA3263A2A12D0035	unknown	/dc=org/dc=dataone/CN=testSubmitter
+V	150517000313Z		DA3263A2A12D0036	unknown	/dc=org/dc=dataone/CN=testRightsHolder
+V	150517000348Z		DA3263A2A12D0037	unknown	/dc=org/dc=dataone/CN=testGroupie
+V	150517000418Z		DA3263A2A12D0038	unknown	/dc=org/dc=dataone/CN=testPerson
+V	150517000446Z		DA3263A2A12D0039	unknown	/dc=org/dc=dataone/CN=testEQPerson1
+V	150517000515Z		DA3263A2A12D003A	unknown	/dc=org/dc=dataone/CN=testEQPerson2
+V	150517000531Z		DA3263A2A12D003B	unknown	/dc=org/dc=dataone/CN=testEQPerson3
+V	150517000838Z		DA3263A2A12D003C	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
+V	150517001048Z		DA3263A2A12D003D	unknown	/dc=org/dc=dataone/CN=testPerson_Expired
+V	120518001348Z		DA3263A2A12D003E	unknown	/dc=org/dc=dataone/CN=testPerson_Expired
