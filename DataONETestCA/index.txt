@@ -64,3 +64,4 @@ V	120518001348Z		DA3263A2A12D003E	unknown	/dc=org/dc=dataone/CN=testPerson_Expir
 V	150517163924Z		DA3263A2A12D003F	unknown	/dc=org/dc=dataone/CN=test.piscoweb.org
 V	150517221636Z		DA3263A2A12D0040	unknown	/dc=org/dc=dataone/CN=testPerson
 V	120518221807Z		DA3263A2A12D0041	unknown	/dc=org/dc=dataone/CN=testPerson
+V	150519182445Z		DA3263A2A12D0042	unknown	/dc=org/dc=dataone/CN=*.test.dataone.org
