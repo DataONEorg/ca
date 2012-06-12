@@ -66,3 +66,5 @@ V	150517221636Z		DA3263A2A12D0040	unknown	/dc=org/dc=dataone/CN=testPerson
 V	120518221807Z		DA3263A2A12D0041	unknown	/dc=org/dc=dataone/CN=testPerson
 V	150519182445Z		DA3263A2A12D0042	unknown	/dc=org/dc=dataone/CN=*.test.dataone.org
 V	150611204728Z		DA3263A2A12D0043	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageCDL
+V	150612203841Z		DA3263A2A12D0044	unknown	/dc=org/dc=dataone/CN=testCnAdmin
+V	150612203857Z		DA3263A2A12D0045	unknown	/dc=org/dc=dataone/CN=testMonitor
