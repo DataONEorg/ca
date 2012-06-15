@@ -18,3 +18,4 @@ V	150604191249Z		CF8745F5A16C6CC4	unknown	/dc=org/dc=dataone/CN=cn-ucsb-1.dataon
 V	150604191340Z		CF8745F5A16C6CC5	unknown	/dc=org/dc=dataone/CN=cn-orc-1.dataone.org
 V	150604191355Z		CF8745F5A16C6CC6	unknown	/dc=org/dc=dataone/CN=cn-unm-1.dataone.org
 V	150614074402Z		CF8745F5A16C6CC7	unknown	/dc=org/dc=dataone/CN=dataknp.sanparks.org
+V	150615233939Z		CF8745F5A16C6CC8	unknown	/dc=org/dc=dataone/CN=data.piscoweb.org
