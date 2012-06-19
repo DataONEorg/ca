@@ -69,3 +69,4 @@ V	150611204728Z		DA3263A2A12D0043	unknown	/dc=org/dc=dataone/CN=urn:node:mnStage
 V	150612203841Z		DA3263A2A12D0044	unknown	/dc=org/dc=dataone/CN=testCnAdmin
 V	150612203857Z		DA3263A2A12D0045	unknown	/dc=org/dc=dataone/CN=testMonitor
 V	150619011222Z		DA3263A2A12D0046	unknown	/dc=org/dc=dataone/CN=d1.merritt-stage.cdlib.org
+V	150619192019Z		DA3263A2A12D0047	unknown	/dc=org/dc=dataone/CN=d1-merritt-stage.cdlib.org
