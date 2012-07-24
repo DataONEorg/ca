@@ -28,6 +28,9 @@ function main {
          -g)
                gencrl
                ;;
+         -v)
+               verify
+               ;;
          -h)
                usage
                ;;
@@ -66,7 +69,7 @@ function switch_server_env {
                cd DataONEProdCA
                ;;
          Test)
-               cd DataONETestCA
+               cd DataONETestIntCA
                ;;
          *)
                usage
@@ -164,6 +167,12 @@ function gencrl {
     echo "Generating Certificate Revocation List (CRL)"
     CRL="crl/DataONE${SERVENV}CA_CRL.pem"
     openssl ca -config $CFG -gencrl -out $CRL
+}
+
+
+function verify {
+  echo "Verifying certiicate for $NODEID"
+  openssl verify 
 }
 
 ###################################################################################
