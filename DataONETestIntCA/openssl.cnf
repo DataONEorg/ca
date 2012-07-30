@@ -209,10 +209,6 @@ authorityKeyIdentifier=keyid,issuer
 # CRL Distribution Points
 crlDistributionPoints=URI:http://releases.dataone.org/crl/DataONETestInt_CRL.pem,URI:http://cn-ucsb-1.dataone.org/crl/DataONETestInt_CRL.pem,URI:http://cn-unm-1.dataone.org/crl/DataONETest_CRL.pem,URI:http://cn-orc-1.dataone.org/crl/DataONETestInt_CRL.pem
 
-# This is a template for inclusion of subject_info, which will be put here by
-# SED if it is included in the request
-<SUBJECT_INFO>
-
 
 [ v3_req ]
 
