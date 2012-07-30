@@ -146,3 +146,26 @@ $ cp serial crlnumber
 # Edit crlnumber to be a different hex number
 $ openssl ca -config ./openssl.cnf -gencrl -out crl/DataONETestCA_CRL.pem
 
+
+Creating the Test Intermediate CA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is the equivalent of the Production CA except for the test environments.
+
+$ cd /var/ca
+$ mkdir DataONETestIntCA
+$ cd DataONETestIntCA
+$ mkdir certs crl newcerts private req
+$ touch index.txt
+# Edit the openssl.cnf config file
+$ openssl req -new -newkey rsa:4096  -keyout /opt/DataONE/DataONETestIntCA.key -out req/DataONETestIntCA.csr -config ../DataONETestCA/openssl.cnf
+$ cd ../DataONETestCA
+$ openssl ca -out ../DataONETestIntCA/certs/DataONETestIntCA.pem -days 36500 -keyfile /opt/DataONE/DataONETestCA.key -config ./openssl.cnf -extensions v3_ca  -verbose -infiles ../DataONETestIntCA/req/DataONETestIntCA.csr
+# Create DataONETestIntCA/serial with serial number of the DataONETestIntCA.pem + something
+
+
+Creating the Test Certificate Chain File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$ cd /var/ca
+$ cat DataONETestCA/certs/DataONETestCA.pem DataONETestIntCA/certs/DataONETestIntCA.pem > DataONETestCAChain.crt

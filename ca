@@ -67,9 +67,11 @@ function switch_server_env {
     case "${SERVENV}" in
          Prod)
                cd DataONEProdCA
+               CAFILE="../DataONECAChain.crt"
                ;;
          Test)
                cd DataONETestIntCA
+               CAFILE="../DataONETestCAChain.crt"
                ;;
          *)
                usage
@@ -170,10 +172,15 @@ function gencrl {
 }
 
 
+###################################################################################
+# Verify a certificate against a certificate chain.
+###################################################################################
+
 function verify {
-  echo "Verifying certiicate for $NODEID"
-  openssl verify 
+  echo "Verifying certificate for $NODEID"
+  openssl verify -CAfile ${CAFILE} ${PEM}
 }
+
 
 ###################################################################################
 # Display usage information for the program
@@ -195,6 +202,7 @@ function usage {
     echo "  -r: revoke the certificate for the node"
     echo "  -d: display the certificate for the node"
     echo "  -g: generate the certificate revocation list"
+    echo "  -v: verify the certificate against the CA chain"
     echo "  -h: display usage help"
     echo " " 
     echo "In the first form, absent -c and -r, the certificate is displayed."
