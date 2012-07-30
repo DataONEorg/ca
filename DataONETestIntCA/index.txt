@@ -10,3 +10,9 @@ V	150727145732Z		DA3263A2A12D0052	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-u
 V	150727211604Z		DA3263A2A12D0053	unknown	/dc=org/dc=dataone/CN=cn-dev-unm-1.test.dataone.org
 V	150727212517Z		DA3263A2A12D0054	unknown	/dc=org/dc=dataone/CN=cn-dev-ucsb-1.test.dataone.org
 V	150727212534Z		DA3263A2A12D0055	unknown	/dc=org/dc=dataone/CN=cn-dev-orc-1.test.dataone.org
+V	150730210829Z		DA3263A2A12D0056	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-1.test.dataone.org
+V	150730210849Z		DA3263A2A12D0057	unknown	/dc=org/dc=dataone/CN=cn-sandbox-orc-1.test.dataone.org
+V	150730210902Z		DA3263A2A12D0058	unknown	/dc=org/dc=dataone/CN=cn-sandbox-unm-1.test.dataone.org
+V	150730210925Z		DA3263A2A12D0059	unknown	/dc=org/dc=dataone/CN=cn-stage-ucsb-1.test.dataone.org
+V	150730210936Z		DA3263A2A12D005A	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-1.test.dataone.org
+V	150730210944Z		DA3263A2A12D005B	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-1.test.dataone.org
