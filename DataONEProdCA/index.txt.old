@@ -7,7 +7,7 @@ V	150515014523Z		CF8745F5A16C6CB9	unknown	/dc=org/dc=dataone/CN=urn:node:ESA
 V	150515014527Z		CF8745F5A16C6CBA	unknown	/dc=org/dc=dataone/CN=urn:node:PISCO
 V	150515014531Z		CF8745F5A16C6CBB	unknown	/dc=org/dc=dataone/CN=urn:node:REPUCSB
 V	150515014534Z		CF8745F5A16C6CBC	unknown	/dc=org/dc=dataone/CN=urn:node:REPORC
-V	150515014537Z		CF8745F5A16C6CBD	unknown	/dc=org/dc=dataone/CN=urn:node:REPUNM
+R	150515014537Z	120905154330Z	CF8745F5A16C6CBD	unknown	/dc=org/dc=dataone/CN=urn:node:REPUNM
 V	150515014541Z		CF8745F5A16C6CBE	unknown	/dc=org/dc=dataone/CN=urn:node:CDL
 V	150515014546Z		CF8745F5A16C6CBF	unknown	/dc=org/dc=dataone/CN=urn:node:DRYAD
 V	150515014549Z		CF8745F5A16C6CC0	unknown	/dc=org/dc=dataone/CN=urn:node:ORNLDAAC
@@ -18,3 +18,6 @@ V	150604191249Z		CF8745F5A16C6CC4	unknown	/dc=org/dc=dataone/CN=cn-ucsb-1.dataon
 V	150604191340Z		CF8745F5A16C6CC5	unknown	/dc=org/dc=dataone/CN=cn-orc-1.dataone.org
 V	150604191355Z		CF8745F5A16C6CC6	unknown	/dc=org/dc=dataone/CN=cn-unm-1.dataone.org
 V	150614074402Z		CF8745F5A16C6CC7	unknown	/dc=org/dc=dataone/CN=dataknp.sanparks.org
+V	150615233939Z		CF8745F5A16C6CC8	unknown	/dc=org/dc=dataone/CN=data.piscoweb.org
+V	150905152649Z		CF8745F5A16C6CCA	unknown	/dc=org/dc=dataone/CN=urn:node:REPUNM1
+V	150905153153Z		CF8745F5A16C6CCB	unknown	/dc=org/dc=dataone/CN=urn:node:REPORC1

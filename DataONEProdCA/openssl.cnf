@@ -206,7 +206,7 @@ crlDistributionPoints=URI:http://cn-ucsb-1.dataone.org/crl/DataONEProd_CRL.pem,U
 
 # This is a template for inclusion of subject_info, which will be put here by
 # SED if it is included in the request
-<SUBJECT_INFO>
+#<SUBJECT_INFO>
 
 [ v3_req ]
 
