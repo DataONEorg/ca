@@ -21,3 +21,5 @@ V	150614074402Z		CF8745F5A16C6CC7	unknown	/dc=org/dc=dataone/CN=dataknp.sanparks
 V	150615233939Z		CF8745F5A16C6CC8	unknown	/dc=org/dc=dataone/CN=data.piscoweb.org
 V	150905152649Z		CF8745F5A16C6CCA	unknown	/dc=org/dc=dataone/CN=urn:node:REPUNM1
 V	150905153153Z		CF8745F5A16C6CCB	unknown	/dc=org/dc=dataone/CN=urn:node:REPORC1
+V	150911201825Z		CF8745F5A16C6CCC	unknown	/dc=org/dc=dataone/CN=urn:node:ONEShare
+V	150911201941Z		CF8745F5A16C6CCD	unknown	/dc=org/dc=dataone/CN=oneshare.unm.edu
