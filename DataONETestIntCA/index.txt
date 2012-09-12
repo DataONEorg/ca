@@ -29,3 +29,4 @@ V	150809194048Z		DA3263A2A12D0065	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo1
 V	150809194054Z		DA3263A2A12D0066	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo11
 V	150828205424Z		DA3263A2A12D0067	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNibbler
 V	150906204213Z		DA3263A2A12D0068	unknown	/dc=org/dc=dataone/CN=nibbler.nceas.ucsb.edu
+V	150912155221Z		DA3263A2A12D0069	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestONEShare
