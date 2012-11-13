@@ -33,3 +33,4 @@ V	150912155221Z		DA3263A2A12D0069	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestO
 V	151109205245Z		DA3263A2A12D006A	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestTFRI
 V	151109205459Z		DA3263A2A12D006B	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC2
 V	151112172917Z		DA3263A2A12D006C	unknown	/dc=org/dc=dataone/CN=metacat3.tfri.gov.tw
+V	151113232740Z		DA3263A2A12D006D	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUNM2
