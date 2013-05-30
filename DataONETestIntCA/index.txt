@@ -41,3 +41,5 @@ V	160220155838Z		DA3263A2A12D0071	unknown	/dc=org/dc=dataone/CN=oneshare-test.un
 V	160220160556Z		DA3263A2A12D0072	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestDRYAD
 V	160325193410Z		DA3263A2A12D0073	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestSEAD
 V	160416155122Z		DA3263A2A12D0074	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestEDAC
+V	160529180529Z		DA3263A2A12D0075	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestPPBIO
+V	160529180543Z		DA3263A2A12D0076	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestPELD
