@@ -32,3 +32,4 @@ V	160203165303Z		CF8745F5A16C6CD3	unknown	/dc=org/dc=dataone/CN=monitor.dataone.
 V	160218193407Z		CF8745F5A16C6CD4	unknown	/dc=org/dc=dataone/CN=urn:node:mnORC2
 V	160218193446Z		CF8745F5A16C6CD5	unknown	/dc=org/dc=dataone/CN=urn:node:mnUNM2
 V	160506211513Z		CF8745F5A16C6CD6	unknown	/dc=org/dc=dataone/CN=urn:node:TFRI
+V	160904202325Z		CF8745F5A16C6CD7	unknown	/dc=org/dc=dataone/CN=urn:node:GULFWATCH
