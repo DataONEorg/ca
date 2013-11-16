@@ -49,3 +49,4 @@ V	160912134212Z		DA3263A2A12D0079	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestK
 V	161002223323Z		DA3263A2A12D007A	unknown	/dc=org/dc=dataone/CN=mynpn-dev.usanpn.org
 V	161103033005Z		DA3263A2A12D007B	unknown	/dc=org/dc=dataone/CN=data.gleonrcn.org
 R	150310012717Z	131116154652Z	DA3263A2A12D000F	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
+V	161115155930Z		DA3263A2A12D007C	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
