@@ -51,3 +51,5 @@ V	161103033005Z		DA3263A2A12D007B	unknown	/dc=org/dc=dataone/CN=data.gleonrcn.or
 R	150310012717Z	131116154652Z	DA3263A2A12D000F	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
 V	161115155930Z		DA3263A2A12D007C	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
 V	170204164029Z		DA3263A2A12D007D	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGLEON
+V	170211171057Z		DA3263A2A12D007E	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestEDORA
+V	170211171119Z		DA3263A2A12D007F	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestRGD
