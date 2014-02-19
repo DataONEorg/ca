@@ -39,3 +39,4 @@ V	161010150854Z		CF8745F5A16C6CDA	unknown	/dc=org/dc=dataone/CN=urn:node:SEAD
 V	161017014056Z		CF8745F5A16C6CDB	unknown	/dc=org/dc=dataone/CN=urn:node:KUBI
 V	161030004717Z		CF8745F5A16C6CDC	unknown	/dc=org/dc=dataone/CN=urn:node:GOA
 V	170116211504Z		CF8745F5A16C6CDD	unknown	/dc=org/dc=dataone/CN=urn:node:LTER_EUROPE
+V	170218054734Z		CF8745F5A16C6CDE	unknown	/dc=org/dc=dataone/CN=urn:node:DRYAD
