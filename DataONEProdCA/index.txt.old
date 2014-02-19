@@ -34,7 +34,7 @@ V	160218193446Z		CF8745F5A16C6CD5	unknown	/dc=org/dc=dataone/CN=urn:node:mnUNM2
 V	160506211513Z		CF8745F5A16C6CD6	unknown	/dc=org/dc=dataone/CN=urn:node:TFRI
 V	160904202325Z		CF8745F5A16C6CD7	unknown	/dc=org/dc=dataone/CN=urn:node:GULFWATCH
 V	161003145312Z		CF8745F5A16C6CD8	unknown	/dc=org/dc=dataone/CN=urn:node:USANPN
-V	161003145709Z		CF8745F5A16C6CD9	unknown	/dc=org/dc=dataone/CN=urn:node:LTER-EUROPE
+R	161003145709Z	140117212735Z	CF8745F5A16C6CD9	unknown	/dc=org/dc=dataone/CN=urn:node:LTER-EUROPE
 V	161010150854Z		CF8745F5A16C6CDA	unknown	/dc=org/dc=dataone/CN=urn:node:SEAD
 V	161017014056Z		CF8745F5A16C6CDB	unknown	/dc=org/dc=dataone/CN=urn:node:KUBI
 V	161030004717Z		CF8745F5A16C6CDC	unknown	/dc=org/dc=dataone/CN=urn:node:GOA

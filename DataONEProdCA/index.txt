@@ -9,7 +9,7 @@ V	150515014531Z		CF8745F5A16C6CBB	unknown	/dc=org/dc=dataone/CN=urn:node:REPUCSB
 R	150515014534Z	120905154338Z	CF8745F5A16C6CBC	unknown	/dc=org/dc=dataone/CN=urn:node:REPORC
 R	150515014537Z	120905154330Z	CF8745F5A16C6CBD	unknown	/dc=org/dc=dataone/CN=urn:node:REPUNM
 V	150515014541Z		CF8745F5A16C6CBE	unknown	/dc=org/dc=dataone/CN=urn:node:CDL
-V	150515014546Z		CF8745F5A16C6CBF	unknown	/dc=org/dc=dataone/CN=urn:node:DRYAD
+R	150515014546Z	140219054324Z	CF8745F5A16C6CBF	unknown	/dc=org/dc=dataone/CN=urn:node:DRYAD
 V	150515014549Z		CF8745F5A16C6CC0	unknown	/dc=org/dc=dataone/CN=urn:node:ORNLDAAC
 V	150515014553Z		CF8745F5A16C6CC1	unknown	/dc=org/dc=dataone/CN=urn:node:USGSCSAS
 V	150515014558Z		CF8745F5A16C6CC2	unknown	/dc=org/dc=dataone/CN=urn:node:LTER
