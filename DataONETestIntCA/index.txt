@@ -9,7 +9,7 @@ R	150727021558Z	120730204521Z	DA3263A2A12D0051	unknown	/dc=org/dc=dataone/dc=tes
 V	150727145732Z		DA3263A2A12D0052	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-ucsb-9.test.dataone.org
 V	150727211604Z		DA3263A2A12D0053	unknown	/dc=org/dc=dataone/CN=cn-dev-unm-1.test.dataone.org
 V	150727212517Z		DA3263A2A12D0054	unknown	/dc=org/dc=dataone/CN=cn-dev-ucsb-1.test.dataone.org
-V	150727212534Z		DA3263A2A12D0055	unknown	/dc=org/dc=dataone/CN=cn-dev-orc-1.test.dataone.org
+R	150727212534Z	140311173922Z	DA3263A2A12D0055	unknown	/dc=org/dc=dataone/CN=cn-dev-orc-1.test.dataone.org
 V	150730210829Z		DA3263A2A12D0056	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-1.test.dataone.org
 V	150730210849Z		DA3263A2A12D0057	unknown	/dc=org/dc=dataone/CN=cn-sandbox-orc-1.test.dataone.org
 V	150730210902Z		DA3263A2A12D0058	unknown	/dc=org/dc=dataone/CN=cn-sandbox-unm-1.test.dataone.org
@@ -49,7 +49,7 @@ V	160912134212Z		DA3263A2A12D0079	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestK
 V	161002223323Z		DA3263A2A12D007A	unknown	/dc=org/dc=dataone/CN=mynpn-dev.usanpn.org
 V	161103033005Z		DA3263A2A12D007B	unknown	/dc=org/dc=dataone/CN=data.gleonrcn.org
 R	150310012717Z	131116154652Z	DA3263A2A12D000F	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
-V	161115155930Z		DA3263A2A12D007C	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
+R	161115155930Z	140311174039Z	DA3263A2A12D007C	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
 V	170204164029Z		DA3263A2A12D007D	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGLEON
 V	170211171057Z		DA3263A2A12D007E	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestEDORA
 V	170211171119Z		DA3263A2A12D007F	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestRGD
