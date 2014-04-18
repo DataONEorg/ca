@@ -10,7 +10,7 @@ R	150515014534Z	120905154338Z	CF8745F5A16C6CBC	unknown	/dc=org/dc=dataone/CN=urn
 R	150515014537Z	120905154330Z	CF8745F5A16C6CBD	unknown	/dc=org/dc=dataone/CN=urn:node:REPUNM
 V	150515014541Z		CF8745F5A16C6CBE	unknown	/dc=org/dc=dataone/CN=urn:node:CDL
 R	150515014546Z	140219054324Z	CF8745F5A16C6CBF	unknown	/dc=org/dc=dataone/CN=urn:node:DRYAD
-V	150515014549Z		CF8745F5A16C6CC0	unknown	/dc=org/dc=dataone/CN=urn:node:ORNLDAAC
+R	150515014549Z	140418231221Z	CF8745F5A16C6CC0	unknown	/dc=org/dc=dataone/CN=urn:node:ORNLDAAC
 V	150515014553Z		CF8745F5A16C6CC1	unknown	/dc=org/dc=dataone/CN=urn:node:USGSCSAS
 V	150515014558Z		CF8745F5A16C6CC2	unknown	/dc=org/dc=dataone/CN=urn:node:LTER
 V	150517164301Z		CF8745F5A16C6CC3	unknown	/dc=org/dc=dataone/CN=osu.piscoweb.org
