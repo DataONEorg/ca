@@ -56,4 +56,4 @@ V	170211171119Z		DA3263A2A12D007F	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestR
 V	170310180521Z		DA3263A2A12D0080	unknown	/dc=org/dc=dataone/CN=cn-dev-orc-1.test.dataone.org
 V	170310180614Z		DA3263A2A12D0081	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
 V	170409153143Z		DA3263A2A12D0082	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestTERRAPOP
-V	170413235959Z		DA3263A2A12D0083	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestSC
+R	170413235959Z	140502225212Z	DA3263A2A12D0083	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestSC
