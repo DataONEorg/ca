@@ -63,3 +63,4 @@ V	170710161435Z		DA3263A2A12D0086	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestN
 V	170720210458Z		DA3263A2A12D0087	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
 V	170804162006Z		DA3263A2A12D0088	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestLTER
 V	170811221058Z		DA3263A2A12D0089	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestMPC
+V	170901214848Z		DA3263A2A12D008A	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestDFC
