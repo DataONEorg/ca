@@ -70,3 +70,4 @@ V	171005181313Z		DA3263A2A12D008D	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestM
 V	171019213157Z		DA3263A2A12D008E	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestSAEON
 V	171024040738Z		DA3263A2A12D008F	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-2.test.dataone.org
 V	171024043753Z		DA3263A2A12D0090	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB2
+V	171112024941Z		DA3263A2A12D0091	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIARC
