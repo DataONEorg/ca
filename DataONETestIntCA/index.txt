@@ -73,3 +73,4 @@ V	171024043753Z		DA3263A2A12D0090	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandb
 V	171112024941Z		DA3263A2A12D0091	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIARC
 V	171203161043Z		DA3263A2A12D0092	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestUSGS_SDC
 V	171217192304Z		DA3263A2A12D0093	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestFLYNN
+V	171222190438Z		DA3263A2A12D0094	unknown	/dc=org/dc=dataone/CN=flynn-gmn-1.test.dataone.org
