@@ -60,7 +60,7 @@ R	170413235959Z	140502225212Z	DA3263A2A12D0083	unknown	/dc=org/dc=dataone/CN=urn
 V	170501225808Z		DA3263A2A12D0084	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestSC
 V	170630001620Z		DA3263A2A12D0085	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIOE
 V	170710161435Z		DA3263A2A12D0086	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNMEPSCOR
-V	170720210458Z		DA3263A2A12D0087	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
+R	170720210458Z	150210013617Z	DA3263A2A12D0087	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
 V	170804162006Z		DA3263A2A12D0088	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestLTER
 V	170811221058Z		DA3263A2A12D0089	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestMPC
 V	170901214848Z		DA3263A2A12D008A	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestDFC
@@ -74,3 +74,4 @@ V	171112024941Z		DA3263A2A12D0091	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestI
 V	171203161043Z		DA3263A2A12D0092	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestUSGS_SDC
 V	171217192304Z		DA3263A2A12D0093	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestFLYNN
 V	171222190438Z		DA3263A2A12D0094	unknown	/dc=org/dc=dataone/CN=flynn-gmn-1.test.dataone.org
+V	180209035424Z		DA3263A2A12D0095	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
