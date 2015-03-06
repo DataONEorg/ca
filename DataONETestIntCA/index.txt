@@ -75,3 +75,6 @@ V	171203161043Z		DA3263A2A12D0092	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestU
 V	171217192304Z		DA3263A2A12D0093	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestFLYNN
 V	171222190438Z		DA3263A2A12D0094	unknown	/dc=org/dc=dataone/CN=flynn-gmn-1.test.dataone.org
 V	180209035424Z		DA3263A2A12D0095	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
+V	180305200548Z		DA3263A2A12D0096	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUCSB1
+V	180305211543Z		DA3263A2A12D0097	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
+V	180305213644Z		DA3263A2A12D0098	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUNM1
