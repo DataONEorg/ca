@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #Given name of a certificate, report on:
 # DN
@@ -7,7 +7,7 @@
 # Days to expiration
 # Revocation status
 
-VERSION="1.0.0"
+VERSION="1.0.1"
 VERBOSE=""
 CERTIFICATE=""
 CAROOTCERT="DataONETestCA/certs/DataONETestCA.pem"
@@ -28,12 +28,6 @@ SVN=svn
 TMP="/tmp"
 TMPFILE=${TMP}/$(basename $0).$$.out
 dateformat_out="+%Y-%m-%dT%H:%M:%S.000+00:00"
-dateformat=""
-dateopts="--date"
-if [[ $(uname) == "Darwin" ]]; then
-	dateformat="%b %e %H:%M:%S %Y %Z"
-	dateopts="-junf"
-fi
 TNOW=$(date -u +%s)
 
 function usage() {
@@ -48,11 +42,12 @@ OPTIONS:
   -d  Text dump the certifcate to STDOUT and exit
   -v  Show version and exit
   -V  Verbose output to STDERR
-  -s  Output a CSV row instead of YAML
+  -s  Output a pipe delimited row instead of YAML
   -r  The CRL.pem file (${CRL})
   -a  The CACERT.pem file (${CACERT})
   -c  The CAROOTCERT.pem file (${CAROOTCERT})
   -C  CA Chain file, containing CACERT, CAROOT, and CRL
+  -H  Generate CSV header and exit
 
 echo "$(basename $0) version ${VERSION}"
 
@@ -80,26 +75,39 @@ function dumpCertificate() {
 }
 
 
-function parseDate() {
-	echo $@
-	RES=$(date -jnu -f "%b %e %H:%M:%S %Y %Z" '$@' +%s)
+function toSerialDate() {
+	if [[ $(uname) == "Darwin" ]]; then
+		RES=$(date -junf "%b %e %H:%M:%S %Y %Z" "$@" +%s)
+	else
+		RES=$(date --date "${@}" +%s)
+	fi
+}
+
+
+function fromSerialDate() {
+	log "fromSerialDate"
+	if [[ $(uname) == "Darwin" ]]; then
+		RES=$(date -junf "%s" $@ ${dateformat_out})
+	else
+		RES=$(date --date @$@ ${dateformat_out})
+	fi
 }
 
 
 function getCertificateInfo() {
-# for f in *.pem; do dexp=$(openssl x509 -enddate -noout -in ${f}); echo ${f},${dexp##*=};done
-
 	local _TMP=$(openssl x509 -subject -noout -in ${CERTIFICATE})
 	_TMP=$(echo ${_TMP#*=} | sed -e 's/^[[:space:]]*//')
 	DNPARTS=(${_TMP//\// })
 	DNPARTS=$(printf ",%s" "${DNPARTS[@]}")
 	cDN=${DNPARTS:1}
-	cExpireDate=$(openssl x509 -enddate -noout -in ${CERTIFICATE} \
-		        | awk -F= ' /notAfter/ { printf("%s\n",$NF); } ');		
-	cExpireDate=$(date ${dateopts} "${dateformat}" "${cExpireDate}" +%s)
-	cCreateDate=$(openssl x509 -startdate -noout -in ${CERTIFICATE} \
+	_TMP=$(openssl x509 -enddate -noout -in ${CERTIFICATE} \
+		        | awk -F= ' /notAfter/ { printf("%s\n",$NF); } ');
+	toSerialDate "${_TMP}"
+	cExpireDate=${RES}
+	_TMP=$(openssl x509 -startdate -noout -in ${CERTIFICATE} \
 		        | awk -F= ' /notBefore/ { printf("%s\n",$NF); } ');		
-	cCreateDate=$(date ${dateopts} "${dateformat}" "${cCreateDate}" +%s)
+	toSerialDate "${_TMP}"
+	cCreateDate=${RES}
 	_TMP=$(openssl x509 -serial -noout -in ${CERTIFICATE})
 	cSerial=${_TMP##*=}
 	cDaysToExpire=$(echo "(${cExpireDate}-${TNOW})/(60*60*24)" |bc);
@@ -139,10 +147,12 @@ function getCertificateInfo() {
 
 
 function showCertificateInfo() {
-	local cdate=$(date -junf "%s" ${cCreateDate} ${dateformat_out})
-	local edate=$(date -junf "%s" ${cExpireDate} ${dateformat_out})
+	fromSerialDate ${cCreateDate}
+	local cdate=${RES}
+	fromSerialDate ${cExpireDate}
+	local edate=${RES}
 	if [[ ${CSVOUTPUT} == "1" ]]; then
-		echo "\"${CERTIFICATE}\", \"${cAuthor}\", \"${cDN}\", ${cdate}, ${edate}, ${cDaysToExpire}, ${cRevoked}"
+		echo "${CERTIFICATE}|${cDN}|${cRevoked}|${cDaysToExpire}|${edate}|${cdate}|${cAuthor}"
 	else
 		echo "----"
 		echo "File_name: \"${CERTIFICATE}\""
@@ -157,8 +167,16 @@ function showCertificateInfo() {
 }
 
 
+function showHeader() {
+	echo "#Certificate Status"
+	echo "#Generated|$(date ${dateformat_out})"
+	echo "#"
+	echo "File|DN|Revoked|Expire_days|Expires|Created|Author"
+}
+
+
 #=== Main ===
-while getopts "hvVdsr:a:c:C:" OPTION
+while getopts "hvVdsHr:a:c:C:" OPTION
 do
 	case ${OPTION} in
 		h) usage; exit 1;;
@@ -170,7 +188,8 @@ do
 		c) CAROOTCERT=$OPTARG;;
 		C) CACHAINFILE=$OPTARG;;
 		s) CSVOUTPUT=1;;
-		\?) usage; exit;;
+		H) showHeader; exit 1;;
+		\?) usage; exit 1;;
 	esac
 done
 
@@ -193,4 +212,5 @@ if [[ ! -z ${dumpCert} ]]; then
 fi
 getCertificateInfo
 showCertificateInfo
+
 
