@@ -1,0 +1,196 @@
+#!/bin/sh
+
+#Given name of a certificate, report on:
+# DN
+# Date created
+# Date of expiration
+# Days to expiration
+# Revocation status
+
+VERSION="1.0.0"
+VERBOSE=""
+CERTIFICATE=""
+CAROOTCERT="DataONETestCA/certs/DataONETestCA.pem"
+CACERT="DataONETestIntCA/certs/DataONETestIntCA.pem"
+CRL="DataONETestIntCA/crl/DataONETestInt_CRL.pem"
+CACHAINFILE=""
+cDN=""
+cCreateDate=""
+cExpireDate=""
+cRevoked=""
+cSerial=""
+cAuthor=""
+dumpCert=""
+CSVOUTPUT=""
+
+XML=xml
+SVN=svn
+TMP="/tmp"
+TMPFILE=${TMP}/$(basename $0).$$.out
+dateformat_out="+%Y-%m-%dT%H:%M:%S.000+00:00"
+dateformat=""
+dateopts="--date"
+if [[ $(uname) == "Darwin" ]]; then
+	dateformat="%b %e %H:%M:%S %Y %Z"
+	dateopts="-junf"
+fi
+TNOW=$(date -u +%s)
+
+function usage() {
+cat << EOF
+
+usage: $(basename $0) OPTIONS Certificate 
+
+Report on the status of a PEM format certificate.
+
+OPTIONS:
+  -h  Show this message
+  -d  Text dump the certifcate to STDOUT and exit
+  -v  Show version and exit
+  -V  Verbose output to STDERR
+  -s  Output a CSV row instead of YAML
+  -r  The CRL.pem file (${CRL})
+  -a  The CACERT.pem file (${CACERT})
+  -c  The CAROOTCERT.pem file (${CAROOTCERT})
+  -C  CA Chain file, containing CACERT, CAROOT, and CRL
+
+echo "$(basename $0) version ${VERSION}"
+
+Checking revocation requires that the cacert.pem and the crl.pem
+are available.
+
+EOF
+}
+
+
+function showVersion() {
+	echo ${VERSION}
+}
+
+
+function log() {
+	if [[ ! -z ${VERBOSE} ]]; then
+		echo "LOG: $@" 1>&2;
+	fi
+}
+
+
+function dumpCertificate() {
+	openssl x509 -noout -text -in ${CERTIFICATE}
+}
+
+
+function parseDate() {
+	echo $@
+	RES=$(date -jnu -f "%b %e %H:%M:%S %Y %Z" '$@' +%s)
+}
+
+
+function getCertificateInfo() {
+# for f in *.pem; do dexp=$(openssl x509 -enddate -noout -in ${f}); echo ${f},${dexp##*=};done
+
+	local _TMP=$(openssl x509 -subject -noout -in ${CERTIFICATE})
+	_TMP=$(echo ${_TMP#*=} | sed -e 's/^[[:space:]]*//')
+	DNPARTS=(${_TMP//\// })
+	DNPARTS=$(printf ",%s" "${DNPARTS[@]}")
+	cDN=${DNPARTS:1}
+	cExpireDate=$(openssl x509 -enddate -noout -in ${CERTIFICATE} \
+		        | awk -F= ' /notAfter/ { printf("%s\n",$NF); } ');		
+	cExpireDate=$(date ${dateopts} "${dateformat}" "${cExpireDate}" +%s)
+	cCreateDate=$(openssl x509 -startdate -noout -in ${CERTIFICATE} \
+		        | awk -F= ' /notBefore/ { printf("%s\n",$NF); } ');		
+	cCreateDate=$(date ${dateopts} "${dateformat}" "${cCreateDate}" +%s)
+	_TMP=$(openssl x509 -serial -noout -in ${CERTIFICATE})
+	cSerial=${_TMP##*=}
+	cDaysToExpire=$(echo "(${cExpireDate}-${TNOW})/(60*60*24)" |bc);
+	_TMP=""
+	if [[ -z ${CACHAINFILE} ]]; then
+	  	if [[ -f ${CAROOTCERT} ]]; then
+			if [[ -f ${CACERT} ]]; then
+				if [[ -f ${CRL} ]]; then
+					cat ${CAROOTCERT} > ${TMPFILE}
+					cat ${CACERT} >> ${TMPFILE}
+					cat ${CRL} >> ${TMPFILE}
+					CACHAINFILE=${TMPFILE}
+				else
+					log "CRL File not found: ${CRL}"
+				fi
+			else
+				log "CACERT file not found: ${CACERT}"
+			fi
+		else
+			log "CAROOTCERT file not found: ${CAROOTCERT}"
+		fi
+	fi
+	if [[ -f ${CACHAINFILE} ]]; then
+		log "CACHAINFILE = ${CACHAINFILE}"
+		_TMP=$(openssl verify -CAfile ${CACHAINFILE} ${CERTIFICATE})
+		cRevoked=$(echo ${_TMP##*\:} | sed -e 's/^[[:space:]]*//')
+		if [[ $cRevoked == "OK" ]]; then
+			cRevoked="Not_Revoked"
+		else
+			cRevoked="Revoked"
+		fi
+	else
+		log "CACHAINFILE file not found: ${CACHAINFILE}"
+	fi
+	cAuthor=$(${SVN} blame --xml ${CERTIFICATE} | ${XML} sel -t -m "//entry[1]/commit" -v "author" -n)
+}
+
+
+function showCertificateInfo() {
+	local cdate=$(date -junf "%s" ${cCreateDate} ${dateformat_out})
+	local edate=$(date -junf "%s" ${cExpireDate} ${dateformat_out})
+	if [[ ${CSVOUTPUT} == "1" ]]; then
+		echo "\"${CERTIFICATE}\", \"${cAuthor}\", \"${cDN}\", ${cdate}, ${edate}, ${cDaysToExpire}, ${cRevoked}"
+	else
+		echo "----"
+		echo "File_name: \"${CERTIFICATE}\""
+		echo "    Author      : ${cAuthor}"
+		echo "    Serial      : ${cSerial}"
+		echo "    DN          : \"${cDN}\""
+		echo "    Created     : "${cdate}
+		echo "    Expires     : "${edate}
+		echo "    Expires_days: "${cDaysToExpire}
+		echo "    Revocation  : "${cRevoked}
+	fi
+}
+
+
+#=== Main ===
+while getopts "hvVdsr:a:c:C:" OPTION
+do
+	case ${OPTION} in
+		h) usage; exit 1;;
+		v) showVersion; exit 1;;
+		d) dumpCert=1;;
+		V) VERBOSE=1;;
+		r) CRL=$OPTARG;;
+		a) CACERT=$OPTARG;;
+		c) CAROOTCERT=$OPTARG;;
+		C) CACHAINFILE=$OPTARG;;
+		s) CSVOUTPUT=1;;
+		\?) usage; exit;;
+	esac
+done
+
+shift $(($OPTIND - 1))
+if [[ -z ${1} ]]; then
+		echo "Certificate file name is required"
+		exit 1
+fi
+CERTIFICATE=${1}
+if [[ ! -f ${CERTIFICATE} ]]; then
+	echo "Certificate file ${CERTIFICATE} not found."
+	exit 1
+fi
+
+log "Certificate file: ${CERTIFICATE}"
+
+if [[ ! -z ${dumpCert} ]]; then
+	dumpCertificate
+	exit;
+fi
+getCertificateInfo
+showCertificateInfo
+
