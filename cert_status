@@ -61,7 +61,7 @@
 #   ./cert_status -s -A -P DataONEProdCA/certs
 #
 
-VERSION="1.0.3"
+VERSION="1.0.4"
 INSTALLDIR=$(dirname ${0})
 VERBOSE=""
 CERTIFICATE=""
@@ -92,9 +92,9 @@ function usage() {
 cat << EOF
 $(basename $0) version ${VERSION}
 
-usage: $(basename $0) OPTIONS Certificate 
+usage: $(basename $0) OPTIONS TARGET 
 
-Report on the status of a PEM format certificate.
+Report on the status of a PEM format certificate(s)
 
 OPTIONS:
   -h  Show this message
@@ -109,7 +109,9 @@ OPTIONS:
   -H  Generate CSV header and exit
   -A  Lookup author from subversion (default: No)
   -P  Use default production environment certs instead of test
-  -R  Generate a report on all *.pem in the specified folder
+
+TARGET:
+  A single .pem certificate or folder containing .pem certificates
 
 EOF
 }
