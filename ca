@@ -9,6 +9,14 @@
 #
 # Matthew Jones, NCEAS, 2012
 
+#initialization
+VERSION="1.2.0"
+APPNAME=$(basename ${0})
+APPDIR=$(pwd)
+ICALENDAR_FILE="${APPDIR}/certificate_events.ics"
+dateformat_out="%Y-%m-%dT%H:%M:%S.000+00:00"
+crlUpdateDate=""
+
 ###################################################################################
 # Main entrypoint into the application, dispatching to appropriate handler methods
 ###################################################################################
@@ -78,6 +86,38 @@ function switch_server_env {
                ;;
     esac
 }
+
+
+#Show the application name and version.
+function version() {
+    echo "${APPNAME} version ${VERSION}"
+}
+
+
+# Convert an OpenSSL date to a serial date (seconds from epoch)
+function toSerialDate() {
+    if [[ $(uname) == "Darwin" ]]; then
+        date -junf "%b %e %H:%M:%S %Y %Z" "$@" +%s
+    else
+        date --date "${@}" +%s
+    fi
+}
+
+# Convert a serial date to a standard date format.
+# input: serial_date [date_format]
+function fromSerialDate() {
+    local date_format="${dateformat_out}"
+    if [[ ! -z ${2} ]]; then
+        date_format=${2}
+    fi
+    if [[ $(uname) == "Darwin" ]]; then
+        date -junf "%s" "${1}" "+${date_format}"
+    else
+        date --date "@${1}" "+${date_format}"
+    fi
+}
+
+
 
 ###################################################################################
 # Create a certificate and associated private key, named using NODEID
@@ -168,7 +208,17 @@ function display {
 function gencrl {
     echo "Generating Certificate Revocation List (CRL)"
     CRL="crl/DataONE${SERVENV}CA_CRL.pem"
+    if [[ ${SERVENV} == "Test" ]]; then
+        CRL="crl/DataONE${SERVENV}Int_CRL.pem"
+    fi
     openssl ca -config $CFG -gencrl -out $CRL
+
+    #Report next update time to user
+    _TMP=$(openssl crl -nextupdate -noout -in ${CRL} \
+        | awk -F= ' /nextUpdate/ { printf("%s\n",$NF); } ');
+    crlUpdateDate=$(toSerialDate "${_TMP}")
+    fromSerialDate "${crlUpdateDate}"
+    echo "CRL Needs to be updated before: $(fromSerialDate ${crlUpdateDate})"
 }
 
 
@@ -186,12 +236,14 @@ function verify {
 # Display usage information for the program
 ###################################################################################
 function usage {
+    version
     echo " " 
     echo "Display, create, or revoke a certificate for CommonName." 
     echo " " 
     echo "Usage: $0 [-c][-r][-d] <Prod|Test> <CommonName> [subject_info]"
     echo "Usage: $0 [-g] <Prod|Test>"
     echo "Usage: $0 [-h]"
+    echo "Usage: $0 [-V]"
     echo " " 
     echo "Where:"
     echo "  CommonName is the common name of the certificate to create"
@@ -204,6 +256,7 @@ function usage {
     echo "  -g: generate the certificate revocation list"
     echo "  -v: verify the certificate against the CA chain"
     echo "  -h: display usage help"
+    echo "  -V: show version and exit"
     echo " " 
     echo "In the first form, absent -c and -r, the certificate is displayed."
     echo " " 
@@ -220,6 +273,10 @@ NUMOPTS=$#
 if [ "$1" = "-h" ]
 then
     OP=$1
+elif [ "$1" = "-V" ]
+then
+    version;
+    exit 0
 elif [ "$1" = "-g" ]
 then
     OP=$1

@@ -60,39 +60,65 @@
 #
 #   ./cert_status -s -A -P DataONEProdCA/certs
 #
+# Example:
+# Generate a calendar of events in .ics format for production environment
+# certificate expirations and the next update time for the CRL. Output
+# is to the file "Prod_events.ics" for the production environment or
+# "Test_events.ics" for the test environment.
+#
+#   ./cert_status -P -L
+#
+# 
 
-VERSION="1.0.4"
-INSTALLDIR=$(dirname ${0})
+VERSION="1.1.0"
+APPNAME=$(basename ${0})
+APPDIR=$(pwd)
+
+PROD_FOLDER="${APPDIR}/DataONEProdCA"
+PROD_CAROOTCERT="${APPDIR}/DataONERootCA/certs/DataONERootCA.pem"
+PROD_CACERT="${PROD_FOLDER}/certs/DataONEProdCA.pem"
+PROD_CRL="${PROD_FOLDER}/crl/DataONEProdCA_CRL.pem"
+
+TEST_FOLDER="${APPDIR}/DataONETestIntCA"
+TEST_CAROOTCERT="${APPDIR}/DataONETestCA/certs/DataONETestCA.pem"
+TEST_CACERT="${TEST_FOLDER}/certs/DataONETestIntCA.pem"
+TEST_CRL="${TEST_FOLDER}/crl/DataONETestInt_CRL.pem"
+
+#Default to use the TEST environment
+CERT_ENVIRONMENT="Test"
+CERT_FOLDER="${TEST_FOLDER}"
+CAROOTCERT=${TEST_CAROOTCERT}
+CACERT=${TEST_CACERT}
+CRL=${TEST_CRL}
+
 VERBOSE=""
 CERTIFICATE=""
-CAROOTCERT="${INSTALLDIR}/DataONETestCA/certs/DataONETestCA.pem"
-CACERT="${INSTALLDIR}/DataONETestIntCA/certs/DataONETestIntCA.pem"
-CRL="${INSTALLDIR}/DataONETestIntCA/crl/DataONETestInt_CRL.pem"
 CACHAINFILE=""
-cDN=""
-cCreateDate=""
-cExpireDate=""
-cRevoked=""
-cSerial=""
-cAuthor=""
-cValid=""
-dumpCert=""
+DUMPCERT=""
 CSVOUTPUT=""
-getAuthor=""
+GET_AUTHOR=""
 GENERATE_REPORT=""
+GENERATE_CALENDAR=""
+c_DN=""
+c_create_date=""
+c_expire_date=""
+c_revoked=""
+c_serial=""
+c_author=""
+c_valid=""
 
 XML=xml
 SVN=svn
 TMP="/tmp"
 TMPFILE=${TMP}/$(basename $0).$$.out
-dateformat_out="+%Y-%m-%dT%H:%M:%S.000+00:00"
+dateformat_out="%Y-%m-%dT%H:%M:%S.000+00:00"
 TNOW=$(date -u +%s)
 
 function usage() {
 cat << EOF
-$(basename $0) version ${VERSION}
+${APPNAME} version ${VERSION}
 
-usage: $(basename $0) OPTIONS TARGET 
+usage: ${APPNAME} OPTIONS TARGET 
 
 Report on the status of a PEM format certificate(s)
 
@@ -108,7 +134,8 @@ OPTIONS:
   -C  CA Chain file, containing CACERT, CAROOT, and CRL
   -H  Generate CSV header and exit
   -A  Lookup author from subversion (default: No)
-  -P  Use default production environment certs instead of test
+  -P  Use default production certificate authority
+  -L  Generate .ics file for the certificate authority
 
 TARGET:
   A single .pem certificate or folder containing .pem certificates
@@ -144,23 +171,30 @@ function dumpCertificate() {
 }
 
 
+# Convert an OpenSSL date to a serial date (seconds from epoch)
 function toSerialDate() {
-	if [[ $(uname) == "Darwin" ]]; then
-		RES=$(date -junf "%b %e %H:%M:%S %Y %Z" "$@" +%s)
-	else
-		RES=$(date --date "${@}" +%s)
-	fi
+    if [[ $(uname) == "Darwin" ]]; then
+        date -junf "%b %e %H:%M:%S %Y %Z" "$@" +%s
+    else
+        date --date "${@}" +%s
+    fi
 }
 
 
+# Convert a serial date to a standard date format.
+# input: serial_date [date_format]
 function fromSerialDate() {
-	log "fromSerialDate"
-	if [[ $(uname) == "Darwin" ]]; then
-		RES=$(date -junf "%s" $@ ${dateformat_out})
-	else
-		RES=$(date --date @$@ ${dateformat_out})
-	fi
+    local date_format="${dateformat_out}"
+    if [[ ! -z ${2} ]]; then
+        date_format=${2}
+    fi
+    if [[ $(uname) == "Darwin" ]]; then
+        date -junf "%s" "${1}" "+${date_format}"
+    else
+        date --date "@${1}" "+${date_format}"
+    fi
 }
+
 
 
 function getCertificateInfo() {
@@ -169,18 +203,16 @@ function getCertificateInfo() {
 	IFS=$'/' _TMP=(${_TMP#*/})
 	IFS=${old_IFS}
 	_TMP=$(printf ",%s" "${_TMP[@]}")
-	cDN=${_TMP:1}
+	c_DN=${_TMP:1}
 	_TMP=$(openssl x509 -enddate -noout -in ${CERTIFICATE} \
 		        | awk -F= ' /notAfter/ { printf("%s\n",$NF); } ');
-	toSerialDate "${_TMP}"
-	cExpireDate=${RES}
+	c_expire_date=$(toSerialDate "${_TMP}")
 	_TMP=$(openssl x509 -startdate -noout -in ${CERTIFICATE} \
 		        | awk -F= ' /notBefore/ { printf("%s\n",$NF); } ');		
-	toSerialDate "${_TMP}"
-	cCreateDate=${RES}
+	c_create_date=$(toSerialDate "${_TMP}")
 	_TMP=$(openssl x509 -serial -noout -in ${CERTIFICATE})
-	cSerial=${_TMP##*=}
-	cDaysToExpire=$(echo "(${cExpireDate}-${TNOW})/(60*60*24)" |bc);
+	c_serial=${_TMP##*=}
+	cDaysToExpire=$(echo "(${c_expire_date}-${TNOW})/(60*60*24)" |bc);
 	_TMP=""
 	if [[ -z ${CACHAINFILE} ]]; then
 	  	if [[ -f ${CAROOTCERT} ]]; then
@@ -201,8 +233,8 @@ function getCertificateInfo() {
 		fi
 	fi
 	if [[ -f ${CACHAINFILE} ]]; then
-		cRevoked="Not_Revoked"
-		cValid="Valid"
+		c_revoked="Not_Revoked"
+		c_valid="Valid"
 		log "CACHAINFILE = ${CACHAINFILE}"
 		old_IFS=$IFS
 		IFS=$'\n' _TMP=($(openssl verify -crl_check -CAfile ${CACHAINFILE} ${CERTIFICATE}))
@@ -211,40 +243,38 @@ function getCertificateInfo() {
 			if [[ $sslError == 'error'* ]]; then
 				lwarn $sslError
 				if [[ $sslError == 'error 23'* ]]; then
-					cRevoked="Revoked"
+					c_revoked="Revoked"
 				fi
 				if [[ $sslError == 'error 20'* ]]; then
-					cValid="Invalid"
+					c_valid="Invalid"
 				fi
 			fi
 		done
 	else
 		log "CACHAINFILE file not found: ${CACHAINFILE}"
 	fi
-	if [[ ! -z ${getAuthor} ]]; then
-		cAuthor=$(${SVN} blame --xml ${CERTIFICATE} | ${XML} sel -t -m "//entry[1]/commit" -v "author" -n)
+	if [[ ! -z ${GET_AUTHOR} ]]; then
+		c_author=$(${SVN} blame --xml ${CERTIFICATE} | ${XML} sel -t -m "//entry[1]/commit" -v "author" -n)
 	fi
 }
 
 
 function showCertificateInfo() {
-	fromSerialDate ${cCreateDate}
-	local cdate=${RES}
-	fromSerialDate ${cExpireDate}
-	local edate=${RES}
+	local cdate=$(fromSerialDate ${c_create_date})
+	local edate=$(fromSerialDate ${c_expire_date})
 	if [[ ${CSVOUTPUT} == "1" ]]; then
-		echo "${CERTIFICATE}|${cSerial}|${cDN}|${cRevoked}|${cValid}|${cDaysToExpire}|${edate}|${cdate}|${cAuthor}"
+		echo "${CERTIFICATE}|${c_serial}|${c_DN}|${c_revoked}|${c_valid}|${cDaysToExpire}|${edate}|${cdate}|${c_author}"
 	else
 		echo "----"
 		echo "File_name: \"${CERTIFICATE}\""
-		echo "    Author      : ${cAuthor}"
-		echo "    Serial      : ${cSerial}"
-		echo "    DN          : \"${cDN}\""
+		echo "    Author      : ${c_author}"
+		echo "    Serial      : ${c_serial}"
+		echo "    DN          : \"${c_DN}\""
 		echo "    Created     : ${cdate}"
 		echo "    Expires     : ${edate}"
 		echo "    Expires_days: ${cDaysToExpire}"
-		echo "    Revocation  : ${cRevoked}"
-		echo "    Validity    : ${cValid}"
+		echo "    Revocation  : ${c_revoked}"
+		echo "    Validity    : ${c_valid}"
 	fi
 }
 
@@ -262,13 +292,64 @@ function showHeader() {
 }
 
 
+# Create an event for a .ics file
+# input: serial_date, description
+function serialDateToVCalendar() {
+    cat << EOF
+BEGIN:VEVENT
+DTSTAMP:$(date -u "+%Y%m%dT%H%M%SZ")
+DTSTART;VALUE=DATE:$(fromSerialDate ${1} "%Y%m%d")
+SUMMARY:${2}
+UID:$(uuidgen)@dataone.org
+END:VEVENT
+EOF
+}
+
+
+function generateEventCalendar() {
+	# Create calendar with events:
+	# - Certificate revocation update date
+	# - Expiration dates for certificates
+	local c_file="${APPDIR}/${CERT_ENVIRONMENT}_events.ics"
+	log "Generating calendar file ${c_file}"
+    printf "BEGIN:VCALENDAR\n" > ${c_file}
+    printf "VERSION:2.0\n" >> ${c_file}
+    printf "PRODID:-//DataONE.org//${APPNAME} v${VERSION}//${CERT_ENVIRONMENT}//EN\n" >> ${c_file}
+
+    #Each certificate
+    CERTIFICATES=$(find "${CERT_FOLDER}/certs" -name "*.pem")
+    for CERTIFICATE in ${CERTIFICATES}; do
+    	#get certificate info and generate event
+    	getCertificateInfo
+    	if [[ ${c_revoked} == "Not_Revoked" ]]; then
+    		log "${c_DN} expires $(fromSerialDate ${c_expire_date})"
+			ICAL_EVENT=$(serialDateToVCalendar "${c_expire_date}" \
+				"Certificate ${c_DN} expires in ${CERT_ENVIRONMENT} environment.\nSerial:${c_serial}")
+			printf "${ICAL_EVENT}\n" >> ${c_file}
+		fi
+    done
+
+    #Update CRL before...
+    _TMP=$(openssl crl -nextupdate -noout -in ${CRL} \
+        | awk -F= ' /nextUpdate/ { printf("%s\n",$NF); } ');
+    crl_update_date=$(toSerialDate "${_TMP}")
+    log "CRL Needs to be updated before: $(fromSerialDate ${crl_update_date})"
+    ICAL_EVENT=$(serialDateToVCalendar "${crl_update_date}" \
+                 "Regenerate DataONE ${CERT_ENVIRONMENT} CRL.")
+    printf "${ICAL_EVENT}\n" >> ${c_file}
+
+    #Close calendar
+    printf "END:VCALENDAR" >> ${c_file}
+}
+
+
 #=== Main ===
-while getopts "hvVdsHAPr:a:c:C:" OPTION
+while getopts "hvVdsHAPLr:a:c:C:" OPTION
 do
 	case ${OPTION} in
 		h) usage; exit 1;;
 		v) showVersion; exit 1;;
-		d) dumpCert=1;;
+		d) DUMPCERT=1;;
 		V) VERBOSE=1;;
 		r) CRL=$OPTARG;;
 		a) CACERT=$OPTARG;;
@@ -277,29 +358,39 @@ do
 		s) CSVOUTPUT=1;;
 		H) showHeader; exit 1;;
 		A) getAuthor=1;;
-		P) CAROOTCERT="${INSTALLDIR}/DataONERootCA/certs/DataONERootCA.pem";
-		   CACERT="${INSTALLDIR}/DataONEProdCA/certs/DataONEProdCA.pem";
-		   CRL="${INSTALLDIR}/DataONEProdCA/crl/DataONEProdCA_CRL.pem";;
+		P) CERT_ENVIRONMENT="Prod";
+		   CERT_FOLDER="${PROD_FOLDER}";
+		   CAROOTCERT="${PROD_CAROOTCERT}";
+		   CACERT="${PROD_CACERT}";
+		   CRL="${PROD_CRL}";;
+		L) GENERATE_CALENDAR=1;;
 		\?) usage; exit 1;;
 	esac
 done
 
 shift $(($OPTIND - 1))
 if [[ -z ${1} ]]; then
-		lerror "Certificate file name or folder is required"
-		exit 1
+	lwarn "Certificate file name or folder is required"
+	lwarn "Defaulting to the ${CERT_ENVIRONMENT} environment."
+	TARGET="${CERT_FOLDER}/certs"
+else
+	TARGET=${1}
 fi
-TARGET=${1}
+if [[ ! -z ${GENERATE_CALENDAR} ]]; then
+	generateEventCalendar
+	exit 0;
+fi
 if [[ -f ${TARGET} ]]; then
 	# Report on single certificate
 	CERTIFICATE=${TARGET}
 	log "Certificate file: ${CERTIFICATE}"
-	if [[ ! -z ${dumpCert} ]]; then
-		dumpCertificate
-		exit;
+	if [[ ! -z ${DUMPCERT} ]]; then
+		DUMPCERTificate
+		exit 0;
 	fi
 	getCertificateInfo
 	showCertificateInfo
+	exit 0;
 else
 	if [[ -d ${TARGET} ]]; then
 		# Report on *.pem in folder
@@ -312,6 +403,6 @@ else
 		done
 	else
 		lerror "Supplied target is not a file or folder"
-		exit
+		exit 1;
 	fi
 fi
