@@ -9,68 +9,9 @@
 #  Revocation status
 #  Author
 #
-# Example:
-# Show status of a single certificate in test environment:
-#  
-#   ./cert_status -A DataONETestIntCA/certs/urn\:node\:mnTestGulfWatch.pem  
-#
-#
-# Example:
-# Show status of a single certificate in production environment, using the 
-# default locations for certificates and CRL:
-#
-#   ./cert_status -A -P DataONEProdCA/certs/urn\:node\:GULFWATCH.pem
-# 
-#    
-# Example:
-# Show status of a single certificate in production environment, explicitly
-# indicating which certificates and CRL to use:
-#
-#   ./cert_status -A -r DataONEProdCA/crl/DataONEProdCA_CRL.pem \
-#    -a DataONEProdCA/certs/DataONEProdCA.pem \
-#    -c DataONERootCA/certs/DataONERootCA.pem \
-#    DataONEProdCA/certs/urn\:node\:GULFWATCH.pem
-#
-#
-# Example: 
-# Generate a pipe delimited text file reporting on all 
-# the test certificates:
-#
-#   ./cert_status -H > testcerts.csv; \
-#   for f in $(find DataONETestIntCA/certs -name *.pem); \
-#   do ./cert_status -A -s $f >> testcerts.csv; done
-#  
-# OR:
-#
-#   ./cert_status -s -A DataONETestIntCA/certs
-#
-# Example: 
-# Generated a pipe delimited text file reporting on all
-# the production certificates:
-#
-#   ./cert_status -H > testcerts.csv; \
-#   for f in $(find DataONETestIntCA/certs -name *.pem); \
-#   do ./cert_status -A -s \
-#    -r DataONEProdCA/crl/DataONEProdCA_CRL.pem \
-#    -a DataONEProdCA/certs/DataONEProdCA.pem \
-#    -c DataONERootCA/certs/DataONERootCA.pem \
-#   $f >> prodcerts.csv; done
-#  
-# OR:
-#
-#   ./cert_status -s -A -P DataONEProdCA/certs
-#
-# Example:
-# Generate a calendar of events in .ics format for production environment
-# certificate expirations and the next update time for the CRL. Output
-# is to the file "Prod_events.ics" for the production environment or
-# "Test_events.ics" for the test environment.
-#
-#   ./cert_status -P -L
-#
-# 
 
-VERSION="1.1.0"
+
+VERSION="1.1.1"
 APPNAME=$(basename ${0})
 APPDIR=$(pwd)
 
@@ -132,13 +73,72 @@ OPTIONS:
   -a  The CACERT.pem file (${CACERT})
   -c  The CAROOTCERT.pem file (${CAROOTCERT})
   -C  CA Chain file, containing CACERT, CAROOT, and CRL
-  -H  Generate CSV header and exit
+  -S  Generate CSV header and exit
   -A  Lookup author from subversion (default: No)
   -P  Use default production certificate authority
   -L  Generate .ics file for the certificate authority
 
 TARGET:
   A single .pem certificate or folder containing .pem certificates
+
+EOF
+}
+
+
+function usageExamples() {
+	usage
+cat << EOF
+
+Example - Show status of a single certificate in test environment:
+
+  ./${APPNAME} -A DataONETestIntCA/certs/urn\:node\:mnTestGulfWatch.pem  
+
+Example - Show status of a single certificate in production environment, 
+using the default locations for certificates and CRL:
+
+  ./${APPNAME} -A -P DataONEProdCA/certs/urn\:node\:GULFWATCH.pem
+ 
+Example - Show status of a single certificate in production environment, 
+explicitly indicating which certificates and CRL to use:
+
+  ./${APPNAME} -A -r DataONEProdCA/crl/DataONEProdCA_CRL.pem \\
+    -a DataONEProdCA/certs/DataONEProdCA.pem \\
+    -c DataONERootCA/certs/DataONERootCA.pem \\
+    DataONEProdCA/certs/urn\\:node\\:GULFWATCH.pem
+
+Example - Generate a pipe delimited text file reporting on all the 
+test certificates:
+
+  ./${APPNAME} -S > testcerts.csv; \\
+  for f in \$(find DataONETestIntCA/certs -name *.pem); \\
+    do ./${APPNAME} -A -s \$f >> testcerts.csv; done
+  
+OR:
+
+   ./${APPNAME} -s -A DataONETestIntCA/certs
+
+Example - Generate a pipe delimited text file reporting on all the 
+production certificates:
+
+  ./${APPNAME} -H > testcerts.csv; \\
+  for f in \$(find DataONETestIntCA/certs -name *.pem); \\
+  do ./${APPNAME} -A -s \\
+   -r DataONEProdCA/crl/DataONEProdCA_CRL.pem \\
+   -a DataONEProdCA/certs/DataONEProdCA.pem \\
+   -c DataONERootCA/certs/DataONERootCA.pem \\
+  \$f >> prodcerts.csv; done
+ 
+OR:
+
+  ./${APPNAME} -s -A -P DataONEProdCA/certs
+
+Example - Generate a calendar of events in .ics format for production 
+environment certificate expirations and the next update time for the 
+CRL. Output is to the file "Prod_events.ics" for the production 
+environment or "Test_events.ics" for the test environment. The 
+calendar can be subscribed to using the respective SVN URL.
+
+  ./${APPNAME} -P -L
 
 EOF
 }
@@ -344,10 +344,11 @@ function generateEventCalendar() {
 
 
 #=== Main ===
-while getopts "hvVdsHAPLr:a:c:C:" OPTION
+while getopts "hvVdsHSAPLr:a:c:C:" OPTION
 do
 	case ${OPTION} in
 		h) usage; exit 1;;
+		H) usageExamples; exit 1;;
 		v) showVersion; exit 1;;
 		d) DUMPCERT=1;;
 		V) VERBOSE=1;;
@@ -356,7 +357,7 @@ do
 		c) CAROOTCERT=$OPTARG;;
 		C) CACHAINFILE=$OPTARG;;
 		s) CSVOUTPUT=1;;
-		H) showHeader; exit 1;;
+		S) showHeader; exit 1;;
 		A) getAuthor=1;;
 		P) CERT_ENVIRONMENT="Prod";
 		   CERT_FOLDER="${PROD_FOLDER}";
