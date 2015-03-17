@@ -1,0 +1,233 @@
+#!/bin/bash
+#
+# Script to publish the CRL for either the production or test CA
+#
+# The needs to be published to locations that the various certificates
+# use as their CRL location. This could be gleaned from the OpenSSL 
+# configuration file, but since that may change, the only reliable
+# way to ensure that the CRL is published to the correct locations is
+# to examine each certificate and build a canonical list of CRL 
+# destinations, then publish the CRL to each ofthose locations.
+#
+# This script will examine all certificates in a specified folder,
+# generate a canonical list of CRL publication locations, then
+# scp the CRL to those destinations. e.g.:
+#   sudo chgrp -R www-data /var/www/crl
+#   sudo chmod -R g+w /var/www/crl
+#   sudo usermod -a -G www-data USER
+#
+VERSION="1.0.0"
+APPNAME=$(basename ${0})
+APPDIR=$(pwd)
+TMPDIR="/tmp"
+# Host file system location where the CRL file will be written.
+# Must have write permission to that location.
+HOST_PUBLISH_PATH="/var/www/crl"
+
+PROD_FOLDER="${APPDIR}/DataONEProdCA"
+PROD_CAROOTCERT="${APPDIR}/DataONERootCA/certs/DataONERootCA.pem"
+PROD_CACERT="${PROD_FOLDER}/certs/DataONEProdCA.pem"
+PROD_CRL="${PROD_FOLDER}/crl/DataONEProdCA_CRL.pem"
+
+TEST_FOLDER="${APPDIR}/DataONETestIntCA"
+TEST_CAROOTCERT="${APPDIR}/DataONETestCA/certs/DataONETestCA.pem"
+TEST_CACERT="${TEST_FOLDER}/certs/DataONETestIntCA.pem"
+TEST_CRL="${TEST_FOLDER}/crl/DataONETestInt_CRL.pem"
+
+#Default to use the TEST environment
+CERT_ENVIRONMENT="Test"
+CERT_FOLDER="${TEST_FOLDER}"
+CAROOTCERT=${TEST_CAROOTCERT}
+CACERT=${TEST_CACERT}
+CRL=${TEST_CRL}
+
+VERBOSE=""
+SHOWCRL=""
+DRYRUN=""
+PUBLISHPOINTS=""
+
+
+function showVersion() {
+	echo ${VERSION}
+}
+
+
+function usage() {
+cat << EOF
+${APPNAME} version ${VERSION}
+
+usage: ${APPNAME} OPTIONS
+
+Publish the CRL to the locations specified in the signing CERT. Requires 
+that the user has authority to scp to the target servers. Assumes that the
+CRL file system location is /var/www/crl/ and that the user has write
+permission to the folder.
+
+OPTIONS:
+  -h  Show this message
+  -d  Dump the CRL to STDOUT and exit
+  -D  Dry run. Show target servers only.
+  -v  Show version and exit
+  -V  Verbose output to STDERR
+  -r  Use the specified CRL.pem file (${CRL})
+  -P  Publish Production rather than Test environment CRL
+
+EOF
+}
+
+
+function usageExamples() {
+	usage
+cat << EOF
+
+Example - Publish the CRL for the Test Environment:
+
+  ./${APPNAME}
+
+Example - Show what will happen when run for Production Environment:
+
+  ./${APPNAME} -D -P
+
+Example - Publish the CRL for the Production Environment, and
+be verbose:
+
+  ./${APPNAME} -V -P
+
+EOF
+}
+
+
+function log() {
+	if [[ ! -z ${VERBOSE} ]]; then
+		echo "LOG: $@" 1>&2;
+	fi
+}
+
+
+function lwarn() {
+	echo "WARN: $@" 1>&2;
+}
+
+
+function lerror() {
+	echo "ERROR: $@" 1>&2;
+}
+
+# Given a URI ${1}, split into parts and populate the vars:
+#   target_url = URL
+#   target_proto = protocol
+#   target_user = username
+#   target_host = hostname
+#   target_path = path
+function parseURI() {
+	_uri=${1}
+	if [[ ${_uri} == 'URI:'* ]]; then
+		_uri=${1#*:}
+	fi
+	target_url=${_uri}
+	target_proto="$(echo ${_uri} | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+	_uri="$(echo ${_uri/${target_proto}/})"
+	target_user="$(echo $_uri | grep @ | cut -d@ -f1)"
+	target_host="$(echo ${_uri/${target_user}@/} | cut -d/ -f1)"
+	target_path="$(echo ${_uri} | grep / | cut -d/ -f2-)"
+}
+
+
+# Get the hostname from the provided URI ${1}
+function getHostFromURI() {
+	parseURI ${1}
+	echo ${target_host}
+}
+
+
+#Dump the CRL ${1} to stdout
+function showCRL() {
+	openssl crl -text -noout -in ${1}
+}
+
+#Dump the .PEM cert ${1} to stdout
+function showCertificate() {
+	openssl x509 -noout -text -in ${1}
+}
+
+
+# Given a certificate ${1}, output the publishing endpoints
+function getCRLPublishHosts() {
+	PUBLISHPOINTS=$(openssl x509 -noout -text -in ${1} \
+		| sed  '1,/X509v3 CRL Distribution Points:/d' \
+		| grep "URI:")
+	for uri in ${PUBLISHPOINTS[@]}; do
+		host=$(getHostFromURI ${uri})
+		log "HOST = ${host}"
+		echo ${host}
+	done
+}
+
+
+# Given a folder ${1} containing .pem files, examine each
+# .pem and retrieve the publish locations. De-dupe the
+# list and output the list of hosts
+function getListOfCRLHosts() {
+	local TMPFILE=${TMPDIR}/$(basename $0).$$.txt
+	CERTIFICATES=$(find "${CERT_FOLDER}/certs" -name "*.pem")
+	for CERTIFICATE in ${CERTIFICATES}; do
+		getCRLPublishHosts ${CERTIFICATE} >> ${TMPFILE}
+	done
+	sort -u ${TMPFILE}
+}
+
+
+# scp the CRL to the hosts listed in the certificates relevant
+# for the CRL. ${1} is folder containing the .pem files 
+# subject to the CRL
+# target file system path is ${HOST_PUBLISH_PATH}
+function publishCRL() {
+	log "Generating list of CRL hosts..."
+	if [[ ! -z ${DRYRUN} ]]; then
+		lwarn "Dry-run specified. No action will be taken."
+	fi
+	local publish_hosts=($(getListOfCRLHosts ${1}))
+	for host in ${publish_hosts[@]}; do
+		if [[ -z ${VERBOSE} ]]; then
+			CMD="scp -B -q ${CRL} ${host}:${HOST_PUBLISH_PATH}"
+		else
+			CMD="scp -B ${CRL} ${host}:${HOST_PUBLISH_PATH}"
+		fi
+		if [[ -z ${DRYRUN} ]]; then
+			log "Publish to ${host}:${HOST_PUBLISH_PATH}"
+			$(${CMD})
+		else
+			echo "$CMD"
+		fi
+	done
+}
+
+
+#=== Main ===
+
+while getopts "hHvVPdDr:" OPTION
+do
+	case ${OPTION} in
+		h) usage; exit 1;;
+	    H) usageExamples; exit 1;;
+		v) showVersion; exit 1;;
+		V) VERBOSE=1;;
+		r) CRL=$OPTARG;;
+		P) CERT_ENVIRONMENT="Prod";
+		   CERT_FOLDER="${PROD_FOLDER}";
+		   CAROOTCERT="${PROD_CAROOTCERT}";
+		   CACERT="${PROD_CACERT}";
+		   CRL="${PROD_CRL}";;
+		d) SHOWCRL=1;;
+	    D) DRYRUN=1;;
+		\?) usage; exit 1;;
+	esac
+done
+
+if [[ ! -z ${SHOWCRL} ]]; then
+	showCRL ${CRL}
+	echo "======"
+	showCertificate ${CACERT}
+	exit 0;
+fi
+publishCRL ${CERT_FOLDER}
