@@ -11,7 +11,7 @@
 #
 
 
-VERSION="1.1.1"
+VERSION="1.2.0"
 APPNAME=$(basename ${0})
 APPDIR=$(pwd)
 
@@ -37,7 +37,8 @@ CERTIFICATE=""
 CACHAINFILE=""
 DUMPCERT=""
 CSVOUTPUT=""
-GET_AUTHOR=""
+OUTFORMAT="JSON"
+getAuthor=""
 GENERATE_REPORT=""
 GENERATE_CALENDAR=""
 c_DN=""
@@ -50,8 +51,8 @@ c_valid=""
 
 XML=xml
 SVN=svn
-TMP="/tmp"
-TMPFILE=${TMP}/$(basename $0).$$.out
+TMPDIR="/tmp"
+TMPFILE=${TMPDIR}/${APPNAME}.$$.out
 dateformat_out="%Y-%m-%dT%H:%M:%S.000+00:00"
 TNOW=$(date -u +%s)
 
@@ -68,7 +69,8 @@ OPTIONS:
   -d  Text dump the certifcate to STDOUT and exit
   -v  Show version and exit
   -V  Verbose output to STDERR
-  -s  Output pipe delimited rows instead of YAML
+  -s  Output pipe delimited rows instead of JSON
+  -n  Output human readable text instead of JSON
   -r  The CRL.pem file (${CRL})
   -a  The CACERT.pem file (${CACERT})
   -c  The CAROOTCERT.pem file (${CAROOTCERT})
@@ -253,7 +255,7 @@ function getCertificateInfo() {
 	else
 		log "CACHAINFILE file not found: ${CACHAINFILE}"
 	fi
-	if [[ ! -z ${GET_AUTHOR} ]]; then
+	if [[ ! -z ${getAuthor} ]]; then
 		c_author=$(${SVN} blame --xml ${CERTIFICATE} | ${XML} sel -t -m "//entry[1]/commit" -v "author" -n)
 	fi
 }
@@ -262,35 +264,53 @@ function getCertificateInfo() {
 function showCertificateInfo() {
 	local cdate=$(fromSerialDate ${c_create_date})
 	local edate=$(fromSerialDate ${c_expire_date})
-	if [[ ${CSVOUTPUT} == "1" ]]; then
+	if [[ ${OUTFORMAT} == "CSV" ]]; then
 		echo "${CERTIFICATE}|${c_serial}|${c_DN}|${c_revoked}|${c_valid}|${cDaysToExpire}|${edate}|${cdate}|${c_author}"
+	elif [[ ${OUTFORMAT} == "JSON" ]]; then
+		echo "{"
+		echo " \"File_name\"   : \"${CERTIFICATE}\","
+		echo " \"Author\"      : \"${c_author}\","
+		echo " \"Serial\"      : \"${c_serial}\","
+		echo " \"DN\"          : \"${c_DN}\","
+		echo " \"Created\"     : \"${cdate}\","
+		echo " \"Expires\"     : \"${edate}\","
+		echo " \"Expires_days\": ${cDaysToExpire},"
+		echo " \"Revocation\"  : \"${c_revoked}\","
+		echo " \"Validity\"    : \"${c_valid}\""
+		echo "}"
 	else
-		echo "----"
-		echo "File_name: \"${CERTIFICATE}\""
-		echo "    Author      : ${c_author}"
-		echo "    Serial      : ${c_serial}"
-		echo "    DN          : \"${c_DN}\""
-		echo "    Created     : ${cdate}"
-		echo "    Expires     : ${edate}"
-		echo "    Expires_days: ${cDaysToExpire}"
-		echo "    Revocation  : ${c_revoked}"
-		echo "    Validity    : ${c_valid}"
+		echo "Certificate : $(basename ${CERTIFICATE})"
+		echo "Author      : ${c_author}"
+		echo "Serial      : ${c_serial}"
+		echo "DN          : ${c_DN}"
+		echo "Created     : ${cdate}"
+		echo "Expires     : ${edate}"
+		echo "Expires_days: ${cDaysToExpire}"
+		echo "Revocation  : ${c_revoked}"
+		echo "Validity    : ${c_valid}"
 	fi
 }
 
 
 function showHeader() {
-	if [[ -z ${CSVOUTPUT} ]]; then
-		echo "#Certificate Status"
-		echo "Generated: $(date ${dateformat_out})"
+	if [[  ${OUTFORMAT} == "CSV" ]]; then
+		echo "{\"what\":\"Certificate Status\","
+		echo " \"Generated\":\"$(date +${dateformat_out})\","
+		echo " \"content\":["
 	else
 		echo "#Certificate Status"
-		echo "#Generated|$(date ${dateformat_out})"
+		echo "#Generated|$(date +${dateformat_out})"
 		echo "#"
 		echo "File|Serial|DN|Revoked|Validity|Expire_days|Expires|Created|Author"
 	fi
 }
 
+
+function showFooter() {
+	if [[ ${OUTFORMAT} == "JSON" ]]; then
+		echo "]}"
+	fi
+}
 
 # Create an event for a .ics file
 # input: serial_date, description
@@ -344,7 +364,7 @@ function generateEventCalendar() {
 
 
 #=== Main ===
-while getopts "hvVdsHSAPLr:a:c:C:" OPTION
+while getopts "hvVdsnHSAPLr:a:c:C:" OPTION
 do
 	case ${OPTION} in
 		h) usage; exit 1;;
@@ -356,7 +376,8 @@ do
 		a) CACERT=$OPTARG;;
 		c) CAROOTCERT=$OPTARG;;
 		C) CACHAINFILE=$OPTARG;;
-		s) CSVOUTPUT=1;;
+		s) OUTFORMAT="CSV";;
+		n) OUTFORMAT="HUMAN";;
 		S) showHeader; exit 1;;
 		A) getAuthor=1;;
 		P) CERT_ENVIRONMENT="Prod";
@@ -395,13 +416,21 @@ if [[ -f ${TARGET} ]]; then
 else
 	if [[ -d ${TARGET} ]]; then
 		# Report on *.pem in folder
+		_starter=""
 		showHeader
 		CERTIFICATES=$(find ${TARGET} -name "*.pem")
 		for CERTIFICATE in ${CERTIFICATES}; do
+			if [[ -n ${_starter} ]]; then
+				if [[ ${OUTFORMAT} == "JSON" ]]; then
+					echo ","
+				fi
+			fi
 			log "Certificate file: ${CERTIFICATE}"
 			getCertificateInfo
 			showCertificateInfo
+			_starter="1"
 		done
+		showFooter
 	else
 		lerror "Supplied target is not a file or folder"
 		exit 1;

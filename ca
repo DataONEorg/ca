@@ -13,7 +13,6 @@
 VERSION="1.2.0"
 APPNAME=$(basename ${0})
 APPDIR=$(pwd)
-ICALENDAR_FILE="${APPDIR}/certificate_events.ics"
 dateformat_out="%Y-%m-%dT%H:%M:%S.000+00:00"
 crlUpdateDate=""
 
