@@ -4,7 +4,7 @@
 # by a user with an account in the LDAP system.
 #
 
-VERSION="1.0.1"
+VERSION="1.0.2"
 APPNAME=$(basename ${0})
 APPDIR=$(pwd)
 TMPDIR="/tmp"
@@ -153,8 +153,8 @@ Contents::
     README.txt
     ${_safename}.crt
     ${_safename}.csr
-    private/${_safenamee}.key
-    private/${_safenamee}.pem
+    private/${_safename}.key
+    private/${_safename}.pem
 
 The .crt file is the Member Node client certificate issued by the DataONE
 Certificate Authority.
