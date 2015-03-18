@@ -333,6 +333,12 @@ located in the ``certs`` folder of the respective CA.
 
 .. Note:: The resulting file names have the ":" character replaced with "_".
 
+The script uses ssh to connect to the distribution host, create a target
+folder if necessary, and upload the package .zip file. As such, it is
+necessary for the user running the script to have SSH access to the
+distribution host and write access to the destination folder
+(``/var/www/users``).
+
 **Example** Share a certificate and key for user vieglais::
 
   ./publish_cert vieglais DataONETestIntCA/certs/urn:node:ATestCert.pem
