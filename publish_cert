@@ -4,7 +4,7 @@
 # by a user with an account in the LDAP system.
 #
 
-VERSION="1.0.0"
+VERSION="1.0.1"
 APPNAME=$(basename ${0})
 APPDIR=$(pwd)
 TMPDIR="/tmp"
@@ -135,10 +135,60 @@ function shareCertificate() {
 			lerror "failed: mkdir -p \"${_tmp_dir}/private\""
 			exit 1
 		fi
-		cp ${CERTIFICATE} "${_tmp_dir}/${_safename}.pem"
+		cp ${CERTIFICATE} "${_tmp_dir}/${_safename}.crt"
 		cp ${_KEY} "${_tmp_dir}/private/${_safename}.key"
+		cp ${CERTIFICATE} "${_tmp_dir}/private/${_safename}.pem"
+		cat ${_KEY} >> "${_tmp_dir}/private/${_safename}.pem"
 		cp ${_CSR} "${_tmp_dir}/${_safename}.csr"
-		${APPDIR}/cert_status -A -n ${CERTIFICATE} > "${_tmp_dir}/info.txt"
+		cat > "${_tmp_dir}/README.txt" << EOF
+README
+======
+
+This folder contains a certificate, a key, and a certificate request file that
+can be used to identify a user or service within the DataONE environment. 
+
+Contents::
+
+  ${_safename}/
+    README.txt
+    ${_safename}.crt
+    ${_safename}.csr
+    private/${_safenamee}.key
+    private/${_safenamee}.pem
+
+The .crt file is the Member Node client certificate issued by the DataONE
+Certificate Authority.
+
+The .key file is the Member Node client private key, which must be kept
+secure.
+
+The .pem file is the .crt and .key file concatenated together.
+
+Please back up these files to offline media (encrypted thumbdrive, etc.) where
+they cannot be read except by the Member Node administrator.These files allow
+anyone with access to them to operate on any files created by the Member Node
+in the DataONE system, and therefore need to be stored safely.If the files are
+compromised, please send an email to support@dataone.org and we will revoke
+the certificate and reissue a new one to the Member Node administrator.
+
+Warning
+-------
+
+It is important that the files::
+
+  private/${_safename}.key
+  private/${_safename}.pem
+
+are kept secure, as these identify anyone using them as the user or service
+for which they were produced.
+
+
+Metadata About Certificate
+--------------------------
+
+EOF
+
+		${APPDIR}/cert_status -A -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
 	fi
 	local _ZIPFILE="${TMPDIR}/${_safename}.zip"
 	local CDIR=$(pwd)
