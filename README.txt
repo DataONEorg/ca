@@ -1,3 +1,11 @@
+.. The PDF file can be created if you have pandoc and latex installed using the
+   command:
+
+     pandoc -t pdf --toc -R -V numbersections=1 -V papersize=letterpaper \
+       -V geometry:margin=1in -V fontfamily=inconsolata \
+       -o README.pdf README.txt
+
+
 DataONE Certificate Authority
 =============================
 

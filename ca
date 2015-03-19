@@ -176,6 +176,9 @@ function create {
 
     # Clean up temporary files
     rm $CFG_TEMP $CFG
+
+    echo "CERT: ${PEM}"
+    echo "KEY : ${KEY}"
 }
 
 ###################################################################################
