@@ -16,6 +16,7 @@
 if [[ -z ${1} ]]; then
 	RC='\033[0;31m'
 	NC='\033[0m'
+	TNOW=$(date -u +%s)
 	expect_issuer="DataONE Production CA"
 	host_name=$(hostname -f)
 	environment="${host_name#*.}"
@@ -35,7 +36,14 @@ if [[ -z ${1} ]]; then
 		echo "  Serial  : ${_TMP##*=}"
 		_TMP=$(openssl x509 -enddate -noout -in ${CERTIFICATE} \
 		        | awk -F= ' /notAfter/ { printf("%s\n",$NF); } ');
-		echo "  Expires : ${_TMP}"
+		exp_date=$(date --date "${_TMP}" +%s)
+		to_expire=$(echo "(${exp_date}-${TNOW})/(60*60*24)" |bc);
+		if (("${to_expire}" < "30")); then
+			echo -e "  Expires : ${RC}${_TMP}${NC}"
+			echo -e "            ${RC}WARNING: Certificate expired or expiring!${NC}" 
+		else	
+			echo "  Expires : ${_TMP}"
+		fi
 		_TMP=$(openssl x509 -issuer -noout -in ${CERTIFICATE})
 		issuer="${_TMP##*=}"
 		if [[ ${issuer} != ${expect_issuer} ]]; then
