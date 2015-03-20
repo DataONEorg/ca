@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# c4 - Check CN Client Certificate
+#
+# You can run this from a CN like:
+#
+#   ./c4
+#
+# Or from your laptop like:
+#
+#   ./c4 cn-sandbox-unm-1.test.dataone.org
+#
+# Requires that you have sudo on the system.
+# Assumes that the certificate is in /etc/dataone/client/private/urn*.pem
+
+if [[ -z ${1} ]]; then
+	CERTIFICATES=($(find /etc/dataone/client/private -name "urn*.pem"))
+	echo "Number of certificates : ${#CERTIFICATES[@]}"
+	for CERTIFICATE in ${CERTIFICATES[@]}; do 
+		echo "Filename: ${CERTIFICATE}"
+		_TMP=$(openssl x509 -serial -noout -in ${CERTIFICATE})
+		echo "Serial  : ${_TMP##*=}"
+		_TMP=$(openssl x509 -enddate -noout -in ${CERTIFICATE} \
+		        | awk -F= ' /notAfter/ { printf("%s\n",$NF); } ');
+		echo "Expires : ${_TMP}"
+		_TMP=$(openssl x509 -issuer -noout -in ${CERTIFICATE})
+		echo "Issuer  : ${_TMP#*=}"
+		_TMP=$(openssl x509 -subject -noout -in ${CERTIFICATE})
+		echo "Subject : ${_TMP#*=}"
+	done
+else
+	scp ${0} ${1}:/tmp/c4
+	ssh -t ${1} 'chmod a+x /tmp/c4; sudo /tmp/c4'
+fi
+

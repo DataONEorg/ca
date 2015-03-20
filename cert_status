@@ -11,7 +11,7 @@
 #
 
 
-VERSION="1.2.0"
+VERSION="1.3.0"
 APPNAME=$(basename ${0})
 APPDIR=$(pwd)
 
@@ -142,6 +142,11 @@ calendar can be subscribed to using the respective SVN URL.
 
   ./${APPNAME} -P -L
 
+
+Example - Check the client certificate installed on a CN, performed when
+logged on to a CN.
+
+  
 EOF
 }
 
