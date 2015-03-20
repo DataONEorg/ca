@@ -80,3 +80,6 @@ V	180305211543Z		DA3263A2A12D0097	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevOR
 R	180305213644Z	150319193630Z	DA3263A2A12D0098	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUNM1
 V	180317193147Z		DA3263A2A12D0099	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestAEKOS
 V	180318194448Z		DA3263A2A12D009A	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUNM1
+V	180319181641Z		DA3263A2A12D009B	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB1
+V	180319181654Z		DA3263A2A12D009C	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUNM1
+V	180319181706Z		DA3263A2A12D009D	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxORC1
