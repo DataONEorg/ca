@@ -14,22 +14,50 @@
 # Assumes that the certificate is in /etc/dataone/client/private/urn*.pem
 
 if [[ -z ${1} ]]; then
+	RC='\033[0;31m'
+	NC='\033[0m'
+	expect_issuer="DataONE Production CA"
+	host_name=$(hostname -f)
+	environment="${host_name#*.}"
+	if [[ "${environment}" == "test.dataone.org" ]]; then
+		expect_issuer="DataONE Test Intermediate CA"
+	fi
+	_TMP=$(grep "cn.nodeId=" /etc/dataone/node.properties)
+	node_id=${_TMP##*=}
 	CERTIFICATES=($(find /etc/dataone/client/private -name "urn*.pem"))
+	echo "Hostname  : ${host_name}"
+	echo "cn.nodeId : ${node_id}"
 	echo "Number of certificates : ${#CERTIFICATES[@]}"
-	for CERTIFICATE in ${CERTIFICATES[@]}; do 
-		echo "Filename: ${CERTIFICATE}"
+	for CERTIFICATE in ${CERTIFICATES[@]}; do
+	    echo "----"
+		echo "  Filename: ${CERTIFICATE}"
 		_TMP=$(openssl x509 -serial -noout -in ${CERTIFICATE})
-		echo "Serial  : ${_TMP##*=}"
+		echo "  Serial  : ${_TMP##*=}"
 		_TMP=$(openssl x509 -enddate -noout -in ${CERTIFICATE} \
 		        | awk -F= ' /notAfter/ { printf("%s\n",$NF); } ');
-		echo "Expires : ${_TMP}"
+		echo "  Expires : ${_TMP}"
 		_TMP=$(openssl x509 -issuer -noout -in ${CERTIFICATE})
-		echo "Issuer  : ${_TMP#*=}"
+		issuer="${_TMP##*=}"
+		if [[ ${issuer} != ${expect_issuer} ]]; then
+			echo -e "  Issuer  : ${RC}${issuer}${NC}"
+			echo -e "            ${RC}WARNING: Issuer expected to be: ${expect_issuer}${NC}"
+		else
+			echo -e "  Issuer  : ${issuer}"
+		fi
 		_TMP=$(openssl x509 -subject -noout -in ${CERTIFICATE})
-		echo "Subject : ${_TMP#*=}"
+		subject=${_TMP##*=}
+		if [[ "${subject}" != "${node_id}" ]]; then
+			echo -e "  Subject : ${RC}${subject}${NC}"
+			echo -e "            ${RC}WARNING: subject != node.properties:cn.nodeId${NC}"
+		else
+			echo "  Subject : ${subject}"
+		fi
 	done
+    echo "----"
 else
-	scp ${0} ${1}:/tmp/c4
-	ssh -t ${1} 'chmod a+x /tmp/c4; sudo /tmp/c4'
+	echo "Copying self to ${1}"
+	scp -q ${0} ${1}:/tmp/c4
+	echo "Executing sudo /tmp/c4"
+	ssh -t ${1} 'chmod a+x /tmp/c4; sudo /tmp/c4; rm /tmp/c4'
 fi
 
