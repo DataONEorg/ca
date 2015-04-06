@@ -83,3 +83,4 @@ V	180318194448Z		DA3263A2A12D009A	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUN
 V	180319181641Z		DA3263A2A12D009B	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB1
 V	180319181654Z		DA3263A2A12D009C	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUNM1
 V	180319181706Z		DA3263A2A12D009D	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxORC1
+V	180405195849Z		DA3263A2A12D009E	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestOTS
