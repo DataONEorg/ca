@@ -61,3 +61,4 @@ V	180419163620Z		CF8745F5A16C6CF0	unknown	/dc=org/dc=dataone/CN=urn:node:PISCO
 V	180419165622Z		CF8745F5A16C6CF1	unknown	/dc=org/dc=dataone/CN=urn:node:ESA
 V	180419170003Z		CF8745F5A16C6CF2	unknown	/dc=org/dc=dataone/CN=urn:node:KNB
 V	180421011933Z		CF8745F5A16C6CF3	unknown	/dc=org/dc=dataone/CN=urn:node:CDL
+V	180422034236Z		CF8745F5A16C6CF4	unknown	/dc=org/dc=dataone/CN=urn:node:NMEPSCOR
