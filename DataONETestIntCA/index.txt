@@ -95,3 +95,4 @@ V	180430021735Z		DA3263A2A12D00A6	unknown	/dc=org/dc=dataone/CN=testGroupie
 V	180430021941Z		DA3263A2A12D00A7	unknown	/dc=org/dc=dataone/CN=testRightsHolder
 V	180430022230Z		DA3263A2A12D00A8	unknown	/dc=org/dc=dataone/CN=testPerson
 V	180430022446Z		DA3263A2A12D00A9	unknown	/dc=org/dc=dataone/CN=testSubmitter
+V	180430022651Z		DA3263A2A12D00AA	unknown	/dc=org/dc=dataone/CN=testEQPerson1
