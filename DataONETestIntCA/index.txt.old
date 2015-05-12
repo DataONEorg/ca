@@ -88,11 +88,12 @@ V	180415211827Z		DA3263A2A12D009F	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandb
 V	180415211847Z		DA3263A2A12D00A0	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB2
 V	180415211919Z		DA3263A2A12D00A1	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUNM1
 V	180429172042Z		DA3263A2A12D00A2	unknown	/dc=org/dc=dataone/CN=urn:node:tdar_test
-V	180430015757Z		DA3263A2A12D00A3	unknown	/dc=org/dc=dataone/CN=testEQPerson2
-V	180430021056Z		DA3263A2A12D00A4	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
-V	180430021232Z		DA3263A2A12D00A5	unknown	/dc=org/dc=dataone/CN=testEQPerson3
-V	180430021735Z		DA3263A2A12D00A6	unknown	/dc=org/dc=dataone/CN=testGroupie
+R	180430015757Z	150512205357Z	DA3263A2A12D00A3	unknown	/dc=org/dc=dataone/CN=testEQPerson2
+R	180430021056Z	150512205735Z	DA3263A2A12D00A4	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
+R	180430021232Z	150512205411Z	DA3263A2A12D00A5	unknown	/dc=org/dc=dataone/CN=testEQPerson3
+R	180430021735Z	150512205613Z	DA3263A2A12D00A6	unknown	/dc=org/dc=dataone/CN=testGroupie
 V	180430021941Z		DA3263A2A12D00A7	unknown	/dc=org/dc=dataone/CN=testRightsHolder
-V	180430022230Z		DA3263A2A12D00A8	unknown	/dc=org/dc=dataone/CN=testPerson
-V	180430022446Z		DA3263A2A12D00A9	unknown	/dc=org/dc=dataone/CN=testSubmitter
-V	180430022651Z		DA3263A2A12D00AA	unknown	/dc=org/dc=dataone/CN=testEQPerson1
+R	180430022230Z	150512205748Z	DA3263A2A12D00A8	unknown	/dc=org/dc=dataone/CN=testPerson
+R	180430022446Z	150512205806Z	DA3263A2A12D00A9	unknown	/dc=org/dc=dataone/CN=testSubmitter
+R	180430022651Z	150512205037Z	DA3263A2A12D00AA	unknown	/dc=org/dc=dataone/CN=testEQPerson1
+V	180430024028Z		DA3263A2A12D00AB	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUNM1
