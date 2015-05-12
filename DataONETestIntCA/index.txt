@@ -101,3 +101,4 @@ V	180511210127Z		DA3263A2A12D00AC	unknown	/dc=org/dc=dataone/CN=testEQPerson1
 V	180511211148Z		DA3263A2A12D00AD	unknown	/dc=org/dc=dataone/CN=testEQPerson2
 V	180511211501Z		DA3263A2A12D00AE	unknown	/dc=org/dc=dataone/CN=testEQPerson3
 V	180511211725Z		DA3263A2A12D00AF	unknown	/dc=org/dc=dataone/CN=testGroupie
+V	180511212106Z		DA3263A2A12D00B0	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
