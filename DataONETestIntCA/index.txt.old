@@ -97,15 +97,16 @@ R	180430022230Z	150512205748Z	DA3263A2A12D00A8	unknown	/dc=org/dc=dataone/CN=tes
 R	180430022446Z	150512205806Z	DA3263A2A12D00A9	unknown	/dc=org/dc=dataone/CN=testSubmitter
 R	180430022651Z	150512205037Z	DA3263A2A12D00AA	unknown	/dc=org/dc=dataone/CN=testEQPerson1
 V	180430024028Z		DA3263A2A12D00AB	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUNM1
-V	180511210127Z		DA3263A2A12D00AC	unknown	/dc=org/dc=dataone/CN=testEQPerson1
-V	180511211148Z		DA3263A2A12D00AD	unknown	/dc=org/dc=dataone/CN=testEQPerson2
-V	180511211501Z		DA3263A2A12D00AE	unknown	/dc=org/dc=dataone/CN=testEQPerson3
-V	180511211725Z		DA3263A2A12D00AF	unknown	/dc=org/dc=dataone/CN=testGroupie
-V	180511212106Z		DA3263A2A12D00B0	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
-V	180511212418Z		DA3263A2A12D00B1	unknown	/dc=org/dc=dataone/CN=testPerson
-V	180511212704Z		DA3263A2A12D00B2	unknown	/dc=org/dc=dataone/CN=testRightsHolder
+R	180511210127Z	150520180208Z	DA3263A2A12D00AC	unknown	/dc=org/dc=dataone/CN=testEQPerson1
+R	180511211148Z	150520181124Z	DA3263A2A12D00AD	unknown	/dc=org/dc=dataone/CN=testEQPerson2
+R	180511211501Z	150520181131Z	DA3263A2A12D00AE	unknown	/dc=org/dc=dataone/CN=testEQPerson3
+R	180511211725Z	150520181153Z	DA3263A2A12D00AF	unknown	/dc=org/dc=dataone/CN=testGroupie
+R	180511212106Z	150520181210Z	DA3263A2A12D00B0	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
+R	180511212418Z	150520181223Z	DA3263A2A12D00B1	unknown	/dc=org/dc=dataone/CN=testPerson
+R	180511212704Z	150520181238Z	DA3263A2A12D00B2	unknown	/dc=org/dc=dataone/CN=testRightsHolder
 V	180511212933Z		DA3263A2A12D00B3	unknown	/dc=org/dc=dataone/CN=testSubmitter
 V	180513182642Z		DA3263A2A12D00B4	unknown	/dc=org/dc=dataone/CN=test.piscoweb.org
 V	180513183454Z		DA3263A2A12D00B5	unknown	/dc=org/dc=dataone/CN=urn:node:mnStagePISCO
 V	180514170346Z		DA3263A2A12D00B6	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB2
 V	180517172447Z		DA3263A2A12D00B7	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUCSB1
+V	180517192815Z		DA3263A2A12D00B8	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC1
