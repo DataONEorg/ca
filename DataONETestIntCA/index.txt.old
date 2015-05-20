@@ -104,7 +104,7 @@ R	180511211725Z	150520181153Z	DA3263A2A12D00AF	unknown	/dc=org/dc=dataone/CN=tes
 R	180511212106Z	150520181210Z	DA3263A2A12D00B0	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
 R	180511212418Z	150520181223Z	DA3263A2A12D00B1	unknown	/dc=org/dc=dataone/CN=testPerson
 R	180511212704Z	150520181238Z	DA3263A2A12D00B2	unknown	/dc=org/dc=dataone/CN=testRightsHolder
-V	180511212933Z		DA3263A2A12D00B3	unknown	/dc=org/dc=dataone/CN=testSubmitter
+R	180511212933Z	150520181250Z	DA3263A2A12D00B3	unknown	/dc=org/dc=dataone/CN=testSubmitter
 V	180513182642Z		DA3263A2A12D00B4	unknown	/dc=org/dc=dataone/CN=test.piscoweb.org
 V	180513183454Z		DA3263A2A12D00B5	unknown	/dc=org/dc=dataone/CN=urn:node:mnStagePISCO
 V	180514170346Z		DA3263A2A12D00B6	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB2
