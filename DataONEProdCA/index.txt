@@ -65,3 +65,4 @@ V	180422034236Z		CF8745F5A16C6CF4	unknown	/dc=org/dc=dataone/CN=urn:node:NMEPSCO
 V	180506024440Z		CF8745F5A16C6CF5	unknown	/dc=org/dc=dataone/CN=urn:node:NKN
 V	180511172400Z		CF8745F5A16C6CF6	unknown	/dc=org/dc=dataone/CN=urn:node:LTER
 V	180513154357Z		CF8745F5A16C6CF7	unknown	/dc=org/dc=dataone/CN=urn:node:TERN
+V	180707155933Z		CF8745F5A16C6CF8	unknown	/dc=org/dc=dataone/CN=urn:node:USGS_SDC
