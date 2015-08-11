@@ -48,6 +48,7 @@ c_revoked=""
 c_serial=""
 c_author=""
 c_valid=""
+expire_within=99999 #Only show certs that expire within this number of days +-
 
 XML=xml
 SVN=svn
@@ -369,7 +370,7 @@ function generateEventCalendar() {
 
 
 #=== Main ===
-while getopts "hvVdsnHSAPLr:a:c:C:" OPTION
+while getopts "hvVdsnHSAPLr:a:c:C:e:" OPTION
 do
 	case ${OPTION} in
 		h) usage; exit 1;;
@@ -385,6 +386,7 @@ do
 		n) OUTFORMAT="HUMAN";;
 		S) showHeader; exit 1;;
 		A) getAuthor=1;;
+    e) expire_within=$OPTARG;;
 		P) CERT_ENVIRONMENT="Prod";
 		   CERT_FOLDER="${PROD_FOLDER}";
 		   CAROOTCERT="${PROD_CAROOTCERT}";
@@ -425,14 +427,16 @@ else
 		showHeader
 		CERTIFICATES=$(find ${TARGET} -name "*.pem")
 		for CERTIFICATE in ${CERTIFICATES}; do
-			if [[ -n ${_starter} ]]; then
-				if [[ ${OUTFORMAT} == "JSON" ]]; then
-					echo ","
-				fi
-			fi
 			log "Certificate file: ${CERTIFICATE}"
 			getCertificateInfo
-			showCertificateInfo
+      if [[ "${cDaysToExpire}" < "${expire_within}" ]] && [[ "${cDaysToExpire}" > "-${expire_within}" ]]; then
+        if [[ -n ${_starter} ]]; then
+          if [[ ${OUTFORMAT} == "JSON" ]]; then
+            echo ","
+          fi
+        fi
+  			showCertificateInfo
+      fi
 			_starter="1"
 		done
 		showFooter
