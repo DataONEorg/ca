@@ -70,3 +70,4 @@ V	180708180838Z		CF8745F5A16C6CF9	unknown	/dc=org/dc=dataone/CN=cn-ucsb-1.dataon
 V	180708181142Z		CF8745F5A16C6CFA	unknown	/dc=org/dc=dataone/CN=cn-orc-1.dataone.org
 V	180708181322Z		CF8745F5A16C6CFB	unknown	/dc=org/dc=dataone/CN=cn-unm-1.dataone.org
 V	180723215702Z		CF8745F5A16C6CFC	unknown	/dc=org/dc=dataone/CN=urn:node:ONEShare
+V	180819183028Z		CF8745F5A16C6CFD	unknown	/dc=org/dc=dataone/CN=urn:node:NRDC
