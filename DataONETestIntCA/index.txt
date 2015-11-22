@@ -135,3 +135,4 @@ V	181012221309Z		DA3263A2A12D00CE	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-1.t
 V	181012221320Z		DA3263A2A12D00CF	unknown	/dc=org/dc=dataone/CN=cn-stage-ucsb-1.test.dataone.org
 V	181102182957Z		DA3263A2A12D00D0	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestBCODMO
 V	181119222321Z		DA3263A2A12D00D1	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxORC1
+V	181121231533Z		DA3263A2A12D00D2	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageORC1
