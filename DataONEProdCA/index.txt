@@ -74,3 +74,4 @@ V	180819183028Z		CF8745F5A16C6CFD	unknown	/dc=org/dc=dataone/CN=urn:node:NRDC
 V	190103195049Z		CF8745F5A16C6CFE	unknown	/dc=org/dc=dataone/CN=urn:node:mnUNM1
 V	190103195116Z		CF8745F5A16C6CFF	unknown	/dc=org/dc=dataone/CN=urn:node:mnORC1
 V	190103195134Z		CF8745F5A16C6D00	unknown	/dc=org/dc=dataone/CN=urn:node:mnUCSB1
+V	190125182928Z		CF8745F5A16C6D01	unknown	/dc=org/dc=dataone/CN=urn:node:SANPARKS
