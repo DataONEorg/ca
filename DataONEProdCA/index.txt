@@ -77,3 +77,4 @@ V	190103195134Z		CF8745F5A16C6D00	unknown	/dc=org/dc=dataone/CN=urn:node:mnUCSB1
 V	190125182928Z		CF8745F5A16C6D01	unknown	/dc=org/dc=dataone/CN=urn:node:SANPARKS
 V	190204230258Z		CF8745F5A16C6D02	unknown	/dc=org/dc=dataone/CN=urn:node:USGSCSAS
 V	190302231036Z		CF8745F5A16C6D03	unknown	/dc=org/dc=dataone/CN=urn:node:ARCTIC
+V	190314195505Z		CF8745F5A16C6D04	unknown	/dc=org/dc=dataone/CN=dataknp.sanparks.org
