@@ -142,3 +142,4 @@ V	190218180400Z		DA3263A2A12D00D5	unknown	/dc=org/dc=dataone/CN=urn:node:cnStage
 V	190218182124Z		DA3263A2A12D00D6	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-2.test.dataone.org
 V	190401191230Z		DA3263A2A12D00D7	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestR2R
 V	190425170503Z		DA3263A2A12D00D8	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGRIIDC
+V	190513005941Z		DA3263A2A12D00D9	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNEON
