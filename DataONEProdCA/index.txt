@@ -84,3 +84,4 @@ V	190404145802Z		CF8745F5A16C6D07	unknown	/dc=org/dc=dataone/CN=urn:node:DFC
 V	190705190646Z		CF8745F5A16C6D08	unknown	/dc=org/dc=dataone/CN=urn:node:NEON
 V	190720013954Z		CF8745F5A16C6D09	unknown	/dc=org/dc=dataone/CN=urn:node:TDAR
 V	190811031459Z		CF8745F5A16C6D0A	unknown	/dc=org/dc=dataone/CN=urn:node:SEAD
+V	190830194542Z		CF8745F5A16C6D0B	unknown	/dc=org/dc=dataone/CN=urn:node:GRIIDC
