@@ -146,3 +146,4 @@ V	190513005941Z		DA3263A2A12D00D9	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestN
 V	190613151037Z		DA3263A2A12D00DA	unknown	/dc=org/dc=dataone/CN=oneshare-test.unm.edu
 R	190725214129Z	160725215712Z	DA3263A2A12D00DB	unknown	/dc=org/dc=dataone/CN=urn:node:mntestGMNv2
 V	190725220127Z		DA3263A2A12D00DC	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGMNv2
+V	190912213327Z		DA3263A2A12D00DD	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestARCTIC
