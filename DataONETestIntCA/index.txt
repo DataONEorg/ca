@@ -150,3 +150,4 @@ V	190912213327Z		DA3263A2A12D00DD	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestA
 V	191003171749Z		DA3263A2A12D00DE	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestUIC
 V	191013183833Z		DA3263A2A12D00DF	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestCLOEBIRD
 V	191019015248Z		DA3263A2A12D00E0	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestRW
+V	200409180146Z		DA3263A2A12D00E1	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKITTY
