@@ -88,3 +88,4 @@ V	190830194542Z		CF8745F5A16C6D0B	unknown	/dc=org/dc=dataone/CN=urn:node:GRIIDC
 V	191116204420Z		CF8745F5A16C6D0C	unknown	/dc=org/dc=dataone/CN=urn:node:CLOEBIRD
 V	191202221341Z		CF8745F5A16C6D0D	unknown	/dc=org/dc=dataone/CN=urn:node:R2R
 V	191202221748Z		CF8745F5A16C6D0E	unknown	/dc=org/dc=dataone/CN=urn:node:GOA
+V	200926164834Z		CF8745F5A16C6D0F	unknown	/dc=org/dc=dataone/CN=urn:node:FEMC
