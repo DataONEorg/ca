@@ -154,3 +154,4 @@ V	200409180146Z		DA3263A2A12D00E1	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestK
 V	200914154926Z		DA3263A2A12D00E2	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestFEMC
 V	200920182258Z		DA3263A2A12D00E3	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestLTER
 V	201023163945Z		DA3263A2A12D00E4	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestESS_DIVE
+V	201206205454Z		DA3263A2A12D00E5	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB2
