@@ -159,3 +159,4 @@ V	210124024955Z		DA3263A2A12D00E6	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-
 V	210125172425Z		DA3263A2A12D00E7	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestOTS
 V	210212185133Z		DA3263A2A12D00E8	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
 V	210312224937Z		DA3263A2A12D00E9	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestCARY
+V	210318225237Z		DA3263A2A12D00EA	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB1
