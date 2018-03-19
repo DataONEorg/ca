@@ -161,3 +161,4 @@ V	210212185133Z		DA3263A2A12D00E8	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestK
 V	210312224937Z		DA3263A2A12D00E9	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestCARY
 V	210318225237Z		DA3263A2A12D00EA	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB1
 V	210318225801Z		DA3263A2A12D00EB	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxORC1
+V	210318225931Z		DA3263A2A12D00EC	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUNM1
