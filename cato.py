@@ -3,11 +3,11 @@ Reporting on certificate expirations.
 
 Example: Report on production MN certificates ordered by expiration:
 
-  python cato.py -m -e 
+  python cato.py -m  
 
-Example: Report on test env MN certificates ordered by expiration:
+Example: Report on test environment MN certificates ordered by nodeId:
 
-  python cato.py -m -e -t
+  python cato.py -m -n -t
 
 '''
 import sys
@@ -18,6 +18,19 @@ import glob
 import operator
 from OpenSSL import crypto
 from datetime import datetime
+
+__version__ = "1.1.0"
+'''
+Changelog:
+1.1.0:
+- changed flag "-e" to "-n" and default behavior to sort by expiration date. The
+  "-n" flag sorts by name or nodeId.
+- added "-v" to report version.
+- added -d to report days to expiration instead of date
+
+1.0.0:
+- first release
+'''
 
 def cnvstr(o, encoding='utf-8'):
   return str(o, encoding=encoding)
@@ -90,15 +103,24 @@ def main():
   parser.add_argument("-m","--mns_only",
                       action="store_true",
                       help="Report on MN client certs only (CN=urn:node:NodeID)")
-  parser.add_argument("-e","--sort_expired",
+  parser.add_argument("-n","--sort_name",
                       action="store_true",
-                      help="Sort by expiration date instead of name")
+                      help="Sort by name instead of expiration date")
+  parser.add_argument("-v", "--version",
+                      action="store_true",
+                      help="Report verson and exit")
+  parser.add_argument("-d","--days",
+                      action="store_true",
+                      help="Report number of days to expiration instead of date")
   args = parser.parse_args()
   # Setup logging verbosity
   levels = [logging.WARNING, logging.INFO, logging.DEBUG]
   level = levels[min(len(levels) - 1, args.log_level)]
   logging.basicConfig(level=level,
                       format="%(asctime)s %(levelname)s %(message)s")
+  if args.version:
+    print("Version: {}".format(__version__))
+    return 0
 
   cert_file_path = "DataONEProdCA/certs"
   if args.test_ca:
@@ -106,15 +128,23 @@ def main():
   if args.cert_file is not None:
     cert_file_path = args.cert_file
 
+  current_date = datetime.utcnow()
   if os.path.isfile(cert_file_path):
+    format_str = "{expires:%Y-%m-%d} {subject} {file}"
     result = getCertificateInfo(cert_file_path)
+    if args.days:
+      format_str = "{expires:<10} {subject} {file}"
+      result["expires"] = (result["expires"] - current_date).days
     print("Expires   Subject  File")
-    print("{expires:%Y-%m-%d} {subject} {file}".format(**result))
+    print(format_str.format(**result))
     return 0
+
   cert_files = listCertificateFiles(cert_file_path)
   results = {}
   for file_name in cert_files:
     result = getCertificateInfo(file_name)
+    if args.days:
+      result["expires"] = (result["expires"] - current_date).days
     if args.mns_only and result["nodeid"] is None:
       pass
     else:
@@ -125,14 +155,20 @@ def main():
       except KeyError as e:
         results[result["subject"]] = result
   sort_on = "expires"
+  if args.sort_name:
+    sort_on = "subject"
   format_str = "{expires:%Y-%m-%d} {subject:<45} {file}"
+  if args.days:
+    format_str = "{expires:<10} {subject:<45} {file}"
   header = "{:<10} {:<45} FileName".format("Expires","Subject")
   if args.mns_only:
-    sort_on = "nodeid"
+    if args.sort_name:
+      sort_on = "nodeid"
     format_str = "{expires:%Y-%m-%d} {nodeid:<20} {file}"
+    if args.days:
+      format_str = "{expires:<10} {nodeid:<20} {file}"
     header = "{:<10} {:<20} FileName".format("Expires","NodeId")
-  if args.sort_expired:
-    sort_on = "expires"
+  logging.info("Sorting on %s", sort_on)
   unsorted_result_list = results.values()
   sorted_results = sorted( unsorted_result_list, key=lambda cert: cert[sort_on])
   print(header)
