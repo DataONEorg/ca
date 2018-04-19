@@ -1,10 +1,13 @@
 '''
 Reporting on certificate expirations.
 
-Example: 
-  Report on expiration date of production MN certificates:
+Example: Report on production MN certificates ordered by expiration:
 
-  python cato.py -m -d
+  python cato.py -m -e 
+
+Example: Report on test env MN certificates ordered by expiration:
+
+  python cato.py -m -e -t
 
 '''
 import sys
