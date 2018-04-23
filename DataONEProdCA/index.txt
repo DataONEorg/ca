@@ -102,3 +102,4 @@ V	210422174728Z		CF8745F5A16C6D19	unknown	/dc=org/dc=dataone/CN=urn:node:IOE
 V	210422190018Z		CF8745F5A16C6D1A	unknown	/dc=org/dc=dataone/CN=urn:node:US_MPC
 V	210422190753Z		CF8745F5A16C6D1B	unknown	/dc=org/dc=dataone/CN=urn:node:IARC
 V	210422191147Z		CF8745F5A16C6D1C	unknown	/dc=org/dc=dataone/CN=urn:node:PPBIO
+V	210422191855Z		CF8745F5A16C6D1D	unknown	/dc=org/dc=dataone/CN=urn:node:PISCO
