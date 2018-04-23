@@ -99,3 +99,4 @@ V	210418123222Z		CF8745F5A16C6D16	unknown	/dc=org/dc=dataone/CN=urn:node:TERN
 V	210418181507Z		CF8745F5A16C6D17	unknown	/dc=org/dc=dataone/CN=urn:node:KNB
 V	210422173558Z		CF8745F5A16C6D18	unknown	/dc=org/dc=dataone/CN=urn:node:DRYAD
 V	210422174728Z		CF8745F5A16C6D19	unknown	/dc=org/dc=dataone/CN=urn:node:IOE
+V	210422190018Z		CF8745F5A16C6D1A	unknown	/dc=org/dc=dataone/CN=urn:node:US_MPC
