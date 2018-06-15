@@ -1,0 +1,12 @@
+#!/bin/bash
+
+SUBJECTS=(testEQPerson1 testEQPerson2 testEQPerson3 testGroupie testPerson_InvalidVsSchema testPerson_Missing_EQ_IDs testPerson_Missing_Self testPerson testRightsHolder testSubmitter)
+for subject in ${SUBJECTS[@]}; do
+  echo "Generating certificate for: $subject"
+  # place CA Cert password on clipboard
+  gypp certificates -k test-intermediate-ca
+  echo "Pass placed on clipboard."
+  ./ca -c Test ${subject} "../d1_integration/${subject}_SI.xml"
+  cert_file=$(pbpaste)
+  ./publish_cert ${USER} ${cert_file}
+done
