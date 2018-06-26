@@ -175,7 +175,6 @@ V	210513164713Z		DA3263A2A12D00F6	unknown	/dc=org/dc=dataone/CN=urn:node:mnStage
 V	210513164952Z		DA3263A2A12D00F7	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUCSB1
 V	210513165220Z		DA3263A2A12D00F8	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC1
 V	210513165459Z		DA3263A2A12D00F9	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNRDC
-V	210513165459Z		DA3263A2A12D00F9	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNRDC
 V	210614140359Z		DA3263A2A12D00FA	unknown	/dc=org/dc=dataone/CN=testEQPerson1
 V	210614152342Z		DA3263A2A12D00FB	unknown	/dc=org/dc=dataone/CN=testEQPerson2
 V	210614152829Z		DA3263A2A12D00FC	unknown	/dc=org/dc=dataone/CN=testEQPerson3
@@ -187,3 +186,5 @@ V	210614154402Z		DA3263A2A12D0101	unknown	/dc=org/dc=dataone/CN=testPerson
 V	210614154407Z		DA3263A2A12D0102	unknown	/dc=org/dc=dataone/CN=testRightsHolder
 V	210614154413Z		DA3263A2A12D0103	unknown	/dc=org/dc=dataone/CN=testSubmitter
 V	210615193535Z		DA3263A2A12D0104	unknown	/dc=org/dc=dataone/CN=testGroupie
+V	210615195046Z		DA3263A2A12D0105	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
+V   210618173111Z       DA3263A2A12D0106    unknown /dc=org/dc=dataone/CN=urn:node:mnTestCYVERSE
