@@ -190,3 +190,4 @@ V	210615195046Z		DA3263A2A12D0105	unknown	/dc=org/dc=dataone/CN=testPerson_NoSub
 V	210625191544Z		DA3263A2A12D0106	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA
 V	210626172808Z		DA3263A2A12D0107	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB2
 V	210626195143Z		DA3263A2A12D0108	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB3
+V	210626201529Z		DA3263A2A12D0109	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB4
