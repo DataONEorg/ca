@@ -108,3 +108,4 @@ V	210422193845Z		CF8745F5A16C6D1F	unknown	/dc=org/dc=dataone/CN=urn:node:CDL
 V	210422194610Z		CF8745F5A16C6D20	unknown	/dc=org/dc=dataone/CN=urn:node:NMEPSCOR
 V	210422194817Z		CF8745F5A16C6D21	unknown	/dc=org/dc=dataone/CN=urn:node:NKN
 V	210422195246Z		CF8745F5A16C6D22	unknown	/dc=org/dc=dataone/CN=urn:node:LTER
+V	210628152256Z		CF8745F5A16C6D23	unknown	/dc=org/dc=dataone/CN=urn:node:ONEShare
