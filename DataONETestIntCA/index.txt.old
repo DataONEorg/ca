@@ -193,3 +193,5 @@ V	210626195143Z		DA3263A2A12D0108	unknown	/dc=org/dc=dataone/CN=urn:node:mnStage
 V	210626201529Z		DA3263A2A12D0109	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB4
 V	210710163935Z		DA3263A2A12D010A	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestCAS_CERN
 V	210812214317Z		DA3263A2A12D010B	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo6
+V	210816213323Z		DA3263A2A12D010C	unknown	/dc=org/dc=dataone/CN=cn-dev-ucsb-1.test.dataone.org
+V	210816213640Z		DA3263A2A12D010D	unknown	/dc=org/dc=dataone/CN=cn-dev-unm-1.test.dataone.org
