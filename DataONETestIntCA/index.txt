@@ -199,3 +199,4 @@ V	210816214118Z		DA3263A2A12D010E	unknown	/dc=org/dc=dataone/CN=cn-dev-orc-1.tes
 V	210823221224Z		DA3263A2A12D010F	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo1
 V	210823221547Z		DA3263A2A12D0110	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo2
 V	210823222042Z		DA3263A2A12D0111	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo3
+V	210823222414Z		DA3263A2A12D0112	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo4
