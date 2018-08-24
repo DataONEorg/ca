@@ -204,3 +204,4 @@ V	210823222701Z		DA3263A2A12D0113	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo5
 V	210823223045Z		DA3263A2A12D0114	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo7
 V	210823223331Z		DA3263A2A12D0115	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo8
 V	210823223550Z		DA3263A2A12D0116	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo9
+V	210823223839Z		DA3263A2A12D0117	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo10
