@@ -196,3 +196,5 @@ V	210812214317Z		DA3263A2A12D010B	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo6
 V	210816213323Z		DA3263A2A12D010C	unknown	/dc=org/dc=dataone/CN=cn-dev-ucsb-1.test.dataone.org
 V	210816213640Z		DA3263A2A12D010D	unknown	/dc=org/dc=dataone/CN=cn-dev-unm-1.test.dataone.org
 V	210816214118Z		DA3263A2A12D010E	unknown	/dc=org/dc=dataone/CN=cn-dev-orc-1.test.dataone.org
+V	210823221224Z		DA3263A2A12D010F	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo1
+V	210823221547Z		DA3263A2A12D0110	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo2
