@@ -210,3 +210,6 @@ V	210826184859Z		DA3263A2A12D0119	unknown	/dc=org/dc=dataone/CN=urn:node:D1USGS6
 V	211024182422Z		DA3263A2A12D011A	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-1.test.dataone.org
 V	211024182506Z		DA3263A2A12D011B	unknown	/dc=org/dc=dataone/CN=cn-sandbox-orc-1.test.dataone.org
 V	211024182543Z		DA3263A2A12D011C	unknown	/dc=org/dc=dataone/CN=cn-sandbox-unm-1.test.dataone.org
+V	211028134628Z		DA3263A2A12D011D	unknown	/dc=org/dc=dataone/CN=cn-stage-ucsb-1.test.dataone.org
+V	211028134725Z		DA3263A2A12D011E	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-1.test.dataone.org
+V	211028134910Z		DA3263A2A12D011F	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-1.test.dataone.org
