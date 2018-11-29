@@ -213,3 +213,10 @@ V	211024182543Z		DA3263A2A12D011C	unknown	/dc=org/dc=dataone/CN=cn-sandbox-unm-1
 V	211028134628Z		DA3263A2A12D011D	unknown	/dc=org/dc=dataone/CN=cn-stage-ucsb-1.test.dataone.org
 V	211028134725Z		DA3263A2A12D011E	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-1.test.dataone.org
 V	211028134910Z		DA3263A2A12D011F	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-1.test.dataone.org
+V	211107161818Z		DA3263A2A12D0120	unknown	/dc=org/dc=dataone/CN=cn-dev-unm-2.test.dataone.org
+V	211107163811Z		DA3263A2A12D0121	unknown	/dc=org/dc=dataone/CN=cn-dev-ucsb-2.test.dataone.org
+V	211107164624Z		DA3263A2A12D0122	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUNM2
+V	211107164643Z		DA3263A2A12D0123	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUCSB2
+V	211128174404Z		DA3263A2A12D0124	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA_EARTHCHEM
+V	211128174536Z		DA3263A2A12D0125	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA_USAP
+V	211128174612Z		DA3263A2A12D0126	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA_MGDL
