@@ -114,3 +114,6 @@ V	210709130810Z		CF8745F5A16C6D25	unknown	/dc=org/dc=dataone/CN=cn-unm-1.dataone
 V	210709130828Z		CF8745F5A16C6D26	unknown	/dc=org/dc=dataone/CN=cn-orc-1.dataone.org
 V	210819182653Z		CF8745F5A16C6D27	unknown	/dc=org/dc=dataone/CN=urn:node:NRDC
 V	211008183106Z		CF8745F5A16C6D28	unknown	/dc=org/dc=dataone/CN=urn:node:CAS_CERN
+V	211211193918Z		CF8745F5A16C6D29	unknown	/dc=org/dc=dataone/CN=urn:node:IEDA_EARTHCHEM
+V	211211194102Z		CF8745F5A16C6D2A	unknown	/dc=org/dc=dataone/CN=urn:node:IEDA_USAP
+V	211211194349Z		CF8745F5A16C6D2B	unknown	/dc=org/dc=dataone/CN=urn:node:IEDA_MGDL
