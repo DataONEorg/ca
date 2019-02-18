@@ -221,3 +221,4 @@ V	211128174404Z		DA3263A2A12D0124	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestI
 V	211128174536Z		DA3263A2A12D0125	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA_USAP
 V	211128174612Z		DA3263A2A12D0126	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA_MGDL
 V	211216232944Z		DA3263A2A12D0127	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGMN1
+V	220130185545Z		DA3263A2A12D0128	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNCEI

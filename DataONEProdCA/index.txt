@@ -120,3 +120,4 @@ V	211211194349Z		CF8745F5A16C6D2B	unknown	/dc=org/dc=dataone/CN=urn:node:IEDA_MG
 V	220124235855Z		CF8745F5A16C6D2C	unknown	/dc=org/dc=dataone/CN=urn:node:mnUNM1
 V	220125000010Z		CF8745F5A16C6D2D	unknown	/dc=org/dc=dataone/CN=urn:node:mnUCSB1
 V	220125000045Z		CF8745F5A16C6D2E	unknown	/dc=org/dc=dataone/CN=urn:node:mnORC1
+V	220217171358Z		CF8745F5A16C6D2F	unknown	/dc=org/dc=dataone/CN=urn:node:CARY
