@@ -19,9 +19,13 @@ import operator
 from OpenSSL import crypto
 from datetime import datetime
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 '''
 Changelog:
+
+1.2.0: 
+- List only latest version of cert for a subject
+
 1.1.0:
 - changed flag "-e" to "-n" and default behavior to sort by expiration date. The
   "-n" flag sorts by name or nodeId.
@@ -75,9 +79,10 @@ def getCertificateInfo(pem_file):
   res["subject"] = getSubjectFromName(x509.get_subject())
   res["created"] = certDateStringToDate(x509.get_notBefore())
   res["expires"] = certDateStringToDate(x509.get_notAfter())
-  cn = res["subject"].split(",")[0].split("=")[1]
-  if cn.startswith("urn:node:"):
-    res["nodeid"] = cn
+  res["nodeid"] = res["subject"][res["subject"].find("=")+1:res["subject"].find(",")]
+  #cn = res["subject"].split(",")[0].split("=")[1]
+  #if cn.startswith("urn:node:"):
+  #  res["nodeid"] = cn
   return res
 
 
@@ -157,22 +162,32 @@ def main():
   sort_on = "expires"
   if args.sort_name:
     sort_on = "subject"
-  format_str = "{expires:%Y-%m-%d} {subject:<45} {file}"
+  format_str = "{expires:%Y-%m-%d} {nodeid:<25} {subject:<45} {file}"
   if args.days:
-    format_str = "{expires:<10} {subject:<45} {file}"
-  header = "{:<10} {:<45} FileName".format("Expires","Subject")
+    format_str = "{expires:<10} {nodeid:<25} {subject:<45} {file}"
+  header = "{:<10} {:<25} {:<45} FileName".format("Expires","NodeId", "Subject")
   if args.mns_only:
     if args.sort_name:
       sort_on = "nodeid"
-    format_str = "{expires:%Y-%m-%d} {nodeid:<20} {file}"
+    format_str = "{expires:%Y-%m-%d} {nodeid:<25} {subject} {file}"
     if args.days:
-      format_str = "{expires:<10} {nodeid:<20} {file}"
+      format_str = "{expires:<10} {nodeid:<25} {subject} {file}"
     header = "{:<10} {:<20} FileName".format("Expires","NodeId")
   logging.info("Sorting on %s", sort_on)
   unsorted_result_list = list(results.values())
   sorted_results = sorted( unsorted_result_list, key=lambda cert: cert[sort_on])
-  print(header)
+  deduped = []
   for result in sorted_results:
+    isdupe = False
+    for entry in deduped:
+      if entry["nodeid"] == result["nodeid"]:
+        entry = result
+        isdupe = True
+        break
+    if not isdupe:
+      deduped.append(result)
+  print(header)
+  for result in deduped:
     print((format_str.format(**result)))
   return 0
 
