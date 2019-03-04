@@ -71,7 +71,7 @@ def getCertificateInfo(pem_file):
     x509 = crypto.load_certificate(crypto.FILETYPE_PEM, cert_file.read())
   if x509 is None:
     logging.warn("Unable to load certificate from %s", pem_file)
-    raise(ValueError("Unable to load certificate from {}".format(pem_file)))
+    raise ValueError
   res["subject"] = getSubjectFromName(x509.get_subject())
   res["created"] = certDateStringToDate(x509.get_notBefore())
   res["expires"] = certDateStringToDate(x509.get_notAfter())
@@ -119,7 +119,7 @@ def main():
   logging.basicConfig(level=level,
                       format="%(asctime)s %(levelname)s %(message)s")
   if args.version:
-    print("Version: {}".format(__version__))
+    print(("Version: {}".format(__version__)))
     return 0
 
   cert_file_path = "DataONEProdCA/certs"
@@ -136,7 +136,7 @@ def main():
       format_str = "{expires:<10} {subject} {file}"
       result["expires"] = (result["expires"] - current_date).days
     print("Expires   Subject  File")
-    print(format_str.format(**result))
+    print((format_str.format(**result)))
     return 0
 
   cert_files = listCertificateFiles(cert_file_path)
@@ -169,11 +169,11 @@ def main():
       format_str = "{expires:<10} {nodeid:<20} {file}"
     header = "{:<10} {:<20} FileName".format("Expires","NodeId")
   logging.info("Sorting on %s", sort_on)
-  unsorted_result_list = results.values()
+  unsorted_result_list = list(results.values())
   sorted_results = sorted( unsorted_result_list, key=lambda cert: cert[sort_on])
   print(header)
   for result in sorted_results:
-    print(format_str.format(**result))
+    print((format_str.format(**result)))
   return 0
 
 if __name__ == "__main__":
