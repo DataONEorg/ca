@@ -15,6 +15,7 @@ APPNAME=$(basename ${0})
 APPDIR=$(pwd)
 dateformat_out="%Y-%m-%dT%H:%M:%S.000+00:00"
 crlUpdateDate=""
+OPENSSL="/usr/bin/openssl"
 
 ###################################################################################
 # Main entrypoint into the application, dispatching to appropriate handler methods
@@ -164,15 +165,20 @@ function create {
     fi
 
     # Create a private key for the Node, and strip off its password
-    openssl genrsa -passout $PASS -des3 -out $KEYS/${NODEID}-pass.key $KEYSIZE
-    openssl rsa -passin $PASS -in $KEYS/${NODEID}-pass.key -out $KEY
+    echo "genrsa..."
+    ${OPENSSL} genrsa -passout $PASS -des3 -out $KEYS/${NODEID}-pass.key $KEYSIZE
+    echo "rsa..."
+    ${OPENSSL} rsa -passin $PASS -in $KEYS/${NODEID}-pass.key -out $KEY
     rm $KEYS/${NODEID}-pass.key
 
     # Create a certificate signing request for the node
-    openssl req -config $CFG -batch -new -key $KEY -out $CSR
+    echo "req..."
+    ${OPENSSL} req -config $CFG -batch -new -key $KEY -out $CSR
 
     # Create the certificate for the node
-    openssl ca -config $CFG -batch -notext -create_serial $DAYS -out $PEM -infiles $CSR
+    echo "ca..."
+    echo "CFG = ${CFG}"
+    ${OPENSSL} ca -config $CFG -batch -notext -create_serial $DAYS -out $PEM -infiles $CSR
 
     # Clean up temporary files
     rm $CFG_TEMP $CFG
@@ -191,7 +197,7 @@ function revoke {
 
     if [ -e $PEM ]; then
         echo "Revoking certificate for $NODEID"
-        openssl ca -config $CFG -revoke $PEM
+        ${OPENSSL} ca -config $CFG -revoke $PEM
     else
         echo "ERROR: Certificate for $NODEID does not exist. Exiting..."
         exit 1
@@ -203,7 +209,7 @@ function revoke {
 ###################################################################################
 function display {
     echo "Displaying certificate for $NODEID"
-    openssl x509 -in certs/${NODEID}.pem -noout -text -nameopt RFC2253 -certopt ext_parse
+    ${OPENSSL} x509 -in certs/${NODEID}.pem -noout -text -nameopt RFC2253 -certopt ext_parse
 }
 
 ###################################################################################
@@ -216,10 +222,10 @@ function gencrl {
     if [[ ${SERVENV} == "Test" ]]; then
         CRL="crl/DataONE${SERVENV}Int_CRL.pem"
     fi
-    openssl ca -config $CFG -gencrl -out $CRL
+    ${OPENSSL} ca -config $CFG -gencrl -out $CRL
 
     #Report next update time to user
-    _TMP=$(openssl crl -nextupdate -noout -in ${CRL} \
+    _TMP=$(${OPENSSL} crl -nextupdate -noout -in ${CRL} \
         | awk -F= ' /nextUpdate/ { printf("%s\n",$NF); } ');
     crlUpdateDate=$(toSerialDate "${_TMP}")
     fromSerialDate "${crlUpdateDate}"
@@ -233,7 +239,7 @@ function gencrl {
 
 function verify {
   echo "Verifying certificate for $NODEID"
-  openssl verify -CAfile ${CAFILE} ${PEM}
+  ${OPENSSL} verify -CAfile ${CAFILE} ${PEM}
 }
 
 

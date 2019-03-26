@@ -1,0 +1,293 @@
+#!/bin/bash
+#
+# Script to generate a certificate, key, and certificate signing request (CSR)
+# for signing by either the DataONE Production environment CA or the DataONE 
+# Test environment CA
+#
+# e.g.
+#
+#   ./d1_create_csr test subject
+#
+# Creates a folder YYYYMMDD_subject with contents:
+#   readme.txt          : A description of the contents of the folder
+#   subject.csr         : The certificate signing request
+#   private/subkect.key : The private key. This folder is chmod 0700
+# 
+# The generated CSR must be sent to be signed by the CA and the certificate
+# retrieved to be of use.
+#
+# IMPORTANT: 
+#  The certificate and key are the sole responsibility of the creator.
+#  The key must be protected as a compromised key is a serious security breach.
+#
+
+VERSION="1.0.0"
+APPNAME=$(basename ${0})
+APPDIR=$(pwd)
+TMPDIR="/tmp"
+VERBOSE=""
+WHICH_CA=""
+SUBJECT=""
+SUBJECT_FNAME=""
+TARGET_FOLDER=""
+CSR=""
+SUBJECT_INFO=""   #An optional subject info XML file.
+#---
+KEYSIZE=2048
+KEYHASHALG=sha256
+PASS="pass:temp"
+OPENSSL="/usr/bin/openssl"
+
+
+function showVersion() {
+  echo ${VERSION}
+}
+
+
+function usage() {
+cat << EOF
+${APPNAME} version ${VERSION}
+
+usage: ${APPNAME} OPTIONS Prod|Test SUBJECT
+
+Generate a key and certificate signing request (CSR) for signing by either the 
+DataONE Production environment CA or the DataONE Test environment CA
+
+OPTIONS:
+  -h  Show this message
+  -H  Show this message and usage examples
+  -v  Show version and exit
+  -V  Verbose output to STDERR
+  -D  Dry run
+
+EOF
+}
+
+
+function usageExamples() {
+  usage
+cat << EOF
+
+Example - Create a key and CSR for urn:node:mnDemo1
+
+  ./${APPNAME} test "urn:node:mnDemo1"
+
+
+Example - Create a key and CSR for urn:node:mnDemo1 and include additional
+          subjectInfo from a provided XML document.
+
+  ./${APPNAME} -S addinfo.xml test "urn:node:mnDemo1"
+
+EOF
+}
+
+
+function log() {
+  if [[ ! -z ${VERBOSE} ]]; then
+    echo "LOG: $@" 1>&2;
+  fi
+}
+
+
+function lwarn() {
+  echo "WARN: $@" 1>&2;
+}
+
+
+function lerror() {
+  echo "ERROR: $@" 1>&2;
+}
+
+
+function checkCA() {
+  local PROVIDEDCA=${WHICH_CA}
+  WHICH_CA=$(echo ${WHICH_CA} | tr '[:upper:]' '[:lower:]')
+  if [[ ${WHICH_CA} == "test" ]]; then
+    WHICH_CA="Test"
+  elif [[ ${WHICH_CA} == "prod" ]]; then
+    WHICH_CH="Prod"
+  else
+    lerror "Environment must be Test or Prod, not '${PROVIDEDCA}'"
+    exit 1
+  fi
+}
+
+
+# Generate instructions for getting the certificate
+function generateInstructions() {
+  local title="CSR for ${SUBJECT}"
+cat << EOF
+${title}
+${title//?/=}
+
+:Generated: $(date "+%Y-%m-%d %H:%M:%s")
+:Created By: ${USER}
+:CSR file: $(basename "${CSR}")
+:KEY file: private/$(basename "${KEY}")
+
+This folder contains a certificate signing request (CSR) for:
+
+  ${SUBJECT}
+
+The file:
+
+  $(basename "${CSR}")
+
+needs to be signed by the DataONE Certificate Authority for ${WHICH_CA} 
+environments by following these instructions:
+
+TODO: Steps to get a CSR signed.
+1. Email CSR file to certificates@dataone.org
+2. Save the certificate in the response.
+
+IMPORTANT: The key in ${TARGET_FOLDER}/private must be kept secure. 
+
+EOF
+}
+
+#Generate a report about the CSR that was produced
+function getCSRInfo() {
+
+  local _TMP=$(${OPENSSL} req -subject -noout -in ${CSR})
+  old_IFS=$IFS
+  IFS=$'/' _TMP=(${_TMP#*/})
+  IFS=${old_IFS}
+  _TMP=$(printf ",%s" "${_TMP[@]}")
+  csubject=${_TMP:1}
+
+cat << EOF
+
+CSR Info
+--------
+
+:Subject: ${csubject}
+:Key Size: ${KEYSIZE}
+:Hash: ${KEYHASHALG}
+
+EOF
+}
+
+
+function getOpenSSLConfig() {
+  cat << EOF
+HOME      = ${TARGET_FOLDER}
+RANDFILE    = $ENV::HOME/.rnd
+oid_section   = new_oids
+
+[ new_oids ]
+dc = 0.9.2342.19200300.100.1.25
+
+[ req ]
+default_bits    = ${KEYSIZE}
+default_md      = ${KEYHASHALG}
+default_keyfile   = privkey.pem
+distinguished_name  = req_distinguished_name
+attributes    = req_attributes
+x509_extensions = v3_ca
+
+[ req_distinguished_name ]
+0.DC                            = Domain Component
+0.DC_default                    = org
+1.DC                            = Domain Component
+1.DC_default                    = dataone
+commonName                  = Common Name (eg, Node ID)
+commonName_max              = 64
+commonName_default          = ${SUBJECT}
+
+[ req_attributes ]
+
+[ usr_cert ]
+basicConstraints=CA:FALSE
+nsComment     = "OpenSSL Generated Certificate for DataONE"
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+
+[ v3_ca ]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer
+basicConstraints = CA:true
+
+[ v3_req ]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer
+basicConstraints = CA:true
+crlDistributionPoints=URI:http://releases.dataone.org/crl/DataONETestCA_CRL.pem,URI:http://cn-ucsb-1.dataone.org/crl/DataONETestCA_CRL.pem,URI:http://cn-unm-1.dataone.org/crl/DataONETestCA_CRL.pem,URI:http://cn-orc-1.dataone.org/crl/DataONETestCA_CRL.pem
+
+[ crl_ext ]
+authorityKeyIdentifier=keyid:always
+
+[ proxy_cert_ext ]
+basicConstraints=CA:FALSE
+nsComment     = "OpenSSL Generated Certificate for DataONE"
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+proxyCertInfo=critical,language:id-ppl-anyLanguage,pathlen:3,policy:foo
+
+EOF
+}
+
+
+function createCSR() {
+  TARGET_FOLDER="$(pwd)/$(date +%Y%m%d)_${SUBJECT_FNAME}"
+  if [ -d "${dest}" ]; then
+    lerror "Target folder '${TARGET_FOLDER}' already exists. Remove or rename to continue."
+    exit 1
+  fi
+  CSR="${TARGET_FOLDER}/${SUBJECT}.csr"
+  KEY="${TARGET_FOLDER}/private/${SUBJECT}.key"
+  local config="${TARGET_FOLDER}/openssl.cfg"
+  local readme="${TARGET_FOLDER}/readme.txt"
+
+  log "Creating destination folder: ${TARGET_FOLDER}"
+  mkdir -p ${TARGET_FOLDER}
+  mkdir -p ${TARGET_FOLDER}/private
+  chmod 0700 ${TARGET_FOLDER}/private
+  getOpenSSLConfig > ${config}
+
+  log "Generating key: ${KEY}"
+  ${OPENSSL} genrsa -passout ${PASS} -des3 -out ${TARGET_FOLDER}/private/pass.key ${KEYSIZE}
+  ${OPENSSL} rsa -passin ${PASS} -in ${TARGET_FOLDER}/private/pass.key -out ${KEY}
+  rm ${TARGET_FOLDER}/private/pass.key
+  log "Creating CSR: ${CSR}"
+  ${OPENSSL} req -verbose -config ${config} -batch -new -key ${KEY} -out ${CSR}
+  rm ${config}
+
+  generateInstructions > ${readme}
+  getCSRInfo >> ${readme}
+}
+
+
+# === MAIN ===
+while getopts "hHvVS:" OPTION
+do
+  case ${OPTION} in
+    h) usage; exit 1;;
+    H) usageExamples; exit 1;;
+    v) showVersion; exit 1;;
+    V) VERBOSE=1;;
+    S) SUBJECT_INFO=${OPTARG};;
+    \?) usage; exit 1;;
+  esac
+done
+
+if [[ ! -z ${SUBJECT_INFO} ]]; then
+  lerror "Sorry, subjectInfo addition is not supported yet."
+  exit 1
+fi
+shift $(($OPTIND - 1))
+WHICH_CA=${1}
+if [[ -z ${WHICH_CA} ]]; then
+  lerror "Environment specifier is required."
+  exit 1
+fi
+checkCA
+log "Creating CSR for '${WHICH_CA}' environment"
+SUBJECT=${2}
+if [[ -z "${SUBJECT}" ]]; then
+  lerror "Subject is required."
+  exit 1
+fi
+log "Subject for certificate is: '${SUBJECT}'"
+SUBJECT_FNAME="${SUBJECT//:/_}"
+createCSR
+echo "CSR and key are in ${TARGET_FOLDER}."
