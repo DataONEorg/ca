@@ -224,3 +224,7 @@ V	211216232944Z		DA3263A2A12D0127	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestG
 V	220130185545Z		DA3263A2A12D0128	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNCEI
 V	220321130708Z		DA3263A2A12D0129	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUNM2
 V	220321130809Z		DA3263A2A12D012A	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-2.test.dataone.org
+V	220325090350Z		DA3263A2A12D012B	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGMNLocal
+V	220502201005Z		DA3263A2A12D012C	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUCSB1.pem
+V	220502201034Z		DA3263A2A12D012D	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUCSB2.pem
+V	220502202245Z		DA3263A2A12D012E	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUNM1.pem
