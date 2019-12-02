@@ -16,6 +16,7 @@ APPDIR=$(pwd)
 dateformat_out="%Y-%m-%dT%H:%M:%S.000+00:00"
 crlUpdateDate=""
 OPENSSL="/usr/bin/openssl"
+MD="sha1"
 
 ###################################################################################
 # Main entrypoint into the application, dispatching to appropriate handler methods
@@ -178,7 +179,7 @@ function create {
     # Create the certificate for the node
     echo "ca..."
     echo "CFG = ${CFG}"
-    ${OPENSSL} ca -config $CFG -batch -notext -create_serial $DAYS -out $PEM -infiles $CSR
+    ${OPENSSL} ca -config $CFG -md $MD -batch -notext -create_serial $DAYS -out $PEM -infiles $CSR
 
     # Clean up temporary files
     rm $CFG_TEMP $CFG
