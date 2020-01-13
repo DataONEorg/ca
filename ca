@@ -16,7 +16,7 @@ APPDIR=$(pwd)
 dateformat_out="%Y-%m-%dT%H:%M:%S.000+00:00"
 crlUpdateDate=""
 OPENSSL="/usr/bin/openssl"
-MD="sha1"
+MD="sha256"
 
 ###################################################################################
 # Main entrypoint into the application, dispatching to appropriate handler methods
