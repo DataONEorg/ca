@@ -124,3 +124,5 @@ V	220217171358Z		CF8745F5A16C6D2F	unknown	/dc=org/dc=dataone/CN=urn:node:CARY
 V	220218140207Z		CF8745F5A16C6D30	unknown	/dc=org/dc=dataone/CN=urn:node:FIGSHARE_CARY
 V	220303180247Z		CF8745F5A16C6D31	unknown	/dc=org/dc=dataone/CN=urn:node:ARCTIC
 V	221201213033Z		CF8745F5A16C6D32	unknown	/dc=org/dc=dataone/CN=urn:node:ESS_DIVE
+V	230204162101Z		CF8745F5A16C6D33	unknown	/dc=org/dc=dataone/CN=urn:node:RW
+V	230204163117Z		CF8745F5A16C6D34	unknown	/dc=org/dc=dataone/CN=urn:node:UIC
