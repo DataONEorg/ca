@@ -232,3 +232,5 @@ V	220502202601Z		DA3263A2A12D012F	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUN
 V	220912154109Z		DA3263A2A12D0130	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestARCTIC
 V	221201231031Z		DA3263A2A12D0131	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestESS_DIVE
 V	221204164132Z		DA3263A2A12D0132	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestESS_DIVE
+V	230204211057Z		DA3263A2A12D0133	unknown	/dc=org/dc=dataone/CN=ess-dive-cdiac
+V	240125223915Z		DA3263A2A12D0134	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestESS_DIVE
