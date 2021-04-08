@@ -127,3 +127,4 @@ V	221201213033Z		CF8745F5A16C6D32	unknown	/dc=org/dc=dataone/CN=urn:node:ESS_DIV
 V	230204162101Z		CF8745F5A16C6D33	unknown	/dc=org/dc=dataone/CN=urn:node:RW
 V	230204163117Z		CF8745F5A16C6D34	unknown	/dc=org/dc=dataone/CN=urn:node:UIC
 V	240228161906Z		CF8745F5A16C6D35	unknown	/dc=org/dc=dataone/CN=urn:node:ESS_DIVE
+V	240406174239Z		CF8745F5A16C6D36	unknown	/dc=org/dc=dataone/CN=urn:node:PNDB
