@@ -129,3 +129,12 @@ V	230204163117Z		CF8745F5A16C6D34	unknown	/dc=org/dc=dataone/CN=urn:node:UIC
 V	240228161906Z		CF8745F5A16C6D35	unknown	/dc=org/dc=dataone/CN=urn:node:ESS_DIVE
 V	240406174239Z		CF8745F5A16C6D36	unknown	/dc=org/dc=dataone/CN=urn:node:PNDB
 V	240420214227Z		CF8745F5A16C6D37	unknown	/dc=org/dc=dataone/CN=urn:node:KNB
+V	240420231758Z		CF8745F5A16C6D38	unknown	/dc=org/dc=dataone/CN=urn:node:ESA
+V	240420232917Z		CF8745F5A16C6D39	unknown	/dc=org/dc=dataone/CN=urn:node:LTER
+V	240420233146Z		CF8745F5A16C6D3A	unknown	/dc=org/dc=dataone/CN=urn:node:DRYAD
+V	240420233858Z		CF8745F5A16C6D3B	unknown	/dc=org/dc=dataone/CN=urn:node:PISCO
+V	240420234819Z		CF8745F5A16C6D3C	unknown	/dc=org/dc=dataone/CN=urn:node:NKN
+V	240420235149Z		CF8745F5A16C6D3D	unknown	/dc=org/dc=dataone/CN=urn:node:IOE
+V	240420235527Z		CF8745F5A16C6D3E	unknown	/dc=org/dc=dataone/CN=urn:node:PPBIO
+V	240420235947Z		CF8745F5A16C6D3F	unknown	/dc=org/dc=dataone/CN=urn:node:NMEPSCOR
+V	240421000601Z		CF8745F5A16C6D40	unknown	/dc=org/dc=dataone/CN=urn:node:US_MPC
