@@ -243,3 +243,4 @@ V	240506173454Z		DA3263A2A12D013A	unknown	/dc=org/dc=dataone/CN=urn:node:mn-sand
 V	240506174100Z		DA3263A2A12D013B	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB1
 V	240506174221Z		DA3263A2A12D013C	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB2
 V	240613105252Z		DA3263A2A12D013D	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUCSB1
+V	240613105839Z		DA3263A2A12D013E	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC1
