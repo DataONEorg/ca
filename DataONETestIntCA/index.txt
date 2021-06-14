@@ -238,3 +238,8 @@ V	240225192411Z		DA3263A2A12D0135	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestK
 V	240330033905Z		DA3263A2A12D0136	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB1
 V	240330035233Z		DA3263A2A12D0137	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxORC1
 V	240406174152Z		DA3263A2A12D0138	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestPNDB
+V	240506173315Z		DA3263A2A12D0139	unknown	/dc=org/dc=dataone/CN=urn:node:mn-sandbox-ucsb-1
+V	240506173454Z		DA3263A2A12D013A	unknown	/dc=org/dc=dataone/CN=urn:node:mn-sandbox-ucsb-2
+V	240506174100Z		DA3263A2A12D013B	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB1
+V	240506174221Z		DA3263A2A12D013C	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB2
+V	240613105252Z		DA3263A2A12D013D	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUCSB1

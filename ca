@@ -188,6 +188,7 @@ function create {
     echo "KEY : ${KEY}"
     export CERTIFICATE_FILE="$(pwd)/${PEM}"
     echo ${CERTIFICATE_FILE} | pbcopy
+    echo ${CERTIFICATE_FILE}
     echo "Path to certificate file placed on clipboard."
 }
 

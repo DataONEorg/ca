@@ -463,6 +463,26 @@ Creating and Signing Node Requests
   openssl ca -config ./openssl.cnf  -create_serial -days 1095 \
     -out certs/NodeN.pem -infiles req/NodeN.csr
 
+Signing a CSR
+~~~~~~~~~~~~~
+
+If a certificate signing request is provided, then it can be signed as follows:
+::
+  
+  cd DataONETestIntCA
+  openssl ca \
+    -config openssl.csr_ca.conf 
+    -subj "/DC=org/DC=dataone/CN=NODEID" \
+    -preserveDN -batch \
+    -notext \
+    -create_serial \
+    -days 1095 \
+    -out csr/NODEID.pem \
+    -infiles csr/NODEID.csr.pem
+
+Where ``NODEID`` is the node identifier.
+
+
 To revoke a certificate
 ~~~~~~~~~~~~~~~~~~~~~~~
 

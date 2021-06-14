@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Script to publish a certificate and key to a location retrievable 
+# Script to publish a certificate and key to a location retrievable
 # by a user with an account in the LDAP system.
 #
 
@@ -145,7 +145,7 @@ README
 ======
 
 This folder contains a certificate, a key, and a certificate request file that
-can be used to identify a user or service within the DataONE environment. 
+can be used to identify a user or service within the DataONE environment.
 
 Contents::
 
@@ -217,10 +217,11 @@ EOF
 
 	if [[ -z ${DRYRUN} ]]; then
   		cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} "mkdir -p ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/$(basename ${_ZIPFILE})"
-		
+
 		#clean up
 		rm -rf ${_tmp_dir}
-		rm ${_ZIPFILE}
+		#rm ${_ZIPFILE}
+		echo ${_ZIPFILE}
 	fi
 	echo
 	echo "Upload successful."
