@@ -138,3 +138,7 @@ V	240420235149Z		CF8745F5A16C6D3D	unknown	/dc=org/dc=dataone/CN=urn:node:IOE
 V	240420235527Z		CF8745F5A16C6D3E	unknown	/dc=org/dc=dataone/CN=urn:node:PPBIO
 V	240420235947Z		CF8745F5A16C6D3F	unknown	/dc=org/dc=dataone/CN=urn:node:NMEPSCOR
 V	240421000601Z		CF8745F5A16C6D40	unknown	/dc=org/dc=dataone/CN=urn:node:US_MPC
+V	240708172604Z		CF8745F5A16C6D41	unknown	/dc=org/dc=dataone/CN=cn-ucsb-1.dataone.org
+V	240708172733Z		CF8745F5A16C6D42	unknown	/dc=org/dc=dataone/CN=cn-orc-1.dataone.org
+V	240929003956Z		CF8745F5A16C6D43	unknown	/dc=org/dc=dataone/CN=urn:node:TFRI
+V	250125182747Z		CF8745F5A16C6D44	unknown	/dc=org/dc=dataone/CN=urn:node:mnUCSB1

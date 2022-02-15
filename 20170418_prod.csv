@@ -1,0 +1,7 @@
+{"what":"Certificate Status",
+ "Generated":"2017-04-18T11:12:29.000+00:00",
+ "content":[
+DataONEProdCA/certs/cn-orc-1.dataone.org.pem|CF8745F5A16C6CFA|DC=org,DC=dataone,CN=cn-orc-1.dataone.org|Not_Revoked|Valid|446|2018-07-08T18:11:42.000+00:00|2015-07-09T18:11:42.000+00:00|jones
+DataONEProdCA/certs/cn-ucsb-1.dataone.org.pem|CF8745F5A16C6CF9|DC=org,DC=dataone,CN=cn-ucsb-1.dataone.org|Not_Revoked|Valid|446|2018-07-08T18:08:38.000+00:00|2015-07-09T18:08:38.000+00:00|jones
+DataONEProdCA/certs/cn-unm-1.dataone.org.pem|CF8745F5A16C6CFB|DC=org,DC=dataone,CN=cn-unm-1.dataone.org|Not_Revoked|Valid|446|2018-07-08T18:13:22.000+00:00|2015-07-09T18:13:22.000+00:00|jones
+DataONEProdCA/certs/dataknp.sanparks.org-1.pem|CF8745F5A16C6D04|DC=org,DC=dataone,CN=dataknp.sanparks.org|Not_Revoked|Valid|695|2019-03-14T19:55:05.000+00:00|2016-03-14T19:55:05.000+00:00|servilla

@@ -1,0 +1,271 @@
+#!/bin/bash
+#
+# Script to publish a certificate and key to a location retrievable
+# by ORCID from https://project.dataone.org/o/{ORCID}.
+#
+
+VERSION="1.0.0"
+APPNAME=$(basename ${0})
+APPDIR=$(pwd)
+TMPDIR="/tmp"
+
+PUBLISH_HOST="project.dataone.org"
+PUBLISH_PATH="/var/www/project/html/o"
+
+PROD_FOLDER="${APPDIR}/DataONEProdCA"
+PROD_CAROOTCERT="${APPDIR}/DataONERootCA/certs/DataONERootCA.pem"
+PROD_CACERT="${PROD_FOLDER}/certs/DataONEProdCA.pem"
+PROD_CRL="${PROD_FOLDER}/crl/DataONEProdCA_CRL.pem"
+
+TEST_FOLDER="${APPDIR}/DataONETestIntCA"
+TEST_CAROOTCERT="${APPDIR}/DataONETestCA/certs/DataONETestCA.pem"
+TEST_CACERT="${TEST_FOLDER}/certs/DataONETestIntCA.pem"
+TEST_CRL="${TEST_FOLDER}/crl/DataONETestInt_CRL.pem"
+
+#Default to use the TEST environment
+CERT_ENVIRONMENT="Test"
+CERT_FOLDER="${TEST_FOLDER}"
+CAROOTCERT=${TEST_CAROOTCERT}
+CACERT=${TEST_CACERT}
+CRL=${TEST_CRL}
+
+VERBOSE=""
+DRYRUN=""
+USER_ID=""
+CERTIFICATE=""
+
+
+function showVersion() {
+	echo ${VERSION}
+}
+
+
+function usage() {
+cat << EOF
+${APPNAME} version ${VERSION}
+
+usage: ${APPNAME} OPTIONS ORCID CERTIFICATE
+
+Create a .zip file containing a certificate and it\'s key and scp it
+to a protected location where it can be retrieved by the specified user.
+
+OPTIONS:
+  -h  Show this message
+  -H  Show this message with examples
+  -D  Dry run. Show what will be done.
+  -v  Show version and exit
+  -V  Verbose output to STDERR
+
+USER:
+  The ORCID that will be retrieving the certificate.
+
+CERTIFICATE
+  Path to the .pem file for the certificate.
+
+EOF
+}
+
+
+function usageExamples() {
+	usage
+cat << EOF
+Example - Share a certificate and key for user vieglais:
+
+  ./${APPNAME} 0000-0002-6513-4996 DataONETestIntCA/certs/urn:node:ATestCert.pem
+
+EOF
+}
+
+
+function log() {
+	if [[ ! -z ${VERBOSE} ]]; then
+		echo "LOG: $@" 1>&2;
+	fi
+}
+
+
+function lwarn() {
+	echo "WARN: $@" 1>&2;
+}
+
+
+function lerror() {
+	echo "ERROR: $@" 1>&2;
+}
+
+
+#Check LDAP for the uid ${1}. If present, output "1", otherwise "0"
+function verifyUserId() {
+	lwarn "TODO: verify user id"
+	echo "1"
+}
+
+
+function shareCertificate() {
+	#Find the key, and create a safe name
+	log "Certificate = ${CERTIFICATE}"
+	local _certname=$(basename -s ".pem" "${CERTIFICATE}")
+	local _certpath=$(dirname "${CERTIFICATE}")
+	local _KEY="${_certpath}/../private/${_certname}.key"
+	log "Key = ${_KEY}"
+	if [[ ! -f ${_KEY} ]]; then
+		lwarn "Key file not found: ${_KEY}"
+		lwarn "Continuing though package will not contain the key!"
+	fi
+
+	local _CSR="${_certpath}/../req/${_certname}.csr"
+	log "CSR = ${_CSR}"
+	if [[ ! -f ${_CSR} ]]; then
+		lwarn "CSR file not found: ${_CSR}"
+		lwarn "Continuing though package will not contain the CSR!"
+	fi
+
+	#replace : with _
+	local _safename=${_certname//[:]/_}
+
+	#Create a zip file
+	local _tmp_dir=${TMPDIR}/${_safename}
+	if [[ -d ${_tmp_dir} ]]; then
+		lerror "Temporary folder already exists: ${_tmp_dir}  Remove to continue."
+		exit 1;
+	fi
+	if [[ -z ${DRYRUN} ]]; then
+		mkdir -p "${_tmp_dir}/private"
+		if [ "$?" -ne "0" ]; then
+			lerror "failed: mkdir -p \"${_tmp_dir}/private\""
+			exit 1
+		fi
+		cp ${CERTIFICATE} "${_tmp_dir}/${_safename}.crt"
+		cp ${_KEY} "${_tmp_dir}/private/${_safename}.key"
+		cp ${CERTIFICATE} "${_tmp_dir}/private/${_safename}.pem"
+		cat ${_KEY} >> "${_tmp_dir}/private/${_safename}.pem"
+		cp ${_CSR} "${_tmp_dir}/${_safename}.csr"
+		cat > "${_tmp_dir}/README.txt" << EOF
+README
+======
+
+This folder contains a certificate, a key, and a certificate request file that
+can be used to identify a user or service within the DataONE environment.
+
+Contents::
+
+  ${_safename}/
+    README.txt
+    ${_safename}.crt
+    ${_safename}.csr
+    private/${_safename}.key
+    private/${_safename}.pem
+
+The .crt file is the Member Node client certificate issued by the DataONE
+Certificate Authority.
+
+The .key file is the Member Node client private key, which must be kept
+secure.
+
+The .pem file is the .crt and .key file concatenated together.
+
+Please back up these files to offline media (encrypted thumbdrive, etc.) where
+they cannot be read except by the Member Node administrator.These files allow
+anyone with access to them to operate on any files created by the Member Node
+in the DataONE system, and therefore need to be stored safely.If the files are
+compromised, please send an email to support@dataone.org and we will revoke
+the certificate and reissue a new one to the Member Node administrator.
+
+Warning
+-------
+
+It is important that the files::
+
+  private/${_safename}.key
+  private/${_safename}.pem
+
+are kept secure, as these identify anyone using them as the user or service
+for which they were produced.
+
+
+Metadata About Certificate
+--------------------------
+
+EOF
+
+		${APPDIR}/cert_status -A -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
+	fi
+	local _ZIPFILE="${TMPDIR}/${_safename}.zip"
+	local CDIR=$(pwd)
+	cd ${TMPDIR}
+	log "zip -r ${_ZIPFILE} ${_safename}"
+	if [[ -z ${DRYRUN} ]]; then
+		if [[ ! -z ${VERBOSE} ]]; then
+			zip -r ${_ZIPFILE} ${_safename}
+		else
+			zip -q -r ${_ZIPFILE} ${_safename}
+		fi
+		if [ "$?" -ne "0" ]; then
+			lerror "Zip creation failed."
+			lwarn "Aborting."
+			cd ${CDIR}
+			rm -rf ${_tmp_dir}
+			rm ${_ZIPFILE}
+			exit 1
+		fi
+	fi
+	cd ${CDIR}
+
+	#scp the .zip, creating a folder if needed
+	log "Copy to host..."
+	log "cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} \"mkdir -p ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/\$(basename ${_ZIPFILE})\""
+
+	if [[ -z ${DRYRUN} ]]; then
+  		cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} "mkdir -p ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/$(basename ${_ZIPFILE})"
+
+		#clean up
+		rm -rf ${_tmp_dir}
+		#rm ${_ZIPFILE}
+		echo ${_ZIPFILE}
+	fi
+	echo
+	echo "Upload successful."
+	echo "The package can be retrieved from:"
+	echo "  https://${PUBLISH_HOST}/o/${USER_ID}/$(basename ${_ZIPFILE})"
+	echo
+}
+
+
+# === Main ===
+while getopts "hHvVPdDr:" OPTION
+do
+	case ${OPTION} in
+		h) usage; exit 1;;
+	    H) usageExamples; exit 1;;
+		v) showVersion; exit 1;;
+		V) VERBOSE=1;;
+	    D) DRYRUN=1;;
+		\?) usage; exit 1;;
+	esac
+done
+
+shift $((OPTIND-1))
+USER_ID=${1}
+CERTIFICATE=${2}
+
+if [[ -z ${USER_ID} ]]; then
+	echo "User ID is required."
+	exit 1;
+fi
+if [[ -z ${CERTIFICATE} ]]; then
+	echo "Certificate file name is required."
+	exit 1;
+fi
+if [[ ! -f ${CERTIFICATE} ]]; then
+	lerror " File not found: ${CERTIFICATE}"
+	exit 1;
+fi
+#if [[ ! -z ${LDAP_SEARCH} ]]; then
+#	user_ok=$(verifyUserId ${USER_ID})
+#	if [[ ${user_ok} == "0" ]]; then
+#		lerror "User ID note found in LDAP: ${USER_ID}"
+#		exit 1;
+#	fi
+#fi
+
+shareCertificate
