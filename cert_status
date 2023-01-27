@@ -215,6 +215,26 @@ function fromSerialDate() {
 }
 
 
+# https://stackoverflow.com/questions/40175868/how-to-create-csv-file-using-shell-script
+function csv(){
+    local items=("$@")
+
+    # quote and escape as needed
+    # https://datatracker.ietf.org/doc/html/rfc4180
+    for i in "${!items[@]}"
+    do
+        if [[ "${items[$i]}" =~ [,\"] ]]
+        then
+            items[$i]=\"$(echo -n "${items[$i]}" | sed s/\"/\"\"/g)\"
+        fi
+    done
+
+    (
+    IFS=,
+    echo "${items[*]}"
+    )
+}
+
 reversea() {
     # first argument is the array to reverse
     # second is the output array
@@ -301,7 +321,7 @@ function showCertificateInfo() {
 	local cdate=$(fromSerialDate ${c_create_date})
 	local edate=$(fromSerialDate ${c_expire_date})
 	if [[ ${OUTFORMAT} == "CSV" ]]; then
-		echo -e "${CERTIFICATE}${DLMT}${c_serial}${DLMT}${c_DN}${DLMT}${c_revoked}${DLMT}${c_valid}${DLMT}${cDaysToExpire}${DLMT}${edate}${DLMT}${cdate}"
+		csv ${CERTIFICATE} ${c_serial} ${c_DN} ${c_revoked} ${c_valid} ${cDaysToExpire} ${edate} ${cdate}
 	elif [[ ${OUTFORMAT} == "JSON" ]]; then
 		echo "{"
 		echo " \"File_name\"   : \"${CERTIFICATE}\","
@@ -337,7 +357,7 @@ function showHeader() {
 		echo "#Certificate Status"
 		echo "#Generated|$(date +${dateformat_out})"
 		echo "#"
-		echo -e "File${DLMT}Serial${DLMT}DN${DLMT}Revoked${DLMT}Validity${DLMT}Expire_days${DLMT}Expires${DLMT}Created"
+		csv File Serial DN Revoked Validity Expire_days Expires Created
 	fi
 }
 
