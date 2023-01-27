@@ -240,6 +240,7 @@ function getCertificateInfo() {
   #eval eval echo "'\"\${_TMP['{$((${#_TMP[@]}-1))..0}']}\"'"
   #echo
 	c_DN=${_TMP:1}
+	c_DN=$(echo ${c_DN//[[:blank:]]/} | tr -d \")
   splitBy "," ${c_DN};
   #_TMP
 	_TMP=$(openssl x509 -enddate -noout -in ${CERTIFICATE} \
