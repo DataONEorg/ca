@@ -10,4 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Check Production Certs
-        run: ./cert_status -s -P DataONEProdCA/certs 2> /dev/null
+        run: |
+          ./cert_status -s -P DataONEProdCA/certs 2> /dev/null 1> prod_cert_status.tsv
+          git commit -m "Update cert status info" prod_cert_status.tsv
+        
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
