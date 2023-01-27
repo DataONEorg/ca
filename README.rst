@@ -9,6 +9,10 @@
 DataONE Certificate Authority
 =============================
 
+Current cert status:
+
+* `Production certs <https://flatgithub.com/DataONEorg/ca?filename=prod_cert_status.csv>`_
+
 Overview
 --------
 
