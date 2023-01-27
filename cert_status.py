@@ -1,7 +1,21 @@
 #!/usr/bin/env python3
 """
-Script to generate a CSV that contains:
+Script to generate CSV or JSON that contains basic information about
+certificates. Each entry / row has properties:
 
+path: relative path to the certificate.
+create_date: date the certificate was generated.
+expire_date: date the certificate expires.
+expire_days: number of days until certificate expires.
+dn: The Subject of the certificate.
+node_id: Presumed node_id the certificate applies to. This is parsed from the Subject.
+valid: Currently just indicates if certificate is expired or not.
+
+
+#TODO: be a bit smarter parsing the subject and inferring node id
+#TODO: should cross reference with nodes registered in the corresponding 
+#      environment, don't report on deprecated nodes
+#TODO: use a keyword to identify environment and corresponding cert path
 """
 import argparse
 import csv
