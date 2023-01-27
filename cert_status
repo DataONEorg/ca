@@ -301,7 +301,7 @@ function showCertificateInfo() {
 	local cdate=$(fromSerialDate ${c_create_date})
 	local edate=$(fromSerialDate ${c_expire_date})
 	if [[ ${OUTFORMAT} == "CSV" ]]; then
-		echo -e "${CERTIFICATE}${DLMT}${c_serial}${DLMT}\"${c_DN}\"${DLMT}${c_revoked}${DLMT}${c_valid}${DLMT}${cDaysToExpire}${DLMT}${edate}${DLMT}${cdate}"
+		echo -e "\"${CERTIFICATE}\"${DLMT}${c_serial}${DLMT}\"${c_DN}\"${DLMT}${c_revoked}${DLMT}${c_valid}${DLMT}${cDaysToExpire}${DLMT}${edate}${DLMT}${cdate}"
 	elif [[ ${OUTFORMAT} == "JSON" ]]; then
 		echo "{"
 		echo " \"File_name\"   : \"${CERTIFICATE}\","
