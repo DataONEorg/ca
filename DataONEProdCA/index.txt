@@ -142,3 +142,14 @@ V	240708172604Z		CF8745F5A16C6D41	unknown	/dc=org/dc=dataone/CN=cn-ucsb-1.dataon
 V	240708172733Z		CF8745F5A16C6D42	unknown	/dc=org/dc=dataone/CN=cn-orc-1.dataone.org
 V	240929003956Z		CF8745F5A16C6D43	unknown	/dc=org/dc=dataone/CN=urn:node:TFRI
 V	250125182747Z		CF8745F5A16C6D44	unknown	/dc=org/dc=dataone/CN=urn:node:mnUCSB1
+V	250214002458Z		CF8745F5A16C6D45	unknown	/dc=org/dc=dataone/CN=urn:node:FEMC
+V	250302183303Z		CF8745F5A16C6D46	unknown	/dc=org/dc=dataone/CN=urn:node:ARCTIC
+V	250407201536Z		CF8745F5A16C6D47	unknown	/dc=org/dc=dataone/CN=urn:node:mnORC1
+V	250407201710Z		CF8745F5A16C6D48	unknown	/dc=org/dc=dataone/CN=urn:node:mnUNM1
+V	250428193217Z		CF8745F5A16C6D49	unknown	/dc=org/dc=dataone/CN=urn:node:PPBIO
+V	250712151540Z		CF8745F5A16C6D4A	unknown	/dc=org/dc=dataone/CN=urn:node:CERP_SFWMD
+V	250728012504Z		CF8745F5A16C6D4B	unknown	/dc=org/dc=dataone/CN=urn:node:DRP
+V	251201193352Z		CF8745F5A16C6D4C	unknown	/dc=org/dc=dataone/CN=urn:node:FIGSHARE_CARY
+V	251205184945Z		CF8745F5A16C6D4D	unknown	/dc=org/dc=dataone/CN=urn:node:RW
+V	251221001651Z		CF8745F5A16C6D4E	unknown	/dc=org/dc=dataone/CN=urn:node:SCTLD
+V	260113141006Z		CF8745F5A16C6D4F	unknown	/dc=org/dc=dataone/CN=urn:node:CA_OPC

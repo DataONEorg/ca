@@ -214,6 +214,16 @@ function fromSerialDate() {
 }
 
 
+reversea() {
+    # first argument is the array to reverse
+    # second is the output array
+    declare -a arr="$1" rev="$2"
+    for i in "${arr[@]}"
+    do
+        rev=("$i" "${rev[@]}")
+    done
+}
+
 
 function getCertificateInfo() {
 	local _TMP=$(openssl x509 -subject -noout -in ${CERTIFICATE})
@@ -221,15 +231,16 @@ function getCertificateInfo() {
 	IFS=$'/' _TMP=(${_TMP#*/})
 	IFS=${old_IFS}
 	_TMP=$(printf ",%s" "${_TMP[@]}")
+	#echo ${_TMP}
   reversea _TMP _TMP2
-  echo "${_TMP[@]}"
+  #echo "${_TMP[@]}"
   #echo "${_TMP2[@]}\n"
   echo "==="
   eval eval echo "'\"\${_TMP['{$((${#_TMP[@]}-1))..0}']}\"'"
   echo
 	c_DN=${_TMP:1}
   splitBy "," ${c_DN};
-  _TMP
+  #_TMP
 	_TMP=$(openssl x509 -enddate -noout -in ${CERTIFICATE} \
 		        | awk -F= ' /notAfter/ { printf("%s\n",$NF); } ');
 	c_expire_date=$(toSerialDate "${_TMP}")
