@@ -1,0 +1,13 @@
+name: Check certificate status
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  cert-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check Production Certs
+        run: ./cert_status -s -P DataONEProdCA/certs 2> /dev/null
