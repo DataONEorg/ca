@@ -1,0 +1,5 @@
+[ ca ]
+default_ca = ca_default
+
+[ CA_default ]
+dir           =
