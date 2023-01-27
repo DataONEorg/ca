@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Check Production Certs
-        run: ./cert_status -s -P DataONEProdCA/certs 2> /dev/null 1> prod_cert_status.tsv
+        run: ./cert_status -s -P DataONEProdCA/certs 2> /dev/null 1> prod_cert_status.csv
 
       - name: Commit changes
         run: |
