@@ -1,8 +1,8 @@
 name: Check certificate status
 on:
-  push:
-    #branches:
-    #  - main
+  #push:
+  #  branches:
+  #    - main
   workflow_dispatch:
 jobs:
   cert-status:
@@ -10,8 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Check Production Certs
+        run: ./cert_status -s -P DataONEProdCA/certs 2> /dev/null 1> prod_cert_status.tsv
+
+      - name: Commit changes
         run: |
-          ./cert_status -s -P DataONEProdCA/certs 2> /dev/null 1> prod_cert_status.tsv
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git commit -m "Update cert status info" prod_cert_status.tsv
         
       - name: Push changes
