@@ -37,6 +37,7 @@ CERTIFICATE=""
 CACHAINFILE=""
 DUMPCERT=""
 CSVOUTPUT=""
+DLMT='\t'
 OUTFORMAT="JSON"
 getAuthor=""
 GENERATE_REPORT=""
@@ -235,9 +236,9 @@ function getCertificateInfo() {
   reversea _TMP _TMP2
   #echo "${_TMP[@]}"
   #echo "${_TMP2[@]}\n"
-  echo "==="
-  eval eval echo "'\"\${_TMP['{$((${#_TMP[@]}-1))..0}']}\"'"
-  echo
+  #echo "==="
+  #eval eval echo "'\"\${_TMP['{$((${#_TMP[@]}-1))..0}']}\"'"
+  #echo
 	c_DN=${_TMP:1}
   splitBy "," ${c_DN};
   #_TMP
@@ -300,7 +301,7 @@ function showCertificateInfo() {
 	local cdate=$(fromSerialDate ${c_create_date})
 	local edate=$(fromSerialDate ${c_expire_date})
 	if [[ ${OUTFORMAT} == "CSV" ]]; then
-		echo "${CERTIFICATE}|${c_serial}|${c_DN}|${c_revoked}|${c_valid}|${cDaysToExpire}|${edate}|${cdate}|${c_author}"
+		echo -e "${CERTIFICATE}${DLMT}${c_serial}${DLMT}${c_DN}${DLMT}${c_revoked}${DLMT}${c_valid}${DLMT}${cDaysToExpire}${DLMT}${edate}${DLMT}${cdate}"
 	elif [[ ${OUTFORMAT} == "JSON" ]]; then
 		echo "{"
 		echo " \"File_name\"   : \"${CERTIFICATE}\","
@@ -328,7 +329,7 @@ function showCertificateInfo() {
 
 
 function showHeader() {
-	if [[  ${OUTFORMAT} == "CSV" ]]; then
+	if [[  ${OUTFORMAT} == "JSON" ]]; then
 		echo "{\"what\":\"Certificate Status\","
 		echo " \"Generated\":\"$(date +${dateformat_out})\","
 		echo " \"content\":["
@@ -336,7 +337,7 @@ function showHeader() {
 		echo "#Certificate Status"
 		echo "#Generated|$(date +${dateformat_out})"
 		echo "#"
-		echo "File|Serial|DN|Revoked|Validity|Expire_days|Expires|Created|Author"
+		echo -e "File${DLMT}Serial${DLMT}DN${DLMT}Revoked${DLMT}Validity${DLMT}Expire_days${DLMT}Expires${DLMT}Created"
 	fi
 }
 
