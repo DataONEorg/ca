@@ -1,6 +1,3 @@
-#Certificate Status
-#Generated|2023-01-27T04:30:12.000+00:00
-#
 File,Serial,DN,Revoked,Validity,Expire_days,Expires,Created
 "DataONEProdCA/certs/CN=urn:node:CN,DC=dataone,DC=org.pem",CF8745F5A16C6D3A,subject=DC,=,"org,",DC,=,"dataone,",CN,=,"""CN=urn:node:CN,DC=dataone,DC=org""",Not_Revoked,Valid,105,2023-05-12T20:06:04.000+00:00,2020-05-12T20:06:04.000+00:00
 DataONEProdCA/certs/urn:node:LTER.pem,CF8745F5A16C6D39,subject=DC,=,"org,",DC,=,"dataone,",CN,=,urn:node:LTER,Not_Revoked,Valid,449,2024-04-20T23:29:17.000+00:00,2021-04-21T23:29:17.000+00:00
