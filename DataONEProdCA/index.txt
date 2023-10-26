@@ -158,3 +158,4 @@ V	260417173553Z		CF8745F5A16C6D51	unknown	/dc=org/dc=dataone/CN=urn:node:SFWMD
 V	260424161213Z		CF8745F5A16C6D52	unknown	/dc=org/dc=dataone/CN=urn:node:CNUCSB1
 V	260424161403Z		CF8745F5A16C6D53	unknown	/dc=org/dc=dataone/CN=urn:node:CNORC1
 V	260608202330Z		CF8745F5A16C6D54	unknown	/dc=org/dc=dataone/CN=urn:node:CN
+V	261025151952Z		CF8745F5A16C6D55	unknown	/dc=org/dc=dataone/CN=urn:node:GOA
