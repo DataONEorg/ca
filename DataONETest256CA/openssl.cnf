@@ -86,7 +86,7 @@ policy		= policy_match
 
 # For the CA policy
 [ policy_match ]
-#dc      		 = match
+domainComponent      	 = supplied
 commonName		 = supplied
 
 # For the 'anything' policy
