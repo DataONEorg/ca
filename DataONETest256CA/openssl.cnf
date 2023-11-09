@@ -32,8 +32,6 @@ tsa_policy1 = 1.2.3.4.1
 tsa_policy2 = 1.2.3.4.5.6
 tsa_policy3 = 1.2.3.4.5.7
 
-#dc = 0.9.2342.19200300.100.1.25
-
 ####################################################################
 [ ca ]
 default_ca	= CA_default		# The default ca section
@@ -86,7 +84,7 @@ policy		= policy_match
 
 # For the CA policy
 [ policy_match ]
-domainComponent      	 = supplied
+domainComponent      	 = match
 commonName		 = supplied
 
 # For the 'anything' policy

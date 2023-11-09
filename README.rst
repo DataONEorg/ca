@@ -537,6 +537,27 @@ This is the equivalent of the Production CA except for the test environments::
     -extensions v3_ca  -verbose -infiles ../DataONETestIntCA/req/DataONETestIntCA.csr
   # Create DataONETestIntCA/serial with serial number of the DataONETestIntCA.pem + something
 
+Creating the Test 256 Root CA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  mkdir /var/ca
+  cd /var/ca
+  mkdir DataONETest256CA
+  cd DataONETest256CA
+  mkdir certs crl newcerts private req
+  touch index.txt
+  # Edit the openssl.cnf config file
+  openssl req -new -newkey rsa:4096 -keyout /Volumes/DATAONE/DataONETest256CA.key \
+    -out req/DataONETest256CA.csr -config ./openssl.cnf 
+  openssl ca -create_serial -out certs/DataONETest256CA.pem -days 36500 \
+    -keyfile /Volumes/DATAONE/DataONETest256CA.key -selfsign -config ./openssl.cnf \
+    -extensions v3_ca -infiles req/DataONETest256CA.csr
+  cp serial crlnumber
+  # Edit crlnumber to be a different hex number if needed, but fine to keep the series
+  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONETest256CA_CRL.pem
+
 Creating the Test 256 Intermediate CA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
