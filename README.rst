@@ -561,11 +561,12 @@ Creating the Test 256 Root CA
 Creating the Test 256 Intermediate CA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is the equivalent of the Production CA except for the test environments::
+This is a cross-signed intermediate cert, in that it has the same subjectDN and public key as
+the original DataONETestIntCA, but it is signed by the new sha256-based DataONETest256IntCA.
 
   cd /var/ca
-  mkdir DataONETestIntCA
-  cd DataONETestIntCA
+  mkdir DataONETest256IntCA
+  cd DataONETest256IntCA
   mkdir certs crl newcerts private req
   touch index.txt
   # No need to edit the config file, use the one from the root CA
