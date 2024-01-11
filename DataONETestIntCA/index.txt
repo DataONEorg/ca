@@ -256,3 +256,4 @@ V	251019150514Z		DA3263A2A12D0147	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestA
 V	260307020055Z		DA3263A2A12D0148	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestEDI
 V	260307020359Z		DA3263A2A12D0149	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestLTER
 V	260808132901Z		DA3263A2A12D014A	unknown	/dc=org/dc=dataone/CN=urn:node:TestBROOKELT
+V	270110014229Z		DA3263A2A12D014B	unknown	/dc=org/dc=dataone/CN=urn:node:WFSIDemo
