@@ -10,13 +10,22 @@
 # Matthew Jones, NCEAS, 2012
 
 #initialization
-VERSION="1.2.0"
+VERSION="1.3.0"
 APPNAME=$(basename ${0})
 APPDIR=$(pwd)
 dateformat_out="%Y-%m-%dT%H:%M:%S.000+00:00"
 crlUpdateDate=""
 OPENSSL="/usr/bin/openssl"
 MD="sha256"
+
+PROD_CA_DIR="DataONEProdCA"
+TEST_CA_DIR="DataONETestCA"
+
+PROD_CA_CHAIN="DataONEProdCAChain256.crt"
+TEST_CA_CHAIN="DataONETestCAChain256.crt"
+
+PROD_CRL_NAME="DataONEProdCA256_CRL.pem"
+TEST_CRL_NAME="DataONETestCA256_CRL.pem"
 
 ###################################################################################
 # Main entrypoint into the application, dispatching to appropriate handler methods
@@ -61,7 +70,7 @@ function setoptions {
     KEYS="private"
     PASS="pass:temp"
     CFG="openssl.cnf"
-    CFG_TEMP="openssl.int"
+    CFG_TEMP="openssl_cnf_temporary"
     TMPL="openssl.tmpl"
     KEY="$KEYS/$NODEID.key"
     PEM="certs/$NODEID.pem"
@@ -69,18 +78,18 @@ function setoptions {
 }
 
 ###################################################################################
-# Switch to the approriate environment for handling requests
+# Switch to the appropriate environment for handling requests
 ###################################################################################
 function switch_server_env {
 
     case "${SERVENV}" in
          Prod)
-               cd DataONEProdCA
-               CAFILE="../DataONECAChain.crt"
+               cd $PROD_CA_DIR
+               CAFILE="../$PROD_CA_CHAIN"
                ;;
          Test)
-               cd DataONETestIntCA
-               CAFILE="../DataONETestCAChain.crt"
+               cd $TEST_CA_DIR
+               CAFILE="../$TEST_CA_CHAIN"
                ;;
          *)
                usage
@@ -108,7 +117,7 @@ function toSerialDate() {
 # input: serial_date [date_format]
 function fromSerialDate() {
     local date_format="${dateformat_out}"
-    if [[ ! -z ${2} ]]; then
+    if [[ -n ${2} ]]; then
         date_format=${2}
     fi
     if [[ $(uname) == "Darwin" ]]; then
@@ -218,11 +227,12 @@ function display {
 # Generate a Certificate Revocation List (CRL) from the certificate database. This
 # must be published at the correct location on the web.
 ###################################################################################
+
 function gencrl {
     echo "Generating Certificate Revocation List (CRL)"
-    CRL="crl/DataONE${SERVENV}CA_CRL.pem"
+    CRL="crl/$PROD_CRL_NAME"
     if [[ ${SERVENV} == "Test" ]]; then
-        CRL="crl/DataONE${SERVENV}Int_CRL.pem"
+        CRL="crl/$TEST_CRL_NAME"
     fi
     ${OPENSSL} ca -config $CFG -gencrl -out $CRL
 
