@@ -76,11 +76,11 @@ it is assumed that the CA software is being installed in
 ${HOME}/Projects/DataONE/tools, identified by ${CA_HOME} in the examples.
 Adjust as appropriate for your system.
 
-1. The CA is distributed from subversion. Checkout the tool to the desired 
+1. The CA is distributed from GitHub. Checkout the tool to the desired
    location::
 
      cd ${HOME}/Projects/DataONE/tools
-     svn co https://repository.dataone.org/software/tools/trunk/ca
+     git clone git@github.com:DataONEorg/ca.git
      export CA_HOME="$(pwd)/ca"
 
 2. Create a symbolic link for ``/var/ca`` to the checkout location::
