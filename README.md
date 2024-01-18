@@ -510,7 +510,7 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
     -extensions v3_ca -infiles ../DataONEProdIntCA/req/DataONEProdIntCA.csr
 ```
 
-### Create the Certificate Chain File
+### Creating the Certificate Chain File
 
 
 ```shell
@@ -559,29 +559,34 @@ Where `NODEID` is the node identifier.
   openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdIntCA_CRL.pem
 ```
 
-### Creating the Test CA
+### Creating the Test Root CA
 
 ```shell
   mkdir /var/ca
   cd /var/ca
-  mkdir DataONETestCA
-  cd DataONETestCA
+  mkdir DataONETestRootCA
+  cd DataONETestRootCA
   mkdir certs crl newcerts private req
   touch index.txt
-	# Edit the openssl.cnf config file
-  openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONETestCA.key \
-    -out req/DataONETestCA.csr -config ./openssl.cnf
-  openssl ca -create_serial -out certs/DataONETestCA.pem -days 36500 \
-    -keyfile /Volumes/DataONE/DataONETestCA.key -selfsign -config ./openssl.cnf \
-    -extensions v3_ca -infiles req/DataONETestCA.csr
+  # Edit the openssl.cnf config file if needed; e.g. check the 'dir' entry in [ CA_default ].
+  
+  openssl req -new -newkey rsa:4096 -keyout /Volumes/DATAONE/DataONETest256CA.key \
+    -out req/DataONETestRootCA.csr -config ./openssl.cnf
+  
+  openssl ca -create_serial -out certs/DataONETestRootCA.pem -days 36500 \
+    -keyfile /Volumes/DATAONE/DataONETest256CA.key -selfsign -config ./openssl.cnf \
+    -extensions v3_ca -infiles req/DataONETestRootCA.csr
+  
   cp serial crlnumber
-  # Edit crlnumber to be a different hex number
-  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONETestCA_CRL.pem
+  # Edit crlnumber to be a different hex number if needed, but fine to keep the series
+  
+  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONETestRootCA_CRL.pem
 ```
 
 ### Creating the Test Intermediate CA
 
-This is the equivalent of the Production CA except for the test environments:
+This is a cross-signed intermediate cert, in that it has the same subjectDN and public key as
+the original DataONETestIntCA, but it is signed by the new sha256-based DataONETestRootCA.
 
 ```shell
   cd /var/ca
@@ -589,54 +594,24 @@ This is the equivalent of the Production CA except for the test environments:
   cd DataONETestIntCA
   mkdir certs crl newcerts private req
   touch index.txt
-  # Edit the openssl.cnf config file
-  openssl req -new -newkey rsa:4096  -keyout /opt/DataONE/DataONETestIntCA.key \
-    -out req/DataONETestIntCA.csr -config ../DataONETestCA/openssl.cnf
-  cd ../DataONETestCA
-  openssl ca -out ../DataONETestIntCA/certs/DataONETestIntCA.pem -days 36500 \
-    -keyfile /opt/DataONE/DataONETestCA.key -config ./openssl.cnf \
-    -extensions v3_ca  -verbose -infiles ../DataONETestIntCA/req/DataONETestIntCA.csr
-  # Create DataONETestIntCA/serial with serial number of the DataONETestIntCA.pem + something
-```
-
-### Creating the Test 256 Root CA
-
-```shell
-  mkdir /var/ca
-  cd /var/ca
-  mkdir DataONETest256CA
-  cd DataONETest256CA
-  mkdir certs crl newcerts private req
-  touch index.txt
-  # Edit the openssl.cnf config file
-  openssl req -new -newkey rsa:4096 -keyout /Volumes/DATAONE/DataONETest256CA.key \
-    -out req/DataONETest256CA.csr -config ./openssl.cnf
-  openssl ca -create_serial -out certs/DataONETest256CA.pem -days 36500 \
-    -keyfile /Volumes/DATAONE/DataONETest256CA.key -selfsign -config ./openssl.cnf \
-    -extensions v3_ca -infiles req/DataONETest256CA.csr
-  cp serial crlnumber
-  # Edit crlnumber to be a different hex number if needed, but fine to keep the series
-  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONETest256CA_CRL.pem
-```
-
-### Creating the Test 256 Intermediate CA
-
-This is a cross-signed intermediate cert, in that it has the same subjectDN and public key as
-the original DataONETestIntCA, but it is signed by the new sha256-based DataONETest256IntCA.
-
-```shell
-  cd /var/ca
-  mkdir DataONETest256IntCA
-  cd DataONETest256IntCA
-  mkdir certs crl newcerts private req
-  touch index.txt
-  # No need to edit the config file, use the one from the root CA
+  
+  # No need to edit the config file; uses the one from the root CA
+  
+  ###
+  # This is how we did it originally. However, for cross-signing, we should NOT generate
+  # a new key (" -newkey "), but instead re-use the old one...
+  #
+  # openssl req -new -newkey rsa:4096  -keyout /opt/DataONE/DataONETestIntCA.key \
+  # -out req/DataONETestIntCA.csr -config ../DataONETestCA/openssl.cnf
+  ###  
   openssl req -new -key /Volumes/DATAONE/DataONETestIntCA.key \
-    -out req/DataONETest256IntCA.csr -config ../DataONETest256CA/openssl.cnf
-  cd ../DataONETest256CA
-  openssl ca -out ../DataONETest256IntCA/certs/DataONETest256IntCA.pem -days 36500 \
+    -out req/DataONETestIntCA.csr -config ../DataONETestRootCA/openssl.cnf
+    
+  cd ../DataONETestRootCA
+  
+  openssl ca -out ../DataONETestIntCA/certs/DataONETestIntCA.pem -days 36500 \
     -keyfile /Volumes/DATAONE/DataONETest256CA.key -config ./openssl.cnf \
-    -extensions v3_ca  -verbose -infiles ../DataONETest256IntCA/req/DataONETest256IntCA.csr
+    -extensions v3_ca  -verbose -infiles ../DataONETestIntCA/req/DataONETestIntCA.csr
   # Create DataONETestIntCA/serial with serial number of the DataONETestIntCA.pem + something
 ```
 
