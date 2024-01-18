@@ -244,17 +244,17 @@ for the Test environment.
 using the default locations for certificates and CRL:
 
 ```shell
-  ./cert_status -A -P DataONEProdCA/certs/urn\:node\:GULFWATCH.pem
+  ./cert_status -A -P DataONEProdIntCA/certs/urn\:node\:GULFWATCH.pem
 ```
 
 **Example** Show status of a single certificate in production environment,
 explicitly indicating which certificates and CRL to use:
 
 ```shell
-  ./cert_status -A -r DataONEProdCA/crl/DataONEProdCA_CRL.pem \
-    -a DataONEProdCA/certs/DataONEProdCA.pem \
-    -c DataONERootCA/certs/DataONERootCA.pem \
-    DataONEProdCA/certs/urn\:node\:GULFWATCH.pem
+  ./cert_status -A -r DataONEProdIntCA/crl/DataONEProdIntCA_CRL.pem \
+    -a DataONEProdIntCA/certs/DataONEProdIntCA.pem \
+    -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \
+    DataONEProdIntCA/certs/urn\:node\:GULFWATCH.pem
 ```
 
 **Example** Generate a pipe delimited text file reporting on all the
@@ -279,16 +279,16 @@ production certificates:
   ./cert_status -H > testcerts.csv; \
   for f in $(find DataONETestIntCA/certs -name *.pem); \
   do ./cert_status -A -s \
-   -r DataONEProdCA/crl/DataONEProdCA_CRL.pem \
-   -a DataONEProdCA/certs/DataONEProdCA.pem \
-   -c DataONERootCA/certs/DataONERootCA.pem \
+   -r DataONEProdIntCA/crl/DataONEProdIntCA_CRL.pem \
+   -a DataONEProdIntCA/certs/DataONEProdIntCA.pem \
+   -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \
   $f >> prodcerts.csv; done
 ```
 
 or:
 
 ```shell
-  ./ca cert_status -s -A -P DataONEProdCA/certs
+  ./ca cert_status -s -A -P DataONEProdIntCA/certs
 ```
 
 **Example** Generate a calendar of events in .ics format for production
@@ -478,36 +478,36 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
 ```shell
   mkdir /var/ca
   cd /var/ca
-  mkdir DataONERootCA
-  cd DataONERootCA
+  mkdir DataONEProdRootCA
+  cd DataONEProdRootCA
   mkdir certs crl newcerts private req
   touch index.txt
   # Edit the openssl.cnf config file
   openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONERootCA.key \
-    -out req/DataONERootCA.csr -config ./openssl.cnf
-  openssl ca -create_serial -out certs/DataONERootCA.pem -days 36500 \
+    -out req/DataONEProdRootCA.csr -config ./openssl.cnf
+  openssl ca -create_serial -out certs/DataONEProdRootCA.pem -days 36500 \
     -keyfile /Volumes/DataONE/DataONERootCA.key -selfsign -config ./openssl.cnf \
-    -extensions v3_ca -infiles req/DataONERootCA.csr
+    -extensions v3_ca -infiles req/DataONEProdRootCA.csr
   cp serial crlnumber
   # Edit crlnumber to be a different hex number
-  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONERootCA_CRL.pem
+  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdRootCA_CRL.pem
 ```
 
 ### Creating the Production CA
 
 ```shell
   cd ..
-  mkdir DataONEProdCA
-  cd DataONEProdCA
+  mkdir DataONEProdIntCA
+  cd DataONEProdIntCA
   mkdir certs crl newcerts private req
   touch index.txt
   #  Edit openssl.cnf
   openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONEProdCA.key \
-    -out req/DataONEProdCA.csr -config ../DataONERootCA/openssl.cnf
-  cd ../DataONERootCA
-  openssl ca -out ../DataONEProdCA/certs/DataONEProdCA.pem -days 36500 \
+    -out req/DataONEProdIntCA.csr -config ../DataONEProdRootCA/openssl.cnf
+  cd ../DataONEProdRootCA
+  openssl ca -out ../DataONEProdIntCA/certs/DataONEProdIntCA.pem -days 36500 \
     -keyfile /Volumes/DataONE/DataONERootCA.key -config ./openssl.cnf \
-    -extensions v3_ca -infiles ../DataONEProdCA/req/DataONEProdCA.csr
+    -extensions v3_ca -infiles ../DataONEProdIntCA/req/DataONEProdIntCA.csr
 ```
 
 ### Create the Certificate Chain File
@@ -515,15 +515,15 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
 
 ```shell
   cd ..
-  cat DataONERootCA/certs/DataONERootCA.pem \
-    DataONEProdCA/certs/DataONEProdCA.pem > DataONECAChain.crt
+  cat DataONEProdRootCA/certs/DataONEProdRootCA.pem \
+    DataONEProdIntCA/certs/DataONEProdIntCA.pem > DataONECAChain.crt
 ```
 
 ### Creating and Signing Node Requests
 
 
 ```shell
-  cd DataONEProdCA
+  cd DataONEProdIntCA
   openssl genrsa -passout pass:temp -des3 -out private/NodeNPass.key 2048
   openssl rsa -passin pass:temp -in private/NodeNPass.key -out private/NodeN.key
   rm private/NodeNPass.key
@@ -556,7 +556,7 @@ Where `NODEID` is the node identifier.
 
 ```shell
   openssl ca -config ./openssl.cnf -revoke certs/NodeN.pem
-  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdCA_CRL.pem
+  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdIntCA_CRL.pem
 ```
 
 ### Creating the Test CA
