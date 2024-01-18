@@ -453,7 +453,7 @@ else
 		# Report on *.pem in folder
 		_starter=""
 		showHeader
-		CERTIFICATES=$(find ${TARGET} -name "*.pem")
+		CERTIFICATES=$(find -L ${TARGET} -name "*.pem")
 		for CERTIFICATE in ${CERTIFICATES}; do
 			log "Certificate file: ${CERTIFICATE}"
 			getCertificateInfo
