@@ -9,9 +9,9 @@ This spreadsheet is updated weekly by [a GitHub Action](https://github.com/DataO
 ## Overview
 
 This directory contains configuration files and notes on how to set up the
-DataONE Certificate Authority using OpenSSL_ as the CA application.
-OpenSSL generates all files needed for the CA, including certificate requests,
-keys, certificates, and certificate revocation lists.
+DataONE Certificate Authority using [OpenSSL](https://www.openssl.org) as the
+CA application. OpenSSL generates all files needed for the CA, including
+certificate requests, keys, certificates, and certificate revocation lists.
 
 The DataONE Certificate Authority is governed by a Root CA, which delegates
 all certificate signing and management to a Production CA. The private key
@@ -37,8 +37,15 @@ the key. The certificate can be publicly exposed, and should be added to svn
 and checked in. The key MUST be kept private. A compromised key must be
 revoked and a replacement issued.
 
-The private keys needed to issue certs are contained in a binary sparsebundle file. Contact 
+The private keys needed to issue certs are contained in a binary sparsebundle file. Contact
 DataONE root system administrators for access.
+
+> #### VERY IMPORTANT! Since merge commits are not possible with a binary file, ALWAYS...
+> 1) Pull the latest version of the sparsebundle before starting any changes.
+> 2) Inform other certificate admins on slack that you are working in the bundle.
+> 3) Copy new private keys to the sparsebundle, following the naming convention discussed in the
+     Appendix, under [Node DN formats](#node-dn-formats).
+> 4) Push your sparsebundle changes **immediately**, and inform the other admins when you're done.
 
 
 ## Requirements
@@ -46,9 +53,8 @@ DataONE root system administrators for access.
 The CA scripts rely on the BASH shell and are developed on OS X (bash 3.2.53)
 though should work without modification on Linux. Dependencies are:
 
-- OpenSSL_
+- [OpenSSL](https://www.openssl.org)
 - Standard command line tools such as `sed`, `awk`, `cut`, `sort`, `git`
-- git
 
 
 ## Installation
@@ -396,7 +402,7 @@ OpenSSL was used to create the various CA files and operate the CA. The
 following sections are a synopsis of how all the CAs were created and how
 various CA functions can be run using OpenSSL alone.  The `ca` shell script
 automates most of these functions, so their inclusion here is mainly as a
-reference and not intended for typical usage.
+reference and not intended for typical usage. (For more information on OpenSSL, see [openssl.org](https://www.openssl.org))
 
 
 ### SHA-256 Updates, Cross-Signing, and Naming Scheme
@@ -432,8 +438,8 @@ directory name:         DataONEProdIntCA              DataONETestIntCA
 values) for the Intermediate certs must match those in the old SHA-1 root CAs, in order for
 cross-signing to work.
 
-If we have the opportunity to change the Intermediate CNs in future, we can make them consistent by
-renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
+If we have the opportunity to change the Intermediate CNs in the future, we can make them consistent
+by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
 
 ### Certificate Details
 
@@ -640,8 +646,4 @@ the original DataONETestIntCA, but it is signed by the new sha256-based DataONET
   cd /var/ca
   cat DataONETestCA/certs/DataONETestCA.pem \
     DataONETestIntCA/certs/DataONETestIntCA.pem > DataONETestCAChain.crt
-
-
-.. _OpenSSL: https://www.openssl.org/
-.. _XMLStarlet: http://xmlstar.sourceforge.net/
 ```
