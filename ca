@@ -18,8 +18,8 @@ crlUpdateDate=""
 OPENSSL="/usr/bin/openssl"
 MD="sha256"
 
-PROD_CA_DIR="DataONEProdCA"
-TEST_CA_DIR="DataONETestCA"
+PROD_CA_DIR="DataONEProdIntCA"
+TEST_CA_DIR="DataONETestIntCA"
 
 PROD_CA_CHAIN="DataONEProdCAChain256.crt"
 TEST_CA_CHAIN="DataONETestCAChain256.crt"
