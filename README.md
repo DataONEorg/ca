@@ -473,7 +473,7 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   3 years
 ```
 
-### Creating the Root CA
+### Creating the Production Root CA
 
 ```shell
   mkdir /var/ca
@@ -493,7 +493,7 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdRootCA_CRL.pem
 ```
 
-### Creating the Production CA
+### Creating the Production Intermediate CA
 
 ```shell
   cd ..
@@ -511,7 +511,6 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
 ```
 
 ### Creating the Certificate Chain File
-
 
 ```shell
   cd ..
@@ -570,11 +569,11 @@ Where `NODEID` is the node identifier.
   touch index.txt
   # Edit the openssl.cnf config file if needed; e.g. check the 'dir' entry in [ CA_default ].
   
-  openssl req -new -newkey rsa:4096 -keyout /Volumes/DATAONE/DataONETest256CA.key \
+  openssl req -new -newkey rsa:4096 -keyout /Volumes/DATAONE/DataONETestRootCA.key \
     -out req/DataONETestRootCA.csr -config ./openssl.cnf
   
   openssl ca -create_serial -out certs/DataONETestRootCA.pem -days 36500 \
-    -keyfile /Volumes/DATAONE/DataONETest256CA.key -selfsign -config ./openssl.cnf \
+    -keyfile /Volumes/DATAONE/DataONETestRootCA.key -selfsign -config ./openssl.cnf \
     -extensions v3_ca -infiles req/DataONETestRootCA.csr
   
   cp serial crlnumber
@@ -610,7 +609,7 @@ the original DataONETestIntCA, but it is signed by the new sha256-based DataONET
   cd ../DataONETestRootCA
   
   openssl ca -out ../DataONETestIntCA/certs/DataONETestIntCA.pem -days 36500 \
-    -keyfile /Volumes/DATAONE/DataONETest256CA.key -config ./openssl.cnf \
+    -keyfile /Volumes/DATAONE/DataONETestRootCA -config ./openssl.cnf \
     -extensions v3_ca  -verbose -infiles ../DataONETestIntCA/req/DataONETestIntCA.csr
   # Create DataONETestIntCA/serial with serial number of the DataONETestIntCA.pem + something
 ```
