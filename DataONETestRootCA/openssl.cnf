@@ -50,7 +50,7 @@ certificate = $certs/DataONETestRootCA.pem   # The CA certificate
 serial      = $dir/serial               # The current serial number
 crlnumber   = $dir/crlnumber            # the current crl number
 crl         = $crl_dir/DataONETestRootCA_crl.pem     # The current CRL
-private_key = $sec_key/DataONETest256CA.key         # The private key
+private_key = $sec_key/DataONETestRootCA.key         # The private key
 RANDFILE    = $dir/private/.rand        # private random number file
 
 x509_extensions = usr_cert              # The extensions to add to the cert
