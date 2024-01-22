@@ -402,7 +402,9 @@ OpenSSL was used to create the various CA files and operate the CA. The
 following sections are a synopsis of how all the CAs were created and how
 various CA functions can be run using OpenSSL alone.  The `ca` shell script
 automates most of these functions, so their inclusion here is mainly as a
-reference and not intended for typical usage. (For more information on OpenSSL, see [openssl.org](https://www.openssl.org))
+reference and not intended for typical usage.
+
+For more information on OpenSSL, see [openssl.org](https://www.openssl.org). For more detail on the configuration files (`openssl.cnf` or `openssl.tmpl`), see [the openssl documentation](https://www.openssl.org/docs/man1.1.1/man5/config.html) or [this Openssl.conf walkthrough](https://www.phildev.net/ssl/opensslconf.html)
 
 
 ### SHA-256 Updates, Cross-Signing, and Naming Scheme
@@ -461,13 +463,13 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   DC=org, DC=dataone, CN=urn:node:SOMENODE
 ```
 
-#### CA Certificate validity:
+#### CA Certificate validity
 
 ```shell
   100 years
 ```
 
-#### Node Certificate validity:
+#### Node Certificate validity
 
 ```shell
   3 years
@@ -485,9 +487,15 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   # Edit the openssl.cnf config file
   openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONERootCA.key \
     -out req/DataONEProdRootCA.csr -config ./openssl.cnf
+
+  # You will be prompted for:
+  # 1. a passphrase to set for the new key, and
+  # 2. the Common Name (CN) to set
+
   openssl ca -create_serial -out certs/DataONEProdRootCA.pem -days 36500 \
     -keyfile /Volumes/DataONE/DataONERootCA.key -selfsign -config ./openssl.cnf \
     -extensions v3_ca -infiles req/DataONEProdRootCA.csr
+
   cp serial crlnumber
   # Edit crlnumber to be a different hex number
   openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdRootCA_CRL.pem
@@ -501,19 +509,44 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   cd DataONEProdIntCA
   mkdir certs crl newcerts private req
   touch index.txt
+
+   ###
+  # This is how we did it originally:
+  # ### OMIT FOR CROSS SIGNING ###
   #  Edit openssl.cnf
-  openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONEProdCA.key \
+      # openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONEProdCA.key \
+      #   -out req/DataONEProdIntCA.csr -config ../DataONEProdRootCA/openssl.cnf
+
+      # # You will be prompted for:
+      # # 1. the Common Name (CN) to set, and
+      # # 2. a passphrase to set for the new key
+  # ### END OMIT FOR CROSS SIGNING ###
+  #
+  # However, for cross-signing, we should NOT generate a new key (" -newkey "),
+  # but instead re-use the original intermediate key...
+  ###
+  openssl req -new -key /Volumes/DataONE/DataONEProdCA.key \
     -out req/DataONEProdIntCA.csr -config ../DataONEProdRootCA/openssl.cnf
+
+  # You will be prompted for:
+  # 1. the passphrase for the existing (prod intermediate) key, and
+  # 2. the Common Name (CN) to set (NOTE for cross-signing, this MUST match the CN used in the old
+  #    intermediate cert!)
+
   cd ../DataONEProdRootCA
+
   openssl ca -out ../DataONEProdIntCA/certs/DataONEProdIntCA.pem -days 36500 \
     -keyfile /Volumes/DataONE/DataONERootCA.key -config ./openssl.cnf \
     -extensions v3_ca -infiles ../DataONEProdIntCA/req/DataONEProdIntCA.csr
+
+  # You will be prompted for the passphrase for the existing (prod root) key
 ```
 
 ### Creating the Certificate Chain File
 
 ```shell
   cd ..
+
   cat DataONEProdRootCA/certs/DataONEProdRootCA.pem \
     DataONEProdIntCA/certs/DataONEProdIntCA.pem > DataONECAChain.crt
 ```
@@ -523,12 +556,23 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
 
 ```shell
   cd DataONEProdIntCA
+
   openssl genrsa -passout pass:temp -des3 -out private/NodeNPass.key 2048
+
   openssl rsa -passin pass:temp -in private/NodeNPass.key -out private/NodeN.key
+
   rm private/NodeNPass.key
+
   openssl req -config ./openssl.cnf -new -key private/NodeNPass.key -out req/NodeN.csr
+
+  # You will be prompted for:
+  # 1. the Common Name (CN) to set, and
+  # 2. a passphrase to set for the new key
+
   openssl ca -config ./openssl.cnf  -create_serial -days 1095 \
     -out certs/NodeN.pem -infiles req/NodeN.csr
+
+  # You will be prompted for the key passphrase
 ```
 
 ### Signing a CSR
@@ -568,18 +612,26 @@ Where `NODEID` is the node identifier.
   mkdir certs crl newcerts private req
   touch index.txt
   # Edit the openssl.cnf config file if needed; e.g. check the 'dir' entry in [ CA_default ].
-  
+
   openssl req -new -newkey rsa:4096 -keyout /Volumes/DATAONE/DataONETestRootCA.key \
     -out req/DataONETestRootCA.csr -config ./openssl.cnf
-  
+
+  # You will be prompted for:
+  # 1. a passphrase to set for the new key, and
+  # 2. the Common Name (CN) to set
+
   openssl ca -create_serial -out certs/DataONETestRootCA.pem -days 36500 \
     -keyfile /Volumes/DATAONE/DataONETestRootCA.key -selfsign -config ./openssl.cnf \
     -extensions v3_ca -infiles req/DataONETestRootCA.csr
-  
+
+  # You will be asked for the key passphrase
+
   cp serial crlnumber
   # Edit crlnumber to be a different hex number if needed, but fine to keep the series
-  
+
   openssl ca -config ./openssl.cnf -gencrl -out crl/DataONETestRootCA_CRL.pem
+
+  # You will be asked for the key passphrase
 ```
 
 ### Creating the Test Intermediate CA
@@ -593,24 +645,39 @@ the original DataONETestIntCA, but it is signed by the new sha256-based DataONET
   cd DataONETestIntCA
   mkdir certs crl newcerts private req
   touch index.txt
-  
+
   # No need to edit the config file; uses the one from the root CA
-  
+
   ###
-  # This is how we did it originally. However, for cross-signing, we should NOT generate
-  # a new key (" -newkey "), but instead re-use the old one...
+  # This is how we did it originally:
+  # ### OMIT FOR CROSS SIGNING ###
+  #   openssl req -new -newkey rsa:4096  -keyout /opt/DataONE/DataONETestIntCA.key \
+  #   -out req/DataONETestIntCA.csr -config ../DataONETestCA/openssl.cnf
   #
-  # openssl req -new -newkey rsa:4096  -keyout /opt/DataONE/DataONETestIntCA.key \
-  # -out req/DataONETestIntCA.csr -config ../DataONETestCA/openssl.cnf
-  ###  
+  #   # You will be prompted for:
+  #   # 1. the Common Name (CN) to set, and
+  #   # 2. a passphrase to set for the new key
+  # ### END OMIT FOR CROSS SIGNING ###
+  #
+  # However, for cross-signing, we should NOT generate a new key (" -newkey "),
+  # but instead re-use the original intermediate key...
+  ###
   openssl req -new -key /Volumes/DATAONE/DataONETestIntCA.key \
     -out req/DataONETestIntCA.csr -config ../DataONETestRootCA/openssl.cnf
-    
+
+  # You will be prompted for:
+  # 1. the passphrase for the existing (test intermediate) key, and
+  # 2. the Common Name (CN) to set (NOTE for cross-signing, this MUST match the CN used in the old
+  #    intermediate cert!)
+
   cd ../DataONETestRootCA
-  
+
   openssl ca -out ../DataONETestIntCA/certs/DataONETestIntCA.pem -days 36500 \
-    -keyfile /Volumes/DATAONE/DataONETestRootCA -config ./openssl.cnf \
+    -keyfile /Volumes/DATAONE/DataONETestRootCA.key -config ./openssl.cnf \
     -extensions v3_ca  -verbose -infiles ../DataONETestIntCA/req/DataONETestIntCA.csr
+
+  # You will be prompted for the passphrase for the existing (test root) key
+
   # Create DataONETestIntCA/serial with serial number of the DataONETestIntCA.pem + something
 ```
 
