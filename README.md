@@ -485,7 +485,7 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   mkdir certs crl newcerts private req
   touch index.txt
   # Edit the openssl.cnf config file
-  openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONERootCA.key \
+  openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONEProdRootCA.key \
     -out req/DataONEProdRootCA.csr -config ./openssl.cnf
 
   # You will be prompted for:
@@ -493,7 +493,7 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   # 2. the Common Name (CN) to set
 
   openssl ca -create_serial -out certs/DataONEProdRootCA.pem -days 36500 \
-    -keyfile /Volumes/DataONE/DataONERootCA.key -selfsign -config ./openssl.cnf \
+    -keyfile /Volumes/DataONE/DataONEProdRootCA.key -selfsign -config ./openssl.cnf \
     -extensions v3_ca -infiles req/DataONEProdRootCA.csr
 
   cp serial crlnumber
@@ -525,7 +525,7 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   # However, for cross-signing, we should NOT generate a new key (" -newkey "),
   # but instead re-use the original intermediate key...
   ###
-  openssl req -new -key /Volumes/DataONE/DataONEProdCA.key \
+  openssl req -new -key /Volumes/DataONE/SHA-1_ARCHIVE/DataONEProdCA.key \
     -out req/DataONEProdIntCA.csr -config ../DataONEProdRootCA/openssl.cnf
 
   # You will be prompted for:
@@ -536,7 +536,7 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   cd ../DataONEProdRootCA
 
   openssl ca -out ../DataONEProdIntCA/certs/DataONEProdIntCA.pem -days 36500 \
-    -keyfile /Volumes/DataONE/DataONERootCA.key -config ./openssl.cnf \
+    -keyfile /Volumes/DataONE/DataONEProdRootCA.key -config ./openssl.cnf \
     -extensions v3_ca -infiles ../DataONEProdIntCA/req/DataONEProdIntCA.csr
 
   # You will be prompted for the passphrase for the existing (prod root) key
@@ -662,7 +662,7 @@ the original DataONETestIntCA, but it is signed by the new sha256-based DataONET
   # However, for cross-signing, we should NOT generate a new key (" -newkey "),
   # but instead re-use the original intermediate key...
   ###
-  openssl req -new -key /Volumes/DATAONE/DataONETestIntCA.key \
+  openssl req -new -key /Volumes/DATAONE/SHA-1_ARCHIVE/DataONETestIntCA.key \
     -out req/DataONETestIntCA.csr -config ../DataONETestRootCA/openssl.cnf
 
   # You will be prompted for:
