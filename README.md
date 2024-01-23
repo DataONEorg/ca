@@ -563,11 +563,11 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
 
   rm private/NodeNPass.key
 
+  # NOTE: It's best to use the ca script to do this, because there isn't 
+  # an openssl.cnf file in this directory - only a template
   openssl req -config ./openssl.cnf -new -key private/NodeNPass.key -out req/NodeN.csr
 
-  # You will be prompted for:
-  # 1. the Common Name (CN) to set, and
-  # 2. a passphrase to set for the new key
+  # You will be prompted for the Common Name (CN) to set
 
   openssl ca -config ./openssl.cnf  -create_serial -days 1095 \
     -out certs/NodeN.pem -infiles req/NodeN.csr
