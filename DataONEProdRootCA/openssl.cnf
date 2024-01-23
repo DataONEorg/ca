@@ -1,5 +1,5 @@
 #
-# ### DataONETestRootCA OpenSSL configuration file. ###
+# ### DataONEProdRootCA OpenSSL configuration file. ###
 #
 
 # This definition stops the following lines choking if HOME isn't
@@ -32,7 +32,7 @@ tsa_policy3 = 1.2.3.4.5.7
 
 ####################################################################
 [ ca ]
-default_ca  = CA_default                # The default ca section
+default_ca  = CA_default        # The default ca section
 
 ####################################################################
 [ CA_default ]
@@ -44,19 +44,19 @@ crl_dir     = $dir/crl                  # Where the issued crl are kept
 database    = $dir/index.txt            # database index file.
 new_certs_dir = $dir/newcerts           # default place for new certs.
 
-certificate = $certs/DataONETestRootCA.pem   # The CA certificate
+certificate = $certs/DataONEProdRootCA.pem   # The CA certificate
 serial      = $dir/serial               # The current serial number
 crlnumber   = $dir/crlnumber            # the current crl number
-crl         = $crl_dir/DataONETestRootCA_crl.pem     # The current CRL
-private_key = $sec_key/DataONETestRootCA.key         # The private key
+crl         = $crl_dir/DataONEProdRootCA_crl.pem        # The current CRL
+private_key = $sec_key/DataONEProdRootCA.key            # The private key
 RANDFILE    = $dir/private/.rand        # private random number file
 
 x509_extensions = usr_cert              # The extensions to add to the cert
 
 # Comment out the following two lines for the "traditional"
 # (and highly broken) format.
-name_opt     = ca_default               # Subject Name options
-cert_opt     = ca_default               # Certificate field options
+name_opt     = ca_default        # Subject Name options
+cert_opt     = ca_default        # Certificate field options
 
 # Extension copying option: use with caution.
 # copy_extensions = copy
@@ -114,14 +114,14 @@ string_mask = utf8only
 
 [ req_distinguished_name ]
 
-0.DC                    = Domain Component
-0.DC_default            = org
+0.DC                            = Domain Component
+0.DC_default                    = org
 
-1.DC                    = Domain Component
-1.DC_default            = dataone
+1.DC                            = Domain Component
+1.DC_default                    = dataone
 
-commonName              = Common Name (eg, Node ID)
-commonName_max          = 64
+commonName                      = Common Name (eg, Node ID)
+commonName_max                  = 64
 
 [ req_attributes ]
 
@@ -151,6 +151,7 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 [ v3_ca ]
 # Extensions for a typical CA
 
+
 # PKIX recommendation.
 
 subjectKeyIdentifier=hash
@@ -164,7 +165,7 @@ authorityKeyIdentifier=keyid:always,issuer
 basicConstraints = CA:true
 
 # CRL Distribution Points
-crlDistributionPoints=URI:http://releases.dataone.org/crl/DataONETestRootCA_CRL.pem,URI:http://cn-ucsb-1.dataone.org/crl/DataONETestRootCA_CRL.pem,URI:http://cn-orc-1.dataone.org/crl/DataONETestRootCA_CRL.pem
+crlDistributionPoints=URI:http://cn-ucsb-1.dataone.org/crl/DataONEProdRootCA_CRL.pem,URI:http://cn-orc-1.dataone.org/crl/DataONEProdRootCA_CRL.pem
 
 [ crl_ext ]
 
@@ -209,8 +210,8 @@ signer_key              = $dir/private/tsakey.pem # The TSA private key (optiona
 default_policy          = tsa_policy1           # Policy if request did not specify it (optional)
 other_policies          = tsa_policy2, tsa_policy3 # acceptable policies (optional)
 digests                 = sha256                # Acceptable message digests (mandatory)
-accuracy                = secs:1, millisecs:500, microsecs:100 # (optional)
-clock_precision_digits  = 0                     # number of digits after dot. (optional)
+accuracy                = secs:1, millisecs:500, microsecs:100    # (optional)
+clock_precision_digits  = 0    # number of digits after dot. (optional)
 ordering                = yes  # Is ordering defined for timestamps? (optional, default: no)
 tsa_name                = yes  # Must the TSA name be included in the reply? (optional, default: no)
 ess_cert_id_chain       = no   # Must the ESS cert id chain be included? (optional, default: no)
