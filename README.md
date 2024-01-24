@@ -137,15 +137,15 @@ and so on.
 
 ## Use
 
-Three shell scripts are included to assist with certificate management:
+Four shell scripts are included to assist with certificate management:
 
 `ca`: This is the main script for creating and revoking certificates.
 
 `cert_status`: This script reports the status for a single certificate or all certificates
 in an environment.
 
-`publish_cert`: Provides a convenient mechanism for packaging a certificate and key and
-placing them in a secure location for download by an authenticated user.
+`publish_cert` and `publish_cert_orcid`: Provide a convenient mechanism for packaging a certificate
+and key, and placing them in a secure location for download by an authenticated user.
 
 The `publish_crl` script (for publishing the certificate revocation list to the CRL servers) has
 been move to the `SHA-1_ARCHIVE` directory. In practice no clients rely on the CRL -- see
@@ -304,30 +304,36 @@ using the respective GitHub URL:
   ./ca cert_status -P -L
 ```
 
-### `publish_cert`
+### `publish_cert` and `publish_cert_orcid`
 
-The script `publish_cert` provides a convenience mechanism to package a
-certificate, its key, and the CSR used to generate the certificate into a .zip
-file and upload it to the distribution server (currently
-https://project.dataone.org/).
+The scripts `publish_cert` and `publish_cert_orcid` each provide a convenient mechanism to
+package a certificate, its key, and the CSR used to generate the certificate into a .zip
+file and upload it to the distribution server (currently https://project.dataone.org/).
 
-The script accepts two arguments, the LDAP uid of the user that will retrieve
-the package and the path to the certificate. The certificate is expected to be
-located in the `certs` folder of the respective CA.
+The script accepts two arguments:
+1. the ID of the user who will retrieve the package. this will be:
+   * the user's LDAP uid, when using `publish_cert`, or
+   * the user's ORCID, when using `publish_cert_orcid` (but only the numerical part; see below).
+2. the path to the certificate. The certificate is expected to be located in the `certs`
+   folder of the respective CA.
 
 > **Note** -- The resulting file names have the ":" character replaced with "_".
 
 The script uses ssh to connect to the distribution host, create a target
 folder if necessary, and upload the package .zip file. As such, it is
 necessary for the user running the script to have SSH access to the
-distribution host and write access to the destination folder
-(`/var/www/users`).
+distribution host and write access to the destination folder (`/var/www/users`).
 
 **Example** Share a certificate and key for user vieglais:
 
 ```shell
+  # For LDAP:
   ./ca publish_cert vieglais DataONETestIntCA/certs/urn:node:ATestCert.pem
+  
+  # or for ORCID:
+  ./ca publish_cert 0000-0002-6513-4996 DataONETestIntCA/certs/urn:node:ATestCert.pem
 ```
+> **Note** -- Only the numerical part of the ORCID should be used, as shown in the example above!
 
 The resulting package would be downloadable from:
 

@@ -46,7 +46,7 @@ ${APPNAME} version ${VERSION}
 
 usage: ${APPNAME} OPTIONS USER CERTIFICATE
 
-Create a .zip file containing a certificate and it\'s key and scp it
+Create a .zip file containing a certificate and its key and scp it
 to a protected location where it can be retrieved by the specified user.
 
 OPTIONS:
