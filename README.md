@@ -33,7 +33,7 @@ intermediate CA.
 ## Key Security
 
 New certificates created using the CA have two components: the certificate and
-the key. The certificate can be publicly exposed, and should be added to svn
+the key. The certificate can be publicly exposed, and should be added to GitHub
 and checked in. The key MUST be kept private. A compromised key must be
 revoked and a replacement issued.
 
@@ -61,7 +61,7 @@ though should work without modification on Linux. Dependencies are:
 
 Installing the DataONE CA involves the following steps. In these instructions,
 it is assumed that the CA software is being installed in
-${HOME}/Projects/DataONE/tools, identified by ${CA_HOME} in the examples.
+`${HOME}/Projects/DataONE/tools`, identified by `${CA_HOME}` in the examples.
 Adjust as appropriate for your system.
 
 1. The CA is distributed from GitHub. Checkout the tool to the desired
@@ -160,7 +160,7 @@ To install the DataONE certificate authority, simply:
 
 1) install openssl on your machine
 
-2) Check out a working copy of the CA from the DataONE SVN repository
+2) Check out a working copy of the CA from the DataONE GitHub repository
 
 3) Mount the private key encrypted volume under /Volumes/DataONE
 
@@ -196,7 +196,7 @@ Any of these commands can be made to work on the Test CA instead by switching
 `Prod` to `Test`.
 
 Once new CSRs, Certificates, and CRLs have been generated, they should be
-added to SVN and all modified files should be checked in to SVN so that others
+added to GitHub and all modified files should be checked in to GitHub so that others
 managing the  CA can access all the updated content. The only exception are
 the private keys that are generated, which should be given to the MN operator
 along with instructions on how to protect the private key. The private key
@@ -295,7 +295,7 @@ or:
 environment certificate expirations and the next update time for the  CRL.
 Output is to the file "Prod_events.ics" for the production  environment or
 "Test_events.ics" for the test environment. The  calendar can be subscribed to
-using the respective SVN URL:
+using the respective GitHub URL:
 
 ```shell
   ./ca cert_status -P -L
