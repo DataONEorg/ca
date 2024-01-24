@@ -137,17 +137,21 @@ and so on.
 
 ## Use
 
-Four shell scripts are included to assist with certificate management:
+Three shell scripts are included to assist with certificate management:
 
 `ca`: This is the main script for creating and revoking certificates.
 
 `cert_status`: This script reports the status for a single certificate or all certificates
 in an environment.
 
-`publish_crl`: Can be used to publish the certificate revocation list to the CRL servers.
-
 `publish_cert`: Provides a convenient mechanism for packaging a certificate and key and
 placing them in a secure location for download by an authenticated user.
+
+The `publish_crl` script (for publishing the certificate revocation list to the CRL servers) has
+been move to the `SHA-1_ARCHIVE` directory. In practice no clients rely on the CRL -- see
+[this blog post](https://scotthelme.co.uk/revocation-is-broken/) for more explanation. If you still
+need details of how to use the `publish_crl` script, see the
+[original README file](https://github.com/DataONEorg/ca/blob/8084ba68af07fda0ed926764a4dd1a5d479060e7/README.rst?plain=1#L293)
 
 
 ### `ca`
@@ -251,7 +255,7 @@ using the default locations for certificates and CRL:
 explicitly indicating which certificates and CRL to use:
 
 ```shell
-  ./cert_status -A -r DataONEProdIntCA/crl/DataONEProdIntCA_CRL.pem \
+  ./cert_status -A \
     -a DataONEProdIntCA/certs/DataONEProdIntCA.pem \
     -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \
     DataONEProdIntCA/certs/urn\:node\:GULFWATCH.pem
@@ -279,7 +283,6 @@ production certificates:
   ./cert_status -H > testcerts.csv; \
   for f in $(find DataONETestIntCA/certs -name *.pem); \
   do ./cert_status -A -s \
-   -r DataONEProdIntCA/crl/DataONEProdIntCA_CRL.pem \
    -a DataONEProdIntCA/certs/DataONEProdIntCA.pem \
    -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \
   $f >> prodcerts.csv; done
@@ -300,20 +303,6 @@ using the respective GitHub URL:
 ```shell
   ./ca cert_status -P -L
 ```
-
-
-### `publish_crl` (deprecated)
-
-The certificate revocation list (CRL) is a signed document that contains a
-list of certificates that have been revoked. In theory, the CRL should be published
-regularly, but in practice no clients rely on it being present, and it is essentially
-useless -- see [this blog post](https://scotthelme.co.uk/revocation-is-broken/) for
-more explanation.
-
-However, if you still want to learn how to use the `publish_crl` script, see
-the
-[original README file](https://github.com/DataONEorg/ca/blob/8084ba68af07fda0ed926764a4dd1a5d479060e7/README.rst?plain=1#L293)
-
 
 ### `publish_cert`
 
@@ -387,8 +376,8 @@ Production and Test, while ensuring:
 See [Appendix 2](#appendix-2-certificate-cross-signing) for a brief overview of how Cross Signing works
 
 At the same time, all the old SHA-1 contents of this repo were moved into the `SHA-1_ARCHIVE`
-subdirectory. A new, clearer and more-consistent naming convention was then adopted for the new
-directories and files, as follows:
+subdirectory (see [Appendix 3](#appendix-3-directory-structure)). A new, clearer and more-consistent
+naming convention was then adopted for the new directories and files, as follows:
 
 ```shell
                           PRODUCTION                         TEST
@@ -450,9 +439,10 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   cd /var/ca
   mkdir DataONEProdRootCA
   cd DataONEProdRootCA
-  mkdir certs crl newcerts private req
+  mkdir certs newcerts private req
   touch index.txt
-  # Edit the openssl.cnf config file
+  # Edit the openssl.cnf config file if needed; e.g. check the 'dir' entry in [ CA_default ].
+
   openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONEProdRootCA.key \
     -out req/DataONEProdRootCA.csr -config ./openssl.cnf
 
@@ -464,9 +454,7 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
     -keyfile /Volumes/DataONE/DataONEProdRootCA.key -selfsign -config ./openssl.cnf \
     -extensions v3_ca -infiles req/DataONEProdRootCA.csr
 
-  cp serial crlnumber
-  # Edit crlnumber to be a different hex number
-  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdRootCA_CRL.pem
+    # You will be prompted for the passphrase for the existing (prod root) key
 ```
 
 ### Creating the Production Intermediate CA
@@ -475,13 +463,13 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
   cd ..
   mkdir DataONEProdIntCA
   cd DataONEProdIntCA
-  mkdir certs crl newcerts private req
+  mkdir certs newcerts private req
   touch index.txt
+  # No need to edit the config file; uses the one from the root CA
 
    ###
   # This is how we did it originally:
   # ### OMIT FOR CROSS SIGNING ###
-  #  Edit openssl.cnf
       # openssl req -new -newkey rsa:4096 -keyout /Volumes/DataONE/DataONEProdCA.key \
       #   -out req/DataONEProdIntCA.csr -config ../DataONEProdRootCA/openssl.cnf
 
@@ -517,10 +505,26 @@ by renaming `"DataONE Production CA"` to `"DataONE Prod Intermediate CA"`.
 
   cat DataONEProdRootCA/certs/DataONEProdRootCA.pem \
     DataONEProdIntCA/certs/DataONEProdIntCA.pem > DataONECAChain.crt
+
+    # ...and similarly for Test certs
+```
+
+> NOTE - in addition to the DataONE Root and Intermediate CA certs, the Prod and Test CA chain
+> files currently (Jan 2024) also include the following 3 CILogon CA certs, for legacy reasons.
+> (these were copied across from the old SHA-1 cert chains):
+
+```shell
+    subject=DC = org, DC = cilogon, C = US, O = CILogon, CN = CILogon Basic CA 1
+    issuer=DC = org, DC = cilogon, C = US, O = CILogon, CN = CILogon Basic CA 1
+
+    subject=DC = org, DC = cilogon, C = US, O = CILogon, CN = CILogon OpenID CA 1
+    issuer=DC = org, DC = cilogon, C = US, O = CILogon, CN = CILogon OpenID CA 1
+
+    subject=DC = org, DC = cilogon, C = US, O = CILogon, CN = CILogon Silver CA 1
+    issuer=DC = org, DC = cilogon, C = US, O = CILogon, CN = CILogon Silver CA 1
 ```
 
 ### Creating and Signing Node Requests
-
 
 ```shell
   cd DataONEProdIntCA
@@ -567,7 +571,6 @@ Where `NODEID` is the node identifier.
 
 ```shell
   openssl ca -config ./openssl.cnf -revoke certs/NodeN.pem
-  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONEProdIntCA_CRL.pem
 ```
 
 ### Creating the Test Root CA
@@ -577,7 +580,7 @@ Where `NODEID` is the node identifier.
   cd /var/ca
   mkdir DataONETestRootCA
   cd DataONETestRootCA
-  mkdir certs crl newcerts private req
+  mkdir certs newcerts private req
   touch index.txt
   # Edit the openssl.cnf config file if needed; e.g. check the 'dir' entry in [ CA_default ].
 
@@ -593,13 +596,6 @@ Where `NODEID` is the node identifier.
     -extensions v3_ca -infiles req/DataONETestRootCA.csr
 
   # You will be asked for the key passphrase
-
-  cp serial crlnumber
-  # Edit crlnumber to be a different hex number if needed, but fine to keep the series
-
-  openssl ca -config ./openssl.cnf -gencrl -out crl/DataONETestRootCA_CRL.pem
-
-  # You will be asked for the key passphrase
 ```
 
 ### Creating the Test Intermediate CA
@@ -611,7 +607,7 @@ the original DataONETestIntCA, but it is signed by the new sha256-based DataONET
   cd /var/ca
   mkdir DataONETestIntCA
   cd DataONETestIntCA
-  mkdir certs crl newcerts private req
+  mkdir certs newcerts private req
   touch index.txt
 
   # No need to edit the config file; uses the one from the root CA
@@ -723,3 +719,18 @@ work with all the existing Node certificates and any new Node certs issued again
 
 (Final note; "Cross signing" is a misnomer. it implies that one intermediate certificate is signed
 by two different Root CAs. This is not the case, as can be seen above.)
+
+## Appendix 3: Directory Structure
+
+```
+── ca
+   ├── DataONEProdIntCA
+   ├── DataONEProdRootCA
+   ├── DataONETestIntCA
+   ├── DataONETestRootCA
+   └── SHA-1_ARCHIVE              ## SHA-1 content from old top-level ca directory moved here:
+       ├── DataONEProdCA          ## old SHA-1 Prod Intermediate CA
+       ├── DataONERootCA          ## old SHA-1 Prod Root CA
+       ├── DataONETestCA          ## old SHA-1 Test Root CA
+       └── DataONETestIntCA       ## old SHA-1 Test Intermediate CA
+```
