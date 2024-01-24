@@ -305,13 +305,14 @@ using the respective GitHub URL:
 ### `publish_crl` (deprecated)
 
 The certificate revocation list (CRL) is a signed document that contains a
-list of certificates that have been revoked. The CRL should be published regularly,
-but in practice no clients rely on it being present, and it is essentially useless.
-Scott Helm has [a great blog post](https://scotthelme.co.uk/revocation-is-broken/)
-on how broken CRLs are as a system.
+list of certificates that have been revoked. In theory, the CRL should be published
+regularly, but in practice no clients rely on it being present, and it is essentially
+useless -- see [this blog post](https://scotthelme.co.uk/revocation-is-broken/) for
+more explanation.
 
 However, if you still want to learn how to use the `publish_crl` script, see
-the [original README file](https://github.com/DataONEorg/ca/blob/8084ba68af07fda0ed926764a4dd1a5d479060e7/README.rst?plain=1#L293)
+the
+[original README file](https://github.com/DataONEorg/ca/blob/8084ba68af07fda0ed926764a4dd1a5d479060e7/README.rst?plain=1#L293)
 
 
 ### `publish_cert`
@@ -382,6 +383,8 @@ Production and Test, while ensuring:
 1. they had the same Subject/DN as the old intermediate certs, and
 2. they were signed with the original private keys that were used to sign the old intermediate
    certs.
+
+See [Appendix 2](#appendix-2-certificate-cross-signing) for a brief overview of how Cross Signing works
 
 At the same time, all the old SHA-1 contents of this repo were moved into the `SHA-1_ARCHIVE`
 subdirectory. A new, clearer and more-consistent naming convention was then adopted for the new
@@ -653,3 +656,70 @@ the original DataONETestIntCA, but it is signed by the new sha256-based DataONET
   cat DataONETestCA/certs/DataONETestCA.pem \
     DataONETestIntCA/certs/DataONETestIntCA.pem > DataONETestCAChain.crt
 ```
+
+## Appendix 2: Certificate Cross-Signing
+
+When we started issuing DataONE node certificates in 2012, we were using SHA-1-encrypted Root
+and Intermediate CA certs. Since then, SHA-1 has widely been recognized as insecure, and has been
+replaced with SHA-256. However, since it would be a huge task to re-issue all the node certificates
+currently in use, we need a way of upgrading our CA certs to SHA-256, whilst keeping them
+backwards-compatible with existing node certs. This can be done by a process known as Cross Signing.
+(For an excellent overview of how cross signing works, see
+[Scott Helme's blog](https://scotthelme.co.uk/cross-signing-alternate-trust-paths-how-they-work/)).
+
+Basically, here's what happens when a DataONE Node cert (or any cert, for that matter) is created:
+
+1. the subscriber's information (name, domain name, etc...) is used to fill out a "pre-certificate".
+2. The pre-cert is then run through a hash function (SHA-256 in this case), to obtain its digest.
+3. That digest is then encrypted with the DataONE private key (the one that was used to create the
+Intermediate CA cert).
+4. This encrypted digest is the "signature", and once it is appended to the end of the
+pre-cert, we now have a signed certificate that can be issued to the Subscriber.
+
+(It's interesting to note that this process does not require a root CA cert or an Intermediate CA
+cert; only the Intermediate's **private key** is needed).
+
+Later, when a DataONE Node cert is validated against the DataONE Intermediate CA cert (from the cert
+chain on the server), 2 things are checked:
+
+1. the signature on the bottom of the Node cert is decrypted using the Intermediate CA's public key.
+This tells us that if the CA's public key can decrypt it, the CA's private key must have encrypted
+it, so **authenticity** has been verified.
+
+2. the server then calculates its own hash of the Pre-Certificate to compare to the hash stored in
+the signature and determine if they are identical. If they match, the certificate has not been
+tampered with, so **Integrity** has been verified.
+
+Now we know we can trust the contents of the Node cert, authentication can be completed by simply
+verifying that the "Issuer" field in the Node cert matches the "Subject" field in the Intermediate
+cert.
+
+So - in summary - only 2 pieces of information from the Intermediate certificate are used to
+authenticate the Node cert:
+
+1. the public key (used to decrypt the signature), and
+2. the Subject (used to verify the Issuer)
+
+Therefore, **it is possible to have two (or multiple) different versions of the Intermediate cert,**
+**provided they each contain the same public key and the same Subject!**
+
+This is why cross signing is possible.
+
+So - all we need to do, in order to create a cross-signed SHA-256 Intermediate is:
+
+1. Create a new SHA-256 self-signed Root CA cert
+2. For the Intermediate cert, first create a certificate signing request (CSR), ensuring 2 things:
+   1. The "Subject" exactly matches the one in the old SHA-1 Intermediate cert.
+   2. The CSR is signed by the ORIGINAL private key that was used to sign the old SHA-1 Intermediate
+      CSR.
+      * (The public key that will be included in the final cert is generated from this private key,
+        so if we use the same private key, the new public key in the new Intermediate cert should
+        match the old public key in the old Intermediate cert)
+3. Now create the new Intermediate cert from this CSR, signing it with the new Root CA Private Key
+   from step (1) above.
+
+Now we can replace the old sha-1 CA cert chain with this new SHA-256-based CA chain, and it will
+work with all the existing Node certificates and any new Node certs issued against the new CA.
+
+(Final note; "Cross signing" is a misnomer. it implies that one intermediate certificate is signed
+by two different Root CAs. This is not the case, as can be seen above.)
