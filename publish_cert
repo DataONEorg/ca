@@ -46,7 +46,7 @@ ${APPNAME} version ${VERSION}
 
 usage: ${APPNAME} OPTIONS USER CERTIFICATE
 
-Create a .zip file containing a certificate and it\'s key and scp it
+Create a .zip file containing a certificate and its key and scp it
 to a protected location where it can be retrieved by the specified user.
 
 OPTIONS:
@@ -188,7 +188,7 @@ Metadata About Certificate
 
 EOF
 
-		${APPDIR}/cert_status -A -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
+		${APPDIR}/cert_status -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
 	fi
 	local _ZIPFILE="${TMPDIR}/${_safename}.zip"
 	local CDIR=$(pwd)

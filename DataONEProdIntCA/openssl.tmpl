@@ -1,14 +1,14 @@
 #
-# ### DataONETestRootCA OpenSSL configuration file. ###
+# ### OpenSSL configuration file for Production Env Node Certificates ###
 #
 
 # This definition stops the following lines choking if HOME isn't
 # defined.
-HOME            = .
-RANDFILE        = $ENV::HOME/.rnd
+HOME                    = .
+RANDFILE                = $ENV::HOME/.rnd
 
 # Extra OBJECT IDENTIFIER info:
-oid_section        = new_oids
+oid_section             = new_oids
 
 # To use this configuration file with the "-extfile" option of the
 # "openssl x509" utility, name here the section containing the
@@ -32,7 +32,7 @@ tsa_policy3 = 1.2.3.4.5.7
 
 ####################################################################
 [ ca ]
-default_ca  = CA_default                # The default ca section
+default_ca    = CA_default        # The default ca section
 
 ####################################################################
 [ CA_default ]
@@ -42,21 +42,20 @@ dir         = .                         # Where everything is kept
 certs       = $dir/certs                # Where the issued certs are kept
 crl_dir     = $dir/crl                  # Where the issued crl are kept
 database    = $dir/index.txt            # database index file.
+unique_subject = no                     # Set to 'no' to allow creation of
+                                        # several certificates with same subject.
 new_certs_dir = $dir/newcerts           # default place for new certs.
 
-certificate = $certs/DataONETestRootCA.pem   # The CA certificate
+certificate = $certs/DataONEProdIntCA.pem   # The CA certificate
 serial      = $dir/serial               # The current serial number
 crlnumber   = $dir/crlnumber            # the current crl number
-crl         = $crl_dir/DataONETestRootCA_crl.pem     # The current CRL
-private_key = $sec_key/DataONETestRootCA.key         # The private key
+crl         = $crl_dir/DataONEProdIntCA_crl.pem         # The current CRL
+private_key = $sec_key/SHA-1_ARCHIVE/DataONEProdCA.key  # The private key
 RANDFILE    = $dir/private/.rand        # private random number file
 
-x509_extensions = usr_cert              # The extensions to add to the cert
-
-# Comment out the following two lines for the "traditional"
-# (and highly broken) format.
-name_opt     = ca_default               # Subject Name options
-cert_opt     = ca_default               # Certificate field options
+x509_extensions    = usr_cert           # The extensions to add to the cert
+name_opt    = ca_default                # Subject Name options
+cert_opt    = ca_default                # Certificate field options
 
 # Extension copying option: use with caution.
 # copy_extensions = copy
@@ -120,6 +119,7 @@ string_mask = utf8only
 
 commonName              = Common Name (eg, Node ID)
 commonName_max          = 64
+commonName_default      = NODEID
 
 [ req_attributes ]
 
@@ -133,11 +133,18 @@ commonName_max          = 64
 basicConstraints=CA:FALSE
 
 # This will be displayed in Netscape's comment listbox.
-nsComment            = "OpenSSL Generated Certificate"
+nsComment = "OpenSSL Generated Certificate"
 
 # PKIX recommendations harmless if included in all certificates.
 subjectKeyIdentifier=hash
 authorityKeyIdentifier=keyid,issuer
+
+# CRL Distribution Points
+crlDistributionPoints=URI:http://cn-ucsb-1.dataone.org/crl/DataONEProd_CRL.pem,URI:http://cn-orc-1.dataone.org/crl/DataONEProd_CRL.pem
+
+# This is a template for inclusion of subject_info, which will be put here by
+# SED if it is included in the request
+<SUBJECT_INFO>
 
 [ v3_req ]
 
@@ -147,7 +154,10 @@ basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 
 [ v3_ca ]
+
+
 # Extensions for a typical CA
+
 
 # PKIX recommendation.
 
@@ -161,14 +171,10 @@ authorityKeyIdentifier=keyid:always,issuer
 # So we do this instead.
 basicConstraints = CA:true
 
-# CRL Distribution Points
-crlDistributionPoints=URI:http://releases.dataone.org/crl/DataONETestRootCA_CRL.pem,URI:http://cn-ucsb-1.dataone.org/crl/DataONETestRootCA_CRL.pem,URI:http://cn-orc-1.dataone.org/crl/DataONETestRootCA_CRL.pem
-
 [ crl_ext ]
 
 # CRL extensions.
 # Only issuerAltName and authorityKeyIdentifier make any sense in a CRL.
-
 authorityKeyIdentifier=keyid:always
 
 [ proxy_cert_ext ]
@@ -202,11 +208,11 @@ serial                  = $dir/tsaserial        # The current serial number (man
 crypto_device           = builtin               # OpenSSL engine to use for signing
 signer_cert             = $dir/tsacert.pem      # The TSA signing certificate (optional)
 certs                   = $dir/cacert.pem       # Certificate chain to include in reply (optional)
-signer_key              = $dir/private/tsakey.pem # The TSA private key (optional)
+signer_key              = $dir/private/tsakey.pem   # The TSA private key (optional)
 default_policy          = tsa_policy1           # Policy if request did not specify it (optional)
-other_policies          = tsa_policy2, tsa_policy3 # acceptable policies (optional)
+other_policies          = tsa_policy2, tsa_policy3  # acceptable policies (optional)
 digests                 = sha256                # Acceptable message digests (mandatory)
-accuracy                = secs:1, millisecs:500, microsecs:100 # (optional)
+accuracy                = secs:1, millisecs:500, microsecs:100    # (optional)
 clock_precision_digits  = 0                     # number of digits after dot. (optional)
 ordering                = yes  # Is ordering defined for timestamps? (optional, default: no)
 tsa_name                = yes  # Must the TSA name be included in the reply? (optional, default: no)
