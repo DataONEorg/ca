@@ -187,9 +187,10 @@ Metadata About Certificate
 --------------------------
 
 EOF
-
-		${APPDIR}/cert_status -A -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
+echo "BEFORE /cert_status..."
+		${APPDIR}/cert_status -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
 	fi
+echo "AFTER /cert_status..."
 	local _ZIPFILE="${TMPDIR}/${_safename}.zip"
 	local CDIR=$(pwd)
 	cd ${TMPDIR}
