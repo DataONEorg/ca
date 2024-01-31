@@ -15,19 +15,19 @@ VERSION="1.3.0"
 APPNAME=$(basename ${0})
 APPDIR=$(pwd)
 
-PROD_FOLDER="${APPDIR}/DataONEProdCA"
-PROD_CAROOTCERT="${APPDIR}/DataONERootCA/certs/DataONERootCA.pem"
-PROD_CACERT="${PROD_FOLDER}/certs/DataONEProdCA.pem"
-PROD_CRL="${PROD_FOLDER}/crl/DataONEProdCA_CRL.pem"
+PROD_INT_FOLDER="${APPDIR}/DataONEProdIntCA"
+PROD_CAROOTCERT="${APPDIR}/DataONEProdRootCA/certs/DataONEProdRootCA.pem"
+PROD_CACERT="${PROD_INT_FOLDER}/certs/DataONEProdIntCA.pem"
+PROD_CRL="${PROD_INT_FOLDER}/crl/DataONEProdIntCA_CRL.pem"
 
-TEST_FOLDER="${APPDIR}/DataONETestIntCA"
-TEST_CAROOTCERT="${APPDIR}/DataONETestCA/certs/DataONETestCA.pem"
-TEST_CACERT="${TEST_FOLDER}/certs/DataONETestIntCA.pem"
-TEST_CRL="${TEST_FOLDER}/crl/DataONETestInt_CRL.pem"
+TEST_INT_FOLDER="${APPDIR}/DataONETestIntCA"
+TEST_CAROOTCERT="${APPDIR}/DataONETestRootCA/certs/DataONETestRootCA.pem"
+TEST_CACERT="${TEST_INT_FOLDER}/certs/DataONETestIntCA.pem"
+TEST_CRL="${TEST_INT_FOLDER}/crl/DataONETestInt_CRL.pem"
 
 #Default to use the TEST environment
 CERT_ENVIRONMENT="Test"
-CERT_FOLDER="${TEST_FOLDER}"
+CERT_FOLDER="${TEST_INT_FOLDER}"
 CAROOTCERT=${TEST_CAROOTCERT}
 CACERT=${TEST_CACERT}
 CRL=${TEST_CRL}
@@ -100,15 +100,15 @@ Example - Show status of a single certificate in test environment:
 Example - Show status of a single certificate in production environment, 
 using the default locations for certificates and CRL:
 
-  ./${APPNAME} -A -P DataONEProdCA/certs/urn\:node\:GULFWATCH.pem
+  ./${APPNAME} -A -P DataONEProdIntCA/certs/urn\:node\:GULFWATCH.pem
  
 Example - Show status of a single certificate in production environment, 
 explicitly indicating which certificates and CRL to use:
 
-  ./${APPNAME} -A -r DataONEProdCA/crl/DataONEProdCA_CRL.pem \\
-    -a DataONEProdCA/certs/DataONEProdCA.pem \\
-    -c DataONERootCA/certs/DataONERootCA.pem \\
-    DataONEProdCA/certs/urn\\:node\\:GULFWATCH.pem
+  ./${APPNAME} -A -r DataONEProdIntCA/crl/DataONEProdIntCA_CRL.pem \\
+    -a DataONEProdIntCA/certs/DataONEProdIntCA.pem \\
+    -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \\
+    DataONEProdIntCA/certs/urn\\:node\\:GULFWATCH.pem
 
 Example - Generate a pipe delimited text file reporting on all the 
 test certificates:
@@ -127,14 +127,14 @@ production certificates:
   ./${APPNAME} -H > testcerts.csv; \\
   for f in \$(find DataONETestIntCA/certs -name *.pem); \\
   do ./${APPNAME} -A -s \\
-   -r DataONEProdCA/crl/DataONEProdCA_CRL.pem \\
-   -a DataONEProdCA/certs/DataONEProdCA.pem \\
-   -c DataONERootCA/certs/DataONERootCA.pem \\
+   -r DataONEProdIntCA/crl/DataONEProdIntCA_CRL.pem \\
+   -a DataONEProdIntCA/certs/DataONEProdIntCA.pem \\
+   -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \\
   \$f >> prodcerts.csv; done
  
 OR:
 
-  ./${APPNAME} -s -A -P DataONEProdCA/certs
+  ./${APPNAME} -s -A -P DataONEProdIntCA/certs
 
 Example - Generate a calendar of events in .ics format for production 
 environment certificate expirations and the next update time for the 
@@ -416,7 +416,7 @@ do
 		A) getAuthor=1;;
     e) expire_within=$OPTARG;;
 		P) CERT_ENVIRONMENT="Prod";
-		   CERT_FOLDER="${PROD_FOLDER}";
+		   CERT_FOLDER="${PROD_INT_FOLDER}";
 		   CAROOTCERT="${PROD_CAROOTCERT}";
 		   CACERT="${PROD_CACERT}";
 		   CRL="${PROD_CRL}";;
@@ -453,7 +453,7 @@ else
 		# Report on *.pem in folder
 		_starter=""
 		showHeader
-		CERTIFICATES=$(find ${TARGET} -name "*.pem")
+		CERTIFICATES=$(find -L ${TARGET} -name "*.pem")
 		for CERTIFICATE in ${CERTIFICATES}; do
 			log "Certificate file: ${CERTIFICATE}"
 			getCertificateInfo

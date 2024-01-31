@@ -1,0 +1,258 @@
+R	150724032822Z	120727022410Z	DA3263A2A12D004A	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-ucsb-1
+R	150724033945Z	120727022335Z	DA3263A2A12D004B	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-orc-1
+R	150724034032Z	120727022403Z	DA3263A2A12D004C	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-unm-1
+V	150726002049Z		DA3263A2A12D004D	unknown	/dc=org/dc=dataone/dc=test/CN=urn:node:cnDevUCSB9
+V	150726003550Z		DA3263A2A12D004E	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-ucsb-9
+R	150727021524Z	120730204319Z	DA3263A2A12D004F	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-orc-1.test.dataone.org
+R	150727021548Z	120730204424Z	DA3263A2A12D0050	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-ucsb-1.test.dataone.org
+R	150727021558Z	120730204521Z	DA3263A2A12D0051	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-unm-1.test.dataone.org
+V	150727145732Z		DA3263A2A12D0052	unknown	/dc=org/dc=dataone/dc=test/CN=cn-dev-ucsb-9.test.dataone.org
+V	150727211604Z		DA3263A2A12D0053	unknown	/dc=org/dc=dataone/CN=cn-dev-unm-1.test.dataone.org
+V	150727212517Z		DA3263A2A12D0054	unknown	/dc=org/dc=dataone/CN=cn-dev-ucsb-1.test.dataone.org
+R	150727212534Z	140311173922Z	DA3263A2A12D0055	unknown	/dc=org/dc=dataone/CN=cn-dev-orc-1.test.dataone.org
+V	150730210829Z		DA3263A2A12D0056	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-1.test.dataone.org
+V	150730210849Z		DA3263A2A12D0057	unknown	/dc=org/dc=dataone/CN=cn-sandbox-orc-1.test.dataone.org
+V	150730210902Z		DA3263A2A12D0058	unknown	/dc=org/dc=dataone/CN=cn-sandbox-unm-1.test.dataone.org
+V	150730210925Z		DA3263A2A12D0059	unknown	/dc=org/dc=dataone/CN=cn-stage-ucsb-1.test.dataone.org
+V	150730210936Z		DA3263A2A12D005A	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-1.test.dataone.org
+V	150730210944Z		DA3263A2A12D005B	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-1.test.dataone.org
+V	150809193940Z		DA3263A2A12D005C	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo1
+V	150809194006Z		DA3263A2A12D005D	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo2
+V	150809194011Z		DA3263A2A12D005E	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo3
+V	150809194016Z		DA3263A2A12D005F	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo4
+V	150809194020Z		DA3263A2A12D0060	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo5
+V	150809194026Z		DA3263A2A12D0061	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo6
+V	150809194031Z		DA3263A2A12D0062	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo7
+V	150809194037Z		DA3263A2A12D0063	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo8
+V	150809194043Z		DA3263A2A12D0064	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo9
+V	150809194048Z		DA3263A2A12D0065	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo10
+V	150809194054Z		DA3263A2A12D0066	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo11
+V	150828205424Z		DA3263A2A12D0067	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNibbler
+V	150906204213Z		DA3263A2A12D0068	unknown	/dc=org/dc=dataone/CN=nibbler.nceas.ucsb.edu
+V	150912155221Z		DA3263A2A12D0069	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestONEShare
+V	151109205245Z		DA3263A2A12D006A	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestTFRI
+V	151109205459Z		DA3263A2A12D006B	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC2
+V	151112172917Z		DA3263A2A12D006C	unknown	/dc=org/dc=dataone/CN=metacat3.tfri.gov.tw
+V	151113232740Z		DA3263A2A12D006D	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUNM2
+V	151114025234Z		DA3263A2A12D006E	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-2.test.dataone.org
+V	151214045604Z		DA3263A2A12D006F	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUNM1
+V	160211221916Z		DA3263A2A12D0070	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-2.test.dataone.org
+V	160220155838Z		DA3263A2A12D0071	unknown	/dc=org/dc=dataone/CN=oneshare-test.unm.edu
+V	160220160556Z		DA3263A2A12D0072	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestDRYAD
+V	160325193410Z		DA3263A2A12D0073	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestSEAD
+V	160416155122Z		DA3263A2A12D0074	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestEDAC
+V	160529180529Z		DA3263A2A12D0075	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestPPBIO
+V	160529180543Z		DA3263A2A12D0076	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestPELD
+V	160829150320Z		DA3263A2A12D0077	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestUSANPN
+V	160829150453Z		DA3263A2A12D0078	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNKN
+V	160912134212Z		DA3263A2A12D0079	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKUBI
+V	161002223323Z		DA3263A2A12D007A	unknown	/dc=org/dc=dataone/CN=mynpn-dev.usanpn.org
+V	161103033005Z		DA3263A2A12D007B	unknown	/dc=org/dc=dataone/CN=data.gleonrcn.org
+R	150310012717Z	131116154652Z	DA3263A2A12D000F	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
+R	161115155930Z	140311174039Z	DA3263A2A12D007C	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
+V	170204164029Z		DA3263A2A12D007D	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGLEON
+V	170211171057Z		DA3263A2A12D007E	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestEDORA
+V	170211171119Z		DA3263A2A12D007F	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestRGD
+V	170310180521Z		DA3263A2A12D0080	unknown	/dc=org/dc=dataone/CN=cn-dev-orc-1.test.dataone.org
+V	170310180614Z		DA3263A2A12D0081	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
+V	170409153143Z		DA3263A2A12D0082	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestTERRAPOP
+R	170413235959Z	140502225212Z	DA3263A2A12D0083	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestSC
+V	170501225808Z		DA3263A2A12D0084	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestSC
+V	170630001620Z		DA3263A2A12D0085	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIOE
+V	170710161435Z		DA3263A2A12D0086	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNMEPSCOR
+R	170720210458Z	150210013617Z	DA3263A2A12D0087	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
+V	170804162006Z		DA3263A2A12D0088	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestLTER
+V	170811221058Z		DA3263A2A12D0089	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestMPC
+V	170901214848Z		DA3263A2A12D008A	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestDFC
+V	170916182700Z		DA3263A2A12D008B	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestDSPACE
+V	170918202035Z		DA3263A2A12D008C	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestUTK
+V	171005181313Z		DA3263A2A12D008D	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestMSTMIP
+V	171019213157Z		DA3263A2A12D008E	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestSAEON
+V	171024040738Z		DA3263A2A12D008F	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-2.test.dataone.org
+V	171024043753Z		DA3263A2A12D0090	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB2
+V	171112024941Z		DA3263A2A12D0091	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIARC
+V	171203161043Z		DA3263A2A12D0092	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestUSGS_SDC
+V	171217192304Z		DA3263A2A12D0093	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestFLYNN
+V	171222190438Z		DA3263A2A12D0094	unknown	/dc=org/dc=dataone/CN=flynn-gmn-1.test.dataone.org
+V	180209035424Z		DA3263A2A12D0095	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
+V	180305200548Z		DA3263A2A12D0096	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUCSB1
+V	180305211543Z		DA3263A2A12D0097	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
+R	180305213644Z	150319193630Z	DA3263A2A12D0098	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUNM1
+V	180317193147Z		DA3263A2A12D0099	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestAEKOS
+V	180318194448Z		DA3263A2A12D009A	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUNM1
+V	180319181641Z		DA3263A2A12D009B	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB1
+V	180319181654Z		DA3263A2A12D009C	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUNM1
+V	180319181706Z		DA3263A2A12D009D	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxORC1
+V	180405195849Z		DA3263A2A12D009E	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestOTS
+V	180415211827Z		DA3263A2A12D009F	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB1
+V	180415211847Z		DA3263A2A12D00A0	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB2
+V	180415211919Z		DA3263A2A12D00A1	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUNM1
+V	180429172042Z		DA3263A2A12D00A2	unknown	/dc=org/dc=dataone/CN=urn:node:tdar_test
+R	180430015757Z	150512205357Z	DA3263A2A12D00A3	unknown	/dc=org/dc=dataone/CN=testEQPerson2
+R	180430021056Z	150512205735Z	DA3263A2A12D00A4	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
+R	180430021232Z	150512205411Z	DA3263A2A12D00A5	unknown	/dc=org/dc=dataone/CN=testEQPerson3
+R	180430021735Z	150512205613Z	DA3263A2A12D00A6	unknown	/dc=org/dc=dataone/CN=testGroupie
+V	180430021941Z		DA3263A2A12D00A7	unknown	/dc=org/dc=dataone/CN=testRightsHolder
+R	180430022230Z	150512205748Z	DA3263A2A12D00A8	unknown	/dc=org/dc=dataone/CN=testPerson
+R	180430022446Z	150512205806Z	DA3263A2A12D00A9	unknown	/dc=org/dc=dataone/CN=testSubmitter
+R	180430022651Z	150512205037Z	DA3263A2A12D00AA	unknown	/dc=org/dc=dataone/CN=testEQPerson1
+V	180430024028Z		DA3263A2A12D00AB	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUNM1
+R	180511210127Z	150520180208Z	DA3263A2A12D00AC	unknown	/dc=org/dc=dataone/CN=testEQPerson1
+R	180511211148Z	150520181124Z	DA3263A2A12D00AD	unknown	/dc=org/dc=dataone/CN=testEQPerson2
+R	180511211501Z	150520181131Z	DA3263A2A12D00AE	unknown	/dc=org/dc=dataone/CN=testEQPerson3
+R	180511211725Z	150520181153Z	DA3263A2A12D00AF	unknown	/dc=org/dc=dataone/CN=testGroupie
+R	180511212106Z	150520181210Z	DA3263A2A12D00B0	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
+R	180511212418Z	150520181223Z	DA3263A2A12D00B1	unknown	/dc=org/dc=dataone/CN=testPerson
+R	180511212704Z	150520181238Z	DA3263A2A12D00B2	unknown	/dc=org/dc=dataone/CN=testRightsHolder
+R	180511212933Z	150520181250Z	DA3263A2A12D00B3	unknown	/dc=org/dc=dataone/CN=testSubmitter
+V	180513182642Z		DA3263A2A12D00B4	unknown	/dc=org/dc=dataone/CN=test.piscoweb.org
+V	180513183454Z		DA3263A2A12D00B5	unknown	/dc=org/dc=dataone/CN=urn:node:mnStagePISCO
+V	180514170346Z		DA3263A2A12D00B6	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB2
+V	180517172447Z		DA3263A2A12D00B7	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUCSB1
+V	180517192815Z		DA3263A2A12D00B8	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC1
+V	180519182117Z		DA3263A2A12D00B9	unknown	/dc=org/dc=dataone/CN=testEQPerson1
+V	180519182646Z		DA3263A2A12D00BA	unknown	/dc=org/dc=dataone/CN=testEQPerson2
+V	180519184143Z		DA3263A2A12D00BB	unknown	/dc=org/dc=dataone/CN=testEQPerson3
+V	180519184527Z		DA3263A2A12D00BC	unknown	/dc=org/dc=dataone/CN=testGroupie
+R	180519185027Z	150520222429Z	DA3263A2A12D00BD	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
+V	180519185322Z		DA3263A2A12D00BE	unknown	/dc=org/dc=dataone/CN=testPerson
+V	180519185722Z		DA3263A2A12D00BF	unknown	/dc=org/dc=dataone/CN=testRightsHolder
+V	180519185953Z		DA3263A2A12D00C0	unknown	/dc=org/dc=dataone/CN=testSubmitter
+V	180519222724Z		DA3263A2A12D00C1	unknown	/dc=org/dc=dataone/CN=testPerson
+V	180611183005Z		DA3263A2A12D00C2	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNRDC
+V	180716164414Z		DA3263A2A12D00C3	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUCSB2
+V	180716164440Z		DA3263A2A12D00C4	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUNM2
+V	180716164546Z		DA3263A2A12D00C5	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUCSB1
+V	180716164555Z		DA3263A2A12D00C6	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUCSB2
+V	180716164605Z		DA3263A2A12D00C7	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUNM1
+V	180716164610Z		DA3263A2A12D00C8	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUNM2
+V	180716194940Z		DA3263A2A12D00C9	unknown	/dc=org/dc=dataone/CN=cn-dev-ucsb-2.test.dataone.org
+V	180716194953Z		DA3263A2A12D00CA	unknown	/dc=org/dc=dataone/CN=cn-dev-unm-2.test.dataone.org
+V	180727191325Z		DA3263A2A12D00CB	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageCDL
+V	180917205410Z		DA3263A2A12D00CC	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestFLYNN2
+V	181012221257Z		DA3263A2A12D00CD	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-1.test.dataone.org
+V	181012221309Z		DA3263A2A12D00CE	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-1.test.dataone.org
+V	181012221320Z		DA3263A2A12D00CF	unknown	/dc=org/dc=dataone/CN=cn-stage-ucsb-1.test.dataone.org
+V	181102182957Z		DA3263A2A12D00D0	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestBCODMO
+V	181119222321Z		DA3263A2A12D00D1	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxORC1
+V	181121231533Z		DA3263A2A12D00D2	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageORC1
+V	181121233332Z		DA3263A2A12D00D3	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUNM1
+V	190125023934Z		DA3263A2A12D00D4	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNCEI
+V	190218180400Z		DA3263A2A12D00D5	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC2
+V	190218182124Z		DA3263A2A12D00D6	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-2.test.dataone.org
+V	190401191230Z		DA3263A2A12D00D7	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestR2R
+V	190425170503Z		DA3263A2A12D00D8	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGRIIDC
+V	190513005941Z		DA3263A2A12D00D9	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNEON
+V	190613151037Z		DA3263A2A12D00DA	unknown	/dc=org/dc=dataone/CN=oneshare-test.unm.edu
+R	190725214129Z	160725215712Z	DA3263A2A12D00DB	unknown	/dc=org/dc=dataone/CN=urn:node:mntestGMNv2
+V	190725220127Z		DA3263A2A12D00DC	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGMNv2
+V	190912213327Z		DA3263A2A12D00DD	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestARCTIC
+V	191003171749Z		DA3263A2A12D00DE	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestUIC
+V	191013183833Z		DA3263A2A12D00DF	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestCLOEBIRD
+V	191019015248Z		DA3263A2A12D00E0	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestRW
+V	200409180146Z		DA3263A2A12D00E1	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKITTY
+V	200914154926Z		DA3263A2A12D00E2	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestFEMC
+V	200920182258Z		DA3263A2A12D00E3	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestLTER
+V	201023163945Z		DA3263A2A12D00E4	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestESS_DIVE
+V	201206205454Z		DA3263A2A12D00E5	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB2
+V	210124024955Z		DA3263A2A12D00E6	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-2.test.dataone.org
+V	210125172425Z		DA3263A2A12D00E7	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestOTS
+V	210212185133Z		DA3263A2A12D00E8	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
+V	210312224937Z		DA3263A2A12D00E9	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestCARY
+V	210318225237Z		DA3263A2A12D00EA	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB1
+V	210318225801Z		DA3263A2A12D00EB	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxORC1
+V	210318225931Z		DA3263A2A12D00EC	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUNM1
+V	210409155600Z		DA3263A2A12D00ED	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUCSB1
+V	210409160017Z		DA3263A2A12D00EE	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUNM1
+V	210409160028Z		DA3263A2A12D00EF	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevORC1
+V	210415175933Z		DA3263A2A12D00F0	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB1
+V	210415180531Z		DA3263A2A12D00F1	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB2
+V	210418122654Z		DA3263A2A12D00F2	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestAEKOS
+V	210510215205Z		DA3263A2A12D00F3	unknown	/dc=org/dc=dataone/CN=urn:node:tdar_test
+V	210510215708Z		DA3263A2A12D00F4	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUNM1
+V	210513150855Z		DA3263A2A12D00F5	unknown	/dc=org/dc=dataone/CN=urn:node:mnStagePISCO
+V	210513164713Z		DA3263A2A12D00F6	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB2
+V	210513164952Z		DA3263A2A12D00F7	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUCSB1
+V	210513165220Z		DA3263A2A12D00F8	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC1
+V	210513165459Z		DA3263A2A12D00F9	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNRDC
+V	210614140359Z		DA3263A2A12D00FA	unknown	/dc=org/dc=dataone/CN=testEQPerson1
+V	210614152342Z		DA3263A2A12D00FB	unknown	/dc=org/dc=dataone/CN=testEQPerson2
+V	210614152829Z		DA3263A2A12D00FC	unknown	/dc=org/dc=dataone/CN=testEQPerson3
+V	210614153618Z		DA3263A2A12D00FD	unknown	/dc=org/dc=dataone/CN=testGroupie
+V	210614153724Z		DA3263A2A12D00FE	unknown	/dc=org/dc=dataone/CN=testPerson_InvalidVsSchema
+V	210614153745Z		DA3263A2A12D00FF	unknown	/dc=org/dc=dataone/CN=testPerson_Missing_EQ_IDs
+V	210614154356Z		DA3263A2A12D0100	unknown	/dc=org/dc=dataone/CN=testPerson_Missing_Self
+V	210614154402Z		DA3263A2A12D0101	unknown	/dc=org/dc=dataone/CN=testPerson
+V	210614154407Z		DA3263A2A12D0102	unknown	/dc=org/dc=dataone/CN=testRightsHolder
+V	210614154413Z		DA3263A2A12D0103	unknown	/dc=org/dc=dataone/CN=testSubmitter
+V	210615193535Z		DA3263A2A12D0104	unknown	/dc=org/dc=dataone/CN=testGroupie
+V	210615195046Z		DA3263A2A12D0105	unknown	/dc=org/dc=dataone/CN=testPerson_NoSubjectInfo
+V	210625191544Z		DA3263A2A12D0106	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA
+V	210626172808Z		DA3263A2A12D0107	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB2
+V	210626195143Z		DA3263A2A12D0108	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB3
+V	210626201529Z		DA3263A2A12D0109	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB4
+V	210710163935Z		DA3263A2A12D010A	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestCAS_CERN
+V	210812214317Z		DA3263A2A12D010B	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo6
+V	210816213323Z		DA3263A2A12D010C	unknown	/dc=org/dc=dataone/CN=cn-dev-ucsb-1.test.dataone.org
+V	210816213640Z		DA3263A2A12D010D	unknown	/dc=org/dc=dataone/CN=cn-dev-unm-1.test.dataone.org
+V	210816214118Z		DA3263A2A12D010E	unknown	/dc=org/dc=dataone/CN=cn-dev-orc-1.test.dataone.org
+V	210823221224Z		DA3263A2A12D010F	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo1
+V	210823221547Z		DA3263A2A12D0110	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo2
+V	210823222042Z		DA3263A2A12D0111	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo3
+V	210823222414Z		DA3263A2A12D0112	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo4
+V	210823222701Z		DA3263A2A12D0113	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo5
+V	210823223045Z		DA3263A2A12D0114	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo7
+V	210823223331Z		DA3263A2A12D0115	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo8
+V	210823223550Z		DA3263A2A12D0116	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo9
+V	210823223839Z		DA3263A2A12D0117	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo10
+V	210823224113Z		DA3263A2A12D0118	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo11
+V	210826184859Z		DA3263A2A12D0119	unknown	/dc=org/dc=dataone/CN=urn:node:D1USGS6
+V	211024182422Z		DA3263A2A12D011A	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-1.test.dataone.org
+V	211024182506Z		DA3263A2A12D011B	unknown	/dc=org/dc=dataone/CN=cn-sandbox-orc-1.test.dataone.org
+V	211024182543Z		DA3263A2A12D011C	unknown	/dc=org/dc=dataone/CN=cn-sandbox-unm-1.test.dataone.org
+V	211028134628Z		DA3263A2A12D011D	unknown	/dc=org/dc=dataone/CN=cn-stage-ucsb-1.test.dataone.org
+V	211028134725Z		DA3263A2A12D011E	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-1.test.dataone.org
+V	211028134910Z		DA3263A2A12D011F	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-1.test.dataone.org
+V	211107161818Z		DA3263A2A12D0120	unknown	/dc=org/dc=dataone/CN=cn-dev-unm-2.test.dataone.org
+V	211107163811Z		DA3263A2A12D0121	unknown	/dc=org/dc=dataone/CN=cn-dev-ucsb-2.test.dataone.org
+V	211107164624Z		DA3263A2A12D0122	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUNM2
+V	211107164643Z		DA3263A2A12D0123	unknown	/dc=org/dc=dataone/CN=urn:node:cnDevUCSB2
+V	211128174404Z		DA3263A2A12D0124	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA_EARTHCHEM
+V	211128174536Z		DA3263A2A12D0125	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA_USAP
+V	211128174612Z		DA3263A2A12D0126	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestIEDA_MGDL
+V	211216232944Z		DA3263A2A12D0127	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGMN1
+V	220130185545Z		DA3263A2A12D0128	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestNCEI
+V	220321130708Z		DA3263A2A12D0129	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUNM2
+V	220321130809Z		DA3263A2A12D012A	unknown	/dc=org/dc=dataone/CN=cn-stage-unm-2.test.dataone.org
+V	220325090350Z		DA3263A2A12D012B	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestGMNLocal
+V	220502201005Z		DA3263A2A12D012C	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUCSB1.pem
+V	220502201034Z		DA3263A2A12D012D	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUCSB2.pem
+V	220502202245Z		DA3263A2A12D012E	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUNM1.pem
+V	220502202601Z		DA3263A2A12D012F	unknown	/dc=org/dc=dataone/CN=urn:node:mnDevUNM2.pem
+V	220912154109Z		DA3263A2A12D0130	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestARCTIC
+V	221201231031Z		DA3263A2A12D0131	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestESS_DIVE
+V	221204164132Z		DA3263A2A12D0132	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestESS_DIVE
+V	230204211057Z		DA3263A2A12D0133	unknown	/dc=org/dc=dataone/CN=ess-dive-cdiac
+V	240125223915Z		DA3263A2A12D0134	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestESS_DIVE
+V	240225192411Z		DA3263A2A12D0135	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestKNB
+V	240330033905Z		DA3263A2A12D0136	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxUCSB1
+V	240330035233Z		DA3263A2A12D0137	unknown	/dc=org/dc=dataone/CN=urn:node:cnSandboxORC1
+V	240406174152Z		DA3263A2A12D0138	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestPNDB
+V	240506173315Z		DA3263A2A12D0139	unknown	/dc=org/dc=dataone/CN=urn:node:mn-sandbox-ucsb-1
+V	240506173454Z		DA3263A2A12D013A	unknown	/dc=org/dc=dataone/CN=urn:node:mn-sandbox-ucsb-2
+V	240506174100Z		DA3263A2A12D013B	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB1
+V	240506174221Z		DA3263A2A12D013C	unknown	/dc=org/dc=dataone/CN=urn:node:mnSandboxUCSB2
+V	240613105252Z		DA3263A2A12D013D	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageUCSB1
+V	240613105839Z		DA3263A2A12D013E	unknown	/dc=org/dc=dataone/CN=urn:node:cnStageORC1
+V	240712215413Z		DA3263A2A12D013F	unknown	/dc=org/dc=dataone/CN=urn:node:mnStageUCSB2
+V	250110022346Z		DA3263A2A12D0140	unknown	/dc=org/dc=dataone/CN=cn-stage-ucsb-1.test.dataone.org
+V	250110022521Z		DA3263A2A12D0141	unknown	/dc=org/dc=dataone/CN=cn-stage-orc-1.test.dataone.org
+V	250110022654Z		DA3263A2A12D0142	unknown	/dc=org/dc=dataone/CN=cn-sandbox-orc-1.test.dataone.org
+V	250110022752Z		DA3263A2A12D0143	unknown	/dc=org/dc=dataone/CN=cn-sandbox-ucsb-1.test.dataone.org
+V	250122015351Z		DA3263A2A12D0144	unknown	/dc=org/dc=dataone/CN=urn:node:mnDemo6
+V	250712152259Z		DA3263A2A12D0145	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestCERP_SFWMD
+V	250828133353Z		DA3263A2A12D0146	unknown	/dc=org/dc=dataone/CN=urn:node:CATEST
+V	251019150514Z		DA3263A2A12D0147	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestARCTIC
+V	260307020055Z		DA3263A2A12D0148	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestEDI
+V	260307020359Z		DA3263A2A12D0149	unknown	/dc=org/dc=dataone/CN=urn:node:mnTestLTER
+V	260808132901Z		DA3263A2A12D014A	unknown	/dc=org/dc=dataone/CN=urn:node:TestBROOKELT
