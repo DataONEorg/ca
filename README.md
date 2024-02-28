@@ -1,5 +1,8 @@
 # DataONE Certificate Authority
 
+**Also see the [DataONE Certificate Creation - Quick Reference Guide](./CertCreationQuickRef.md)**
+
+
 ## Current cert status:
 
 This spreadsheet is updated weekly by [a GitHub Action](https://github.com/DataONEorg/ca/blob/main/.github/workflows/check_cert_status.yml)
@@ -32,10 +35,15 @@ intermediate CA.
 
 ## Key Security
 
-New certificates created using the CA have two components: the certificate and
-the key. The certificate can be publicly exposed, and should be added to GitHub
-and checked in. The key MUST be kept private. A compromised key must be
-revoked and a replacement issued.
+New certificates created using the CA have two components: the **certificate** and
+the **private key**:
+* The certificate can be publicly exposed, and should be added to GitHub
+and checked in. 
+* Keys MUST be kept private. After the certificate and private key
+are provided to the Node administrator (see `publish_cert_orcid` in the
+["Use" section](#use), below), any local copies of the private key should be
+deleted. (We no longer keep copies of these Node keys, since a
+new cert and key can be generated easily if a key is lost or compromised.)
 
 The private keys needed to issue certs are contained in a binary sparsebundle file. Contact
 DataONE root system administrators for access.
@@ -43,9 +51,7 @@ DataONE root system administrators for access.
 > #### VERY IMPORTANT! Since merge commits are not possible with a binary file, ALWAYS...
 > 1) Pull the latest version of the sparsebundle before starting any changes.
 > 2) Inform other certificate admins on slack that you are working in the bundle.
-> 3) Copy new private keys to the sparsebundle, following the naming convention discussed in
-     Appendix 1, under [Node DN formats](#node-dn-formats).
-> 4) Push your sparsebundle changes **immediately**, and inform the other admins when you're done.
+> 3) Push your sparsebundle changes **immediately**, and inform the other admins when you're done.
 
 
 ## Requirements
