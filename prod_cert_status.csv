@@ -10,7 +10,7 @@ File,Serial,DN,Revoked,Validity,Expire_days,Expires,Created
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:DRYAD.pem",CF8745F5A16C6D3A,"subject=DC=org,DC=dataone,CN=urn:node:DRYAD",,,52,2024-04-20T23:31:46.000+00:00,2021-04-21T23:31:46.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:SFWMD.pem",CF8745F5A16C6D51,"subject=DC=org,DC=dataone,CN=urn:node:SFWMD",,,778,2026-04-17T17:35:53.000+00:00,2023-04-18T17:35:53.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:NMEPSCOR.pem",CF8745F5A16C6D3F,"subject=DC=org,DC=dataone,CN=urn:node:NMEPSCOR",,,52,2024-04-20T23:59:47.000+00:00,2021-04-21T23:59:47.000+00:00
-"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:ARCTIC-2.pem",CF8745F5A16C6D46,"subject=DC=org,DC=dataone,CN=urn:node:ARCTIC",,,368,2025-03-02T18:33:03.000+00:00,2022-03-03T18:33:03.000+00:00
+"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:ARCTIC-2.pem",CF8745F5A16C6D46,"subject=DC=org,DC=dataone,CN=urn:node:ARCTIC",,,367,2025-03-02T18:33:03.000+00:00,2022-03-03T18:33:03.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:SCTLD-1.pem",CF8745F5A16C6D4E,"subject=DC=org,DC=dataone,CN=urn:node:SCTLD",,,661,2025-12-21T00:16:51.000+00:00,2022-12-22T00:16:51.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:CN-6.pem",CF8745F5A16C6D54,"subject=DC=org,DC=dataone,CN=urn:node:CN",,,831,2026-06-08T20:23:30.000+00:00,2023-06-09T20:23:30.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:ESS_DIVE.pem",CF8745F5A16C6D35,"subject=DC=org,DC=dataone,CN=urn:node:ESS_DIVE",,,0,2024-02-28T16:19:06.000+00:00,2021-02-28T16:19:06.000+00:00
@@ -19,11 +19,11 @@ File,Serial,DN,Revoked,Validity,Expire_days,Expires,Created
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:PPBIO-1.pem",CF8745F5A16C6D49,"subject=DC=org,DC=dataone,CN=urn:node:PPBIO",,,425,2025-04-28T19:32:17.000+00:00,2022-04-29T19:32:17.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:PPBIO.pem",CF8745F5A16C6D3E,"subject=DC=org,DC=dataone,CN=urn:node:PPBIO",,,52,2024-04-20T23:55:27.000+00:00,2021-04-21T23:55:27.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:CA_OPC-1.pem",CF8745F5A16C6D4F,"subject=DC=org,DC=dataone,CN=urn:node:CA_OPC",,,684,2026-01-13T14:10:06.000+00:00,2023-01-14T14:10:06.000+00:00
-"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:mnUCSB1-3.pem",CF8745F5A16C6D44,"subject=DC=org,DC=dataone,CN=urn:node:mnUCSB1",,,332,2025-01-25T18:27:47.000+00:00,2022-01-26T18:27:47.000+00:00
+"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:mnUCSB1-3.pem",CF8745F5A16C6D44,"subject=DC=org,DC=dataone,CN=urn:node:mnUCSB1",,,331,2025-01-25T18:27:47.000+00:00,2022-01-26T18:27:47.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:US_MPC.pem",CF8745F5A16C6D40,"subject=DC=org,DC=dataone,CN=urn:node:US_MPC",,,52,2024-04-21T00:06:01.000+00:00,2021-04-22T00:06:01.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:KNB.pem",CF8745F5A16C6D37,"subject=DC=org,DC=dataone,CN=urn:node:KNB",,,52,2024-04-20T21:42:27.000+00:00,2021-04-21T21:42:27.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:CNUCSB1-3.pem",CF8745F5A16C6D52,"subject=DC=org,DC=dataone,CN=urn:node:CNUCSB1",,,785,2026-04-24T16:12:13.000+00:00,2023-04-25T16:12:13.000+00:00
-"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:RW-2.pem",CF8745F5A16C6D4D,"subject=DC=org,DC=dataone,CN=urn:node:RW",,,646,2025-12-05T18:49:45.000+00:00,2022-12-06T18:49:45.000+00:00
+"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:RW-2.pem",CF8745F5A16C6D4D,"subject=DC=org,DC=dataone,CN=urn:node:RW",,,645,2025-12-05T18:49:45.000+00:00,2022-12-06T18:49:45.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:CERP_SFWMD.pem",CF8745F5A16C6D4A,"subject=DC=org,DC=dataone,CN=urn:node:CERP_SFWMD",,,499,2025-07-12T15:15:40.000+00:00,2022-07-13T15:15:40.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:PNDB.pem",CF8745F5A16C6D36,"subject=DC=org,DC=dataone,CN=urn:node:PNDB",,,37,2024-04-06T17:42:39.000+00:00,2021-04-07T17:42:39.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:LTER.pem",CF8745F5A16C6D39,"subject=DC=org,DC=dataone,CN=urn:node:LTER",,,52,2024-04-20T23:29:17.000+00:00,2021-04-21T23:29:17.000+00:00
