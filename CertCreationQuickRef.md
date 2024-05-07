@@ -37,6 +37,8 @@
 
 7. `git add` new & changed files (`index*`, `serial*`, `certs/`, `newcerts/`, `req/`; **NOT `*.key`! Should have been deleted!**) and push your changes to this repo (`DataONE/ca`)
 
+8. Cleanup: add a calendar reminder for 1 month hence, to delete the cert zipfile from project.dataone.org (in directory ` /var/www/project/html/o/`)! Warn the client now, that it will be deleted then.
+
 
 ### FYI:
 
