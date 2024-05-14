@@ -10,7 +10,7 @@ jobs:
   cert-status:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Check Production Certs
         run: ./cert_status -s -P DataONEProdIntCA/certs 2> /dev/null 1> prod_cert_status.csv
 
