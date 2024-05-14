@@ -16,8 +16,8 @@ File,Serial,DN,Revoked,Validity,Expire_days,Expires,Created
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:FIGSHARE_CARY-1.pem",CF8745F5A16C6D4C,"subject=DC=org,DC=dataone,CN=urn:node:FIGSHARE_CARY",Not_Revoked,Valid,566,2025-12-01T19:33:52.000+00:00,2022-12-02T19:33:52.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:CNORC1-3.pem",CF8745F5A16C6D53,"subject=DC=org,DC=dataone,CN=urn:node:CNORC1",Not_Revoked,Valid,709,2026-04-24T16:14:03.000+00:00,2023-04-25T16:14:03.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:DRP-1.pem",CF8745F5A16C6D4B,"subject=DC=org,DC=dataone,CN=urn:node:DRP",Not_Revoked,Valid,439,2025-07-28T01:25:04.000+00:00,2022-07-29T01:25:04.000+00:00
-"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:ARCTIC-2.pem",CF8745F5A16C6D46,"subject=DC=org,DC=dataone,CN=urn:node:ARCTIC",Not_Revoked,Valid,292,2025-03-02T18:33:03.000+00:00,2022-03-03T18:33:03.000+00:00
-"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:RW-2.pem",CF8745F5A16C6D4D,"subject=DC=org,DC=dataone,CN=urn:node:RW",Not_Revoked,Valid,570,2025-12-05T18:49:45.000+00:00,2022-12-06T18:49:45.000+00:00
+"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:ARCTIC-2.pem",CF8745F5A16C6D46,"subject=DC=org,DC=dataone,CN=urn:node:ARCTIC",Not_Revoked,Valid,291,2025-03-02T18:33:03.000+00:00,2022-03-03T18:33:03.000+00:00
+"DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:RW-2.pem",CF8745F5A16C6D4D,"subject=DC=org,DC=dataone,CN=urn:node:RW",Not_Revoked,Valid,569,2025-12-05T18:49:45.000+00:00,2022-12-06T18:49:45.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/DataONEProdCA.pem",ACEE8CA3214DA198,"subject=DC=org,DC=dataone,CN=DataONEProductionCA",Not_Revoked,Valid,32049,2112-02-13T01:43:57.000+00:00,2012-03-08T01:43:57.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:FEMC-1.pem",CF8745F5A16C6D45,"subject=DC=org,DC=dataone,CN=urn:node:FEMC",Not_Revoked,Valid,275,2025-02-14T00:24:58.000+00:00,2022-02-15T00:24:58.000+00:00
 "DataONEProdIntCA/certs/pre_sha-256_ca/urn:node:CERP_SFWMD.pem",CF8745F5A16C6D4A,"subject=DC=org,DC=dataone,CN=urn:node:CERP_SFWMD",Not_Revoked,Valid,423,2025-07-12T15:15:40.000+00:00,2022-07-13T15:15:40.000+00:00
@@ -27,3 +27,5 @@ File,Serial,DN,Revoked,Validity,Expire_days,Expires,Created
 "DataONEProdIntCA/certs/urn:node:PISCO.pem",EA5D6CC8A591052E,"subject=DC=org,DC=dataone,CN=urn:node:PISCO",Not_Revoked,Valid,1094,2027-05-14T17:42:32.000+00:00,2024-05-14T17:42:32.000+00:00
 "DataONEProdIntCA/certs/urn:node:EDI.pem",EA5D6CC8A591052D,"subject=DC=org,DC=dataone,CN=urn:node:EDI",Not_Revoked,Valid,1080,2027-04-30T15:30:45.000+00:00,2024-04-30T15:30:45.000+00:00
 "DataONEProdIntCA/certs/urn:node:SI.pem",EA5D6CC8A591052B,"subject=DC=org,DC=dataone,CN=urn:node:SI",Not_Revoked,Valid,1075,2027-04-25T16:35:48.000+00:00,2024-04-25T16:35:48.000+00:00
+"DataONEProdIntCA/certs/urn:node:KNB.pem",EA5D6CC8A5910530,"subject=DC=org,DC=dataone,CN=urn:node:KNB",Not_Revoked,Valid,1094,2027-05-14T19:08:08.000+00:00,2024-05-14T19:08:08.000+00:00
+"DataONEProdIntCA/certs/urn:node:ESA.pem",EA5D6CC8A591052F,"subject=DC=org,DC=dataone,CN=urn:node:ESA",Not_Revoked,Valid,1094,2027-05-14T19:04:36.000+00:00,2024-05-14T19:04:36.000+00:00
