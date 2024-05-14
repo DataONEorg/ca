@@ -13,16 +13,17 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check Production Certs
         run: ./cert_status -s -P DataONEProdIntCA/certs 2> /dev/null 1> prod_cert_status.csv
-      - name: Update iCal Expirations
+      - name: Check Test Certs
+        run: ./cert_status -s -P DataONETestIntCA/certs 2> /dev/null 1> test_cert_status.csv
+      - name: Update iCal Prod Expirations
         run: ./cert_status -P -L DataONEProdIntCA/certs
+      - name: Update iCal Test Expirations
+        run: ./cert_status -L -a DataONETestIntCA/certs/DataONETestIntCA.pem -c DataONETestRootCA/certs/DataONETestRootCA.pem DataONETestIntCA/certs
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git branch --show-current
-          git status
-          ls -la
-          git commit -m "Update cert status info" prod_cert_status.csv Prod_events.ics
+          git commit -m "Update cert status info" prod_cert_status.csv Prod_events.ics Test_events.ics
         
       - name: Push changes
         uses: ad-m/github-push-action@master
