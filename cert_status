@@ -18,19 +18,16 @@ APPDIR=$(pwd)
 PROD_INT_FOLDER="${APPDIR}/DataONEProdIntCA"
 PROD_CAROOTCERT="${APPDIR}/DataONEProdRootCA/certs/DataONEProdRootCA.pem"
 PROD_CACERT="${PROD_INT_FOLDER}/certs/DataONEProdIntCA.pem"
-PROD_CRL="${PROD_INT_FOLDER}/crl/DataONEProdIntCA_CRL.pem"
 
 TEST_INT_FOLDER="${APPDIR}/DataONETestIntCA"
 TEST_CAROOTCERT="${APPDIR}/DataONETestRootCA/certs/DataONETestRootCA.pem"
 TEST_CACERT="${TEST_INT_FOLDER}/certs/DataONETestIntCA.pem"
-TEST_CRL="${TEST_INT_FOLDER}/crl/DataONETestInt_CRL.pem"
 
 #Default to use the TEST environment
 CERT_ENVIRONMENT="Test"
 CERT_FOLDER="${TEST_INT_FOLDER}"
 CAROOTCERT=${TEST_CAROOTCERT}
 CACERT=${TEST_CACERT}
-CRL=${TEST_CRL}
 
 VERBOSE=""
 CERTIFICATE=""
@@ -68,15 +65,14 @@ Report on the status of a PEM format certificate(s)
 
 OPTIONS:
   -h  Show this message
-  -d  Text dump the certifcate to STDOUT and exit
+  -d  Text dump the certificate to STDOUT and exit
   -v  Show version and exit
   -V  Verbose output to STDERR
   -s  Output pipe delimited rows instead of JSON
   -n  Output human readable text instead of JSON
-  -r  The CRL.pem file (${CRL})
   -a  The CACERT.pem file (${CACERT})
   -c  The CAROOTCERT.pem file (${CAROOTCERT})
-  -C  CA Chain file, containing CACERT, CAROOT, and CRL
+  -C  CA Chain file, containing CACERT and CAROOT
   -S  Generate CSV header and exit
   -A  Lookup author from subversion (default: No)
   -P  Use default production certificate authority
@@ -98,14 +94,14 @@ Example - Show status of a single certificate in test environment:
   ./${APPNAME} -A DataONETestIntCA/certs/urn\:node\:mnTestGulfWatch.pem  
 
 Example - Show status of a single certificate in production environment, 
-using the default locations for certificates and CRL:
+using the default locations for certificates:
 
   ./${APPNAME} -A -P DataONEProdIntCA/certs/urn\:node\:GULFWATCH.pem
  
 Example - Show status of a single certificate in production environment, 
-explicitly indicating which certificates and CRL to use:
+explicitly indicating which certificates to use:
 
-  ./${APPNAME} -A -r DataONEProdIntCA/crl/DataONEProdIntCA_CRL.pem \\
+  ./${APPNAME} -A \\
     -a DataONEProdIntCA/certs/DataONEProdIntCA.pem \\
     -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \\
     DataONEProdIntCA/certs/urn\\:node\\:GULFWATCH.pem
@@ -127,7 +123,6 @@ production certificates:
   ./${APPNAME} -H > testcerts.csv; \\
   for f in \$(find DataONETestIntCA/certs -name *.pem); \\
   do ./${APPNAME} -A -s \\
-   -r DataONEProdIntCA/crl/DataONEProdIntCA_CRL.pem \\
    -a DataONEProdIntCA/certs/DataONEProdIntCA.pem \\
    -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \\
   \$f >> prodcerts.csv; done
@@ -137,8 +132,7 @@ OR:
   ./${APPNAME} -s -A -P DataONEProdIntCA/certs
 
 Example - Generate a calendar of events in .ics format for production 
-environment certificate expirations and the next update time for the 
-CRL. Output is to the file "Prod_events.ics" for the production 
+environment certificate expirations. Output is to the file "Prod_events.ics" for the production
 environment or "Test_events.ics" for the test environment. The 
 calendar can be subscribed to using the respective SVN URL.
 
@@ -256,14 +250,9 @@ function getCertificateInfo() {
 	if [[ -z ${CACHAINFILE} ]]; then
 	  	if [[ -f ${CAROOTCERT} ]]; then
 			if [[ -f ${CACERT} ]]; then
-				if [[ -f ${CRL} ]]; then
-					cat ${CAROOTCERT} > ${TMPFILE}
-					cat ${CACERT} >> ${TMPFILE}
-					cat ${CRL} >> ${TMPFILE}
-					CACHAINFILE=${TMPFILE}
-				else
-					log "CRL File not found: ${CRL}"
-				fi
+        cat ${CAROOTCERT} > ${TMPFILE}
+        cat ${CACERT} >> ${TMPFILE}
+        CACHAINFILE=${TMPFILE}
 			else
 				log "CACERT file not found: ${CACERT}"
 			fi
@@ -276,7 +265,7 @@ function getCertificateInfo() {
 		c_valid="Valid"
 		log "CACHAINFILE = ${CACHAINFILE}"
 		old_IFS=$IFS
-		IFS=$'\n' _TMP=($(openssl verify -crl_check -CAfile ${CACHAINFILE} ${CERTIFICATE}))
+		IFS=$'\n' _TMP=($(openssl verify -CAfile ${CACHAINFILE} ${CERTIFICATE}))
 		IFS=${old_IFS}
 		for sslError in "${_TMP[@]}"; do
 			if [[ $sslError == 'error'* ]]; then
@@ -371,26 +360,17 @@ function generateEventCalendar() {
     printf "PRODID:-//DataONE.org//${APPNAME} v${VERSION}//${CERT_ENVIRONMENT}//EN\n" >> ${c_file}
 
     #Each certificate
-    CERTIFICATES=$(find "${CERT_FOLDER}/certs" -name "*.pem")
+    CERTIFICATES=$(find -L "${CERT_FOLDER}/certs" -name "*.pem")
     for CERTIFICATE in ${CERTIFICATES}; do
     	#get certificate info and generate event
     	getCertificateInfo
     	if [[ ${c_revoked} == "Not_Revoked" ]]; then
     		log "${c_DN} expires $(fromSerialDate ${c_expire_date})"
 			ICAL_EVENT=$(serialDateToVCalendar "${c_expire_date}" \
-				"Certificate ${c_DN} expires in ${CERT_ENVIRONMENT} environment.\nSerial:${c_serial}")
+				"${CERT_ENVIRONMENT} Cert ${c_DN} expires.\nSerial:${c_serial}")
 			printf "${ICAL_EVENT}\n" >> ${c_file}
 		fi
     done
-
-    #Update CRL before...
-    _TMP=$(openssl crl -nextupdate -noout -in ${CRL} \
-        | awk -F= ' /nextUpdate/ { printf("%s\n",$NF); } ');
-    crl_update_date=$(toSerialDate "${_TMP}")
-    log "CRL Needs to be updated before: $(fromSerialDate ${crl_update_date})"
-    ICAL_EVENT=$(serialDateToVCalendar "${crl_update_date}" \
-                 "Regenerate DataONE ${CERT_ENVIRONMENT} CRL.")
-    printf "${ICAL_EVENT}\n" >> ${c_file}
 
     #Close calendar
     printf "END:VCALENDAR" >> ${c_file}
@@ -398,7 +378,7 @@ function generateEventCalendar() {
 
 
 #=== Main ===
-while getopts "hvVdsnHSAPLr:a:c:C:e:" OPTION
+while getopts "hHvdVsnSAPL:a:c:C:e:" OPTION
 do
 	case ${OPTION} in
 		h) usage; exit 1;;
@@ -406,7 +386,6 @@ do
 		v) showVersion; exit 1;;
 		d) DUMPCERT=1;;
 		V) VERBOSE=1;;
-		r) CRL=$OPTARG;;
 		a) CACERT=$OPTARG;;
 		c) CAROOTCERT=$OPTARG;;
 		C) CACHAINFILE=$OPTARG;;
@@ -418,8 +397,7 @@ do
 		P) CERT_ENVIRONMENT="Prod";
 		   CERT_FOLDER="${PROD_INT_FOLDER}";
 		   CAROOTCERT="${PROD_CAROOTCERT}";
-		   CACERT="${PROD_CACERT}";
-		   CRL="${PROD_CRL}";;
+		   CACERT="${PROD_CACERT}";;
 		L) GENERATE_CALENDAR=1;;
 		\?) usage; exit 1;;
 	esac
