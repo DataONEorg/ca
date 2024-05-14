@@ -236,11 +236,11 @@ certificate and revocation list expiry. These are checked in to GitHub
 and can be subscribed to using Google Calendar or iCal using the calendar
 locations of:
 
-https://repository.dataone.org/software/tools/trunk/ca/Prod_events.ics
+https://raw.githubusercontent.com/DataONEorg/ca/main/Prod_events.ics
 
 for the Production environment, and:
 
-https://repository.dataone.org/software/tools/trunk/ca/Test_events.ics
+https://raw.githubusercontent.com/DataONEorg/ca/main/Test_events.ics
 
 for the Test environment.
 
