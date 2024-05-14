@@ -13,12 +13,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check Production Certs
         run: ./cert_status -s -P DataONEProdIntCA/certs 2> /dev/null 1> prod_cert_status.csv
-
+      - name: Update iCal Expirations
+        run: ./cert_status -P -L DataONEProdIntCA/certs
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -m "Update cert status info" prod_cert_status.csv
+          git commit -m "Update cert status info" prod_cert_status.csv Prod_events.ics
         
       - name: Push changes
         uses: ad-m/github-push-action@master
