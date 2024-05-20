@@ -42,6 +42,6 @@
 
 ### FYI:
 
-* There should be no sparsebundle changes as a result of this process; however, MacOS may modify the metadata, so it shows a schanged. It's safe to `git checkout -- ` the sparsebundle and ignore the change.
+* There should be no sparsebundle changes as a result of this process; however, MacOS may modify the metadata, so it shows as changed. It's safe to `git checkout -- ` the sparsebundle and ignore the change.
 
 
