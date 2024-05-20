@@ -261,12 +261,5 @@ if [[ ! -f ${CERTIFICATE} ]]; then
 	lerror " File not found: ${CERTIFICATE}"
 	exit 1;
 fi
-#if [[ ! -z ${LDAP_SEARCH} ]]; then
-#	user_ok=$(verifyUserId ${USER_ID})
-#	if [[ ${user_ok} == "0" ]]; then
-#		lerror "User ID note found in LDAP: ${USER_ID}"
-#		exit 1;
-#	fi
-#fi
 
 shareCertificate
