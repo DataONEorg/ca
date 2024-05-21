@@ -10,6 +10,17 @@ WARN_DAYS=21
 CSV_URL_PROD="https://raw.githubusercontent.com/DataONEorg/ca/main/prod_cert_status.csv"
 CSV_URL_TEST="https://raw.githubusercontent.com/DataONEorg/ca/main/test_cert_status.csv"
 
+
+# Checkmk agent runs every minute. That's far too frequent for a cert expiration check (and GH
+# may not like us curling the csv files so frequently). Therefore, limit this run to only once
+# per day:
+#
+DAILY_RUN_TIME=23:23
+
+if [ "$(date +%H:%M)" != "$DAILY_RUN_TIME" ]; then
+  exit 0
+fi
+
 process_csv() {
     # expects 4 args: process_csv <CSV_URL> <WARN_DAYS> <CRITICAL_DAYS> <prod|test>
 
