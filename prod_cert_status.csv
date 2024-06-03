@@ -29,3 +29,4 @@ File,Serial,DN,Revoked,Validity,Expire_days,Expires,Created
 "DataONEProdIntCA/certs/urn:node:KNB.pem",EA5D6CC8A5910530,"subject=DC=org,DC=dataone,CN=urn:node:KNB",Not_Revoked,Valid,1074,2027-05-14T19:08:08.000+00:00,2024-05-14T19:08:08.000+00:00
 "DataONEProdIntCA/certs/urn:node:PISCO.pem",EA5D6CC8A591052E,"subject=DC=org,DC=dataone,CN=urn:node:PISCO",Not_Revoked,Valid,1074,2027-05-14T17:42:32.000+00:00,2024-05-14T17:42:32.000+00:00
 "DataONEProdIntCA/certs/urn:node:ESA.pem",EA5D6CC8A591052F,"subject=DC=org,DC=dataone,CN=urn:node:ESA",Not_Revoked,Valid,1074,2027-05-14T19:04:36.000+00:00,2024-05-14T19:04:36.000+00:00
+"DataONEProdIntCA/certs/urn:node:NKN.pem",EA5D6CC8A5910532,"subject=DC=org,DC=dataone,CN=urn:node:NKN",Not_Revoked,Valid,1094,2027-06-03T21:12:05.000+00:00,2024-06-03T21:12:05.000+00:00
