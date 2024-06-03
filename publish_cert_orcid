@@ -187,8 +187,15 @@ Metadata About Certificate
 --------------------------
 
 EOF
+if [[ ${_certpath} == *"DataONEProdIntCA"* ]]; then
+  echo "${_certpath} is a PRODUCTION cert"
+  statusFlag="-P"
+else
+  echo "${_certpath} is a TEST cert"
+  statusFlag=""
+fi
 echo "BEFORE /cert_status..."
-		${APPDIR}/cert_status -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
+		${APPDIR}/cert_status ${statusFlag} -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
 	fi
 echo "AFTER /cert_status..."
 	local _ZIPFILE="${TMPDIR}/${_safename}.zip"
