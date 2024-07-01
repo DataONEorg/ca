@@ -8,3 +8,5 @@ V	270514190808Z		EA5D6CC8A5910530	unknown	/DC=org/DC=dataone/CN=urn:node:KNB
 V	270520155637Z		EA5D6CC8A5910531	unknown	/DC=org/DC=dataone/CN=urn:node:PPBIO
 V	270603211205Z		EA5D6CC8A5910532	unknown	/DC=org/DC=dataone/CN=urn:node:NKN
 V	270605175600Z		EA5D6CC8A5910533	unknown	/DC=org/DC=dataone/CN=urn:node:NMEPSCOR
+V	270701171120Z		EA5D6CC8A5910534	unknown	/DC=org/DC=dataone/CN=cn-ucsb-1.dataone.org
+V	270701171602Z		EA5D6CC8A5910535	unknown	/DC=org/DC=dataone/CN=cn-orc-1.dataone.org
