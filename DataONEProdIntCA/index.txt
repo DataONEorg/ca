@@ -11,3 +11,4 @@ V	270605175600Z		EA5D6CC8A5910533	unknown	/DC=org/DC=dataone/CN=urn:node:NMEPSCO
 V	270701171120Z		EA5D6CC8A5910534	unknown	/DC=org/DC=dataone/CN=cn-ucsb-1.dataone.org
 V	270701171602Z		EA5D6CC8A5910535	unknown	/DC=org/DC=dataone/CN=cn-orc-1.dataone.org
 V	270829154305Z		EA5D6CC8A5910536	unknown	/DC=org/DC=dataone/CN=urn:node:TFRI
+V	271213151215Z		EA5D6CC8A5910537	unknown	/DC=org/DC=dataone/CN=urn:node:CIB
