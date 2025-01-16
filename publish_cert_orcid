@@ -194,10 +194,10 @@ else
   echo "${_certpath} is a TEST cert"
   statusFlag=""
 fi
-echo "BEFORE /cert_status..."
+echo "Doing /cert_status..."
 		${APPDIR}/cert_status ${statusFlag} -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
 	fi
-echo "AFTER /cert_status..."
+echo "Creating zipfile..."
 	local _ZIPFILE="${TMPDIR}/${_safename}.zip"
 	local CDIR=$(pwd)
 	cd ${TMPDIR}
@@ -221,14 +221,18 @@ echo "AFTER /cert_status..."
 
 	#scp the .zip, creating a folder if needed
 	log "Copy to host..."
-	log "cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} \"mkdir -p ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/\$(basename ${_ZIPFILE})\""
+	log "cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} \"mkdir -p  -m 2770 ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/\$(basename ${_ZIPFILE})\""
 
 	if [[ -z ${DRYRUN} ]]; then
-  		cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} "mkdir -p ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/$(basename ${_ZIPFILE})"
-
+  		if ! cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} "mkdir -p  -m 2770 ${PUBLISH_PATH}/${USER_ID}; cat > ${PUBLISH_PATH}/${USER_ID}/$(basename ${_ZIPFILE})"; then
+            #clean up
+            rm -rf ${_tmp_dir}
+			lerror "ssh failed."
+			lwarn "Aborting."
+			exit 1
+		fi
 		#clean up
 		rm -rf ${_tmp_dir}
-		#rm ${_ZIPFILE}
 		echo ${_ZIPFILE}
 	fi
 	echo
