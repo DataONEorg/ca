@@ -134,6 +134,11 @@ function fromSerialDate() {
 ###################################################################################
 function create {
 
+    if [ ! -e ${KEYS} ]; then
+        echo "Creating directory $(pwd)/${KEYS}"
+        mkdir ${KEYS}
+    fi
+
     if [ -e $KEY -o -e $PEM -o -e $CSR ]; then
         echo "WARNING: Files for $NODEID already exist. Be sure to revoke as needed...\n"
         SERIAL=1
