@@ -221,10 +221,10 @@ echo "Creating zipfile..."
 
 	#scp the .zip, creating a folder if needed
 	log "Copy to host..."
-	log "cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} \"mkdir -p  -m 2770 ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/\$(basename ${_ZIPFILE})\""
+	log "cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} \"mkdir -p  -m 2775 ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/\$(basename ${_ZIPFILE})\""
 
 	if [[ -z ${DRYRUN} ]]; then
-  		if ! cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} "mkdir -p  -m 2770 ${PUBLISH_PATH}/${USER_ID}; cat > ${PUBLISH_PATH}/${USER_ID}/$(basename ${_ZIPFILE})"; then
+  		if ! cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} "mkdir -p  -m 2775 ${PUBLISH_PATH}/${USER_ID}; cat > ${PUBLISH_PATH}/${USER_ID}/$(basename ${_ZIPFILE})"; then
             #clean up
             rm -rf ${_tmp_dir}
 			lerror "ssh failed."
