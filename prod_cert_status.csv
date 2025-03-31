@@ -25,7 +25,8 @@ File,Serial,DN,Revoked,Validity,Expire_days,Expires,Created
 "DataONEProdIntCA/certs/urn:node:mnUCSB1-2.pem",EA5D6CC8A5910539,"subject=DC=org,DC=dataone,CN=urn:node:mnUCSB1",Not_Revoked,Valid,1021,2028-01-16T18:42:56.000+00:00,2025-01-16T18:42:56.000+00:00
 "DataONEProdIntCA/certs/urn:node:EDI.pem",EA5D6CC8A591052D,"subject=DC=org,DC=dataone,CN=urn:node:EDI",Not_Revoked,Valid,759,2027-04-30T15:30:45.000+00:00,2024-04-30T15:30:45.000+00:00
 "DataONEProdIntCA/certs/urn:node:ESS_DIVE.pem",EA5D6CC8A591052A,"subject=DC=org,DC=dataone,CN=urn:node:ESS_DIVE",Not_Revoked,Valid,697,2027-02-27T17:36:52.000+00:00,2024-02-28T17:36:52.000+00:00
-"DataONEProdIntCA/certs/urn:node:NMEPSCOR.pem",EA5D6CC8A5910533,"subject=DC=org,DC=dataone,CN=urn:node:NMEPSCOR",Not_Revoked,Valid,796,2027-06-05T17:56:00.000+00:00,2024-06-05T17:56:00.000+00:00
+"DataONEProdIntCA/certs/urn:node:NMEPSCOR.pem",EA5D6CC8A5910533,"subject=DC=org,DC=dataone,CN=urn:node:NMEPSCOR",Not_Revoked,Valid,795,2027-06-05T17:56:00.000+00:00,2024-06-05T17:56:00.000+00:00
+"DataONEProdIntCA/certs/urn:node:mnORC1.pem",EA5D6CC8A591053D,"subject=DC=org,DC=dataone,CN=urn:node:mnORC1",Not_Revoked,Valid,1094,2028-03-30T17:51:39.000+00:00,2025-03-31T17:51:39.000+00:00
 "DataONEProdIntCA/certs/urn:node:KNB.pem",EA5D6CC8A5910530,"subject=DC=org,DC=dataone,CN=urn:node:KNB",Not_Revoked,Valid,774,2027-05-14T19:08:08.000+00:00,2024-05-14T19:08:08.000+00:00
 "DataONEProdIntCA/certs/urn:node:ESA.pem",EA5D6CC8A591052F,"subject=DC=org,DC=dataone,CN=urn:node:ESA",Not_Revoked,Valid,774,2027-05-14T19:04:36.000+00:00,2024-05-14T19:04:36.000+00:00
 "DataONEProdIntCA/certs/urn:node:CIB.pem",EA5D6CC8A5910537,"subject=DC=org,DC=dataone,CN=urn:node:CIB",Not_Revoked,Valid,986,2027-12-13T15:12:15.000+00:00,2024-12-13T15:12:15.000+00:00
