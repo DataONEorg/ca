@@ -36,7 +36,7 @@ CERTIFICATE=""
 
 
 function showVersion() {
-	echo ${VERSION}
+    echo ${VERSION}
 }
 
 
@@ -67,7 +67,7 @@ EOF
 
 
 function usageExamples() {
-	usage
+    usage
 cat << EOF
 Example - Share a certificate and key for user vieglais:
 
@@ -78,69 +78,69 @@ EOF
 
 
 function log() {
-	if [[ ! -z ${VERBOSE} ]]; then
-		echo "LOG: $@" 1>&2;
-	fi
+    if [[ ! -z ${VERBOSE} ]]; then
+        echo "LOG: $@" 1>&2;
+    fi
 }
 
 
 function lwarn() {
-	echo "WARN: $@" 1>&2;
+    echo "WARN: $@" 1>&2;
 }
 
 
 function lerror() {
-	echo "ERROR: $@" 1>&2;
+    echo "ERROR: $@" 1>&2;
 }
 
 
 #Check LDAP for the uid ${1}. If present, output "1", otherwise "0"
 function verifyUserId() {
-	lwarn "TODO: verify user id"
-	echo "1"
+    lwarn "TODO: verify user id"
+    echo "1"
 }
 
 
 function shareCertificate() {
-	#Find the key, and create a safe name
-	log "Certificate = ${CERTIFICATE}"
-	local _certname=$(basename -s ".pem" "${CERTIFICATE}")
-	local _certpath=$(dirname "${CERTIFICATE}")
-	local _KEY="${_certpath}/../private/${_certname}.key"
-	log "Key = ${_KEY}"
-	if [[ ! -f ${_KEY} ]]; then
-		lwarn "Key file not found: ${_KEY}"
-		lwarn "Continuing though package will not contain the key!"
-	fi
+    #Find the key, and create a safe name
+    log "Certificate = ${CERTIFICATE}"
+    local _certname=$(basename -s ".pem" "${CERTIFICATE}")
+    local _certpath=$(dirname "${CERTIFICATE}")
+    local _KEY="${_certpath}/../private/${_certname}.key"
+    log "Key = ${_KEY}"
+    if [[ ! -f ${_KEY} ]]; then
+        lwarn "Key file not found: ${_KEY}"
+        lwarn "Continuing though package will not contain the key!"
+    fi
 
-	local _CSR="${_certpath}/../req/${_certname}.csr"
-	log "CSR = ${_CSR}"
-	if [[ ! -f ${_CSR} ]]; then
-		lwarn "CSR file not found: ${_CSR}"
-		lwarn "Continuing though package will not contain the CSR!"
-	fi
+    local _CSR="${_certpath}/../req/${_certname}.csr"
+    log "CSR = ${_CSR}"
+    if [[ ! -f ${_CSR} ]]; then
+        lwarn "CSR file not found: ${_CSR}"
+        lwarn "Continuing though package will not contain the CSR!"
+    fi
 
-	#replace : with _
-	local _safename=${_certname//[:]/_}
+    #replace : with _
+    local _safename=${_certname//[:]/_}
 
-	#Create a zip file
-	local _tmp_dir=${TMPDIR}/${_safename}
-	if [[ -d ${_tmp_dir} ]]; then
-		lerror "Temporary folder already exists: ${_tmp_dir}  Remove to continue."
-		exit 1;
-	fi
-	if [[ -z ${DRYRUN} ]]; then
-		mkdir -p "${_tmp_dir}/private"
-		if [ "$?" -ne "0" ]; then
-			lerror "failed: mkdir -p \"${_tmp_dir}/private\""
-			exit 1
-		fi
-		cp ${CERTIFICATE} "${_tmp_dir}/${_safename}.crt"
-		cp ${_KEY} "${_tmp_dir}/private/${_safename}.key"
-		cp ${CERTIFICATE} "${_tmp_dir}/private/${_safename}.pem"
-		cat ${_KEY} >> "${_tmp_dir}/private/${_safename}.pem"
-		cp ${_CSR} "${_tmp_dir}/${_safename}.csr"
-		cat > "${_tmp_dir}/README.txt" << EOF
+    #Create a zip file
+    local _tmp_dir=${TMPDIR}/${_safename}
+    if [[ -d ${_tmp_dir} ]]; then
+        lerror "Temporary folder already exists: ${_tmp_dir}  Remove to continue."
+        exit 1;
+    fi
+    if [[ -z ${DRYRUN} ]]; then
+        mkdir -p "${_tmp_dir}/private"
+        if [ "$?" -ne "0" ]; then
+            lerror "failed: mkdir -p \"${_tmp_dir}/private\""
+            exit 1
+        fi
+        cp ${CERTIFICATE} "${_tmp_dir}/${_safename}.crt"
+        cp ${_KEY} "${_tmp_dir}/private/${_safename}.key"
+        cp ${CERTIFICATE} "${_tmp_dir}/private/${_safename}.pem"
+        cat ${_KEY} >> "${_tmp_dir}/private/${_safename}.pem"
+        cp ${_CSR} "${_tmp_dir}/${_safename}.csr"
+        cat > "${_tmp_dir}/README.txt" << EOF
 README
 ======
 
@@ -195,65 +195,65 @@ else
   statusFlag=""
 fi
 echo "Doing /cert_status..."
-		${APPDIR}/cert_status ${statusFlag} -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
-	fi
+        ${APPDIR}/cert_status ${statusFlag} -n ${CERTIFICATE} >> "${_tmp_dir}/README.txt"
+    fi
 echo "Creating zipfile..."
-	local _ZIPFILE="${TMPDIR}/${_safename}.zip"
-	local CDIR=$(pwd)
-	cd ${TMPDIR}
-	log "zip -r ${_ZIPFILE} ${_safename}"
-	if [[ -z ${DRYRUN} ]]; then
-		if [[ ! -z ${VERBOSE} ]]; then
-			zip -r ${_ZIPFILE} ${_safename}
-		else
-			zip -q -r ${_ZIPFILE} ${_safename}
-		fi
-		if [ "$?" -ne "0" ]; then
-			lerror "Zip creation failed."
-			lwarn "Aborting."
-			cd ${CDIR}
-			rm -rf ${_tmp_dir}
-			rm ${_ZIPFILE}
-			exit 1
-		fi
-	fi
-	cd ${CDIR}
+    local _ZIPFILE="${TMPDIR}/${_safename}.zip"
+    local CDIR=$(pwd)
+    cd ${TMPDIR}
+    log "zip -r ${_ZIPFILE} ${_safename}"
+    if [[ -z ${DRYRUN} ]]; then
+        if [[ ! -z ${VERBOSE} ]]; then
+            zip -r ${_ZIPFILE} ${_safename}
+        else
+            zip -q -r ${_ZIPFILE} ${_safename}
+        fi
+        if [ "$?" -ne "0" ]; then
+            lerror "Zip creation failed."
+            lwarn "Aborting."
+            cd ${CDIR}
+            rm -rf ${_tmp_dir}
+            rm ${_ZIPFILE}
+            exit 1
+        fi
+    fi
+    cd ${CDIR}
 
-	#scp the .zip, creating a folder if needed
-	log "Copy to host..."
-	log "cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} \"mkdir -p  -m 2775 ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/\$(basename ${_ZIPFILE})\""
+    #scp the .zip, creating a folder if needed
+    log "Copy to host..."
+    log "cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} \"mkdir -p  -m 2775 ${PUBLISH_PATH}/${USER_ID};cat > ${PUBLISH_PATH}/${USER_ID}/\$(basename ${_ZIPFILE})\""
 
-	if [[ -z ${DRYRUN} ]]; then
-  		if ! cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} "mkdir -p  -m 2775 ${PUBLISH_PATH}/${USER_ID}; cat > ${PUBLISH_PATH}/${USER_ID}/$(basename ${_ZIPFILE})"; then
+    if [[ -z ${DRYRUN} ]]; then
+          if ! cat ${_ZIPFILE} | ssh ${PUBLISH_HOST} "mkdir -p  -m 2775 ${PUBLISH_PATH}/${USER_ID}; cat > ${PUBLISH_PATH}/${USER_ID}/$(basename ${_ZIPFILE})"; then
             #clean up
             rm -rf ${_tmp_dir}
-			lerror "ssh failed."
-			lwarn "Aborting."
-			exit 1
-		fi
-		#clean up
-		rm -rf ${_tmp_dir}
-		echo ${_ZIPFILE}
-	fi
-	echo
-	echo "Upload successful."
-	echo "The package can be retrieved from:"
-	echo "  https://${PUBLISH_HOST}/o/${USER_ID}/$(basename ${_ZIPFILE})"
-	echo
+            lerror "ssh failed."
+            lwarn "Aborting."
+            exit 1
+        fi
+        #clean up
+        rm -rf ${_tmp_dir}
+        echo ${_ZIPFILE}
+    fi
+    echo
+    echo "Upload successful."
+    echo "The package can be retrieved from:"
+    echo "  https://${PUBLISH_HOST}/o/${USER_ID}/$(basename ${_ZIPFILE})"
+    echo
 }
 
 
 # === Main ===
-while getopts "hHvVPdDr:" OPTION
+while getopts "hHvVD:" OPTION
 do
-	case ${OPTION} in
-		h) usage; exit 1;;
-	    H) usageExamples; exit 1;;
-		v) showVersion; exit 1;;
-		V) VERBOSE=1;;
-	    D) DRYRUN=1;;
-		\?) usage; exit 1;;
-	esac
+    case ${OPTION} in
+        h) usage; exit 1;;
+        H) usageExamples; exit 1;;
+        v) showVersion; exit 1;;
+        V) VERBOSE=1;;
+        D) DRYRUN=1;;
+        \?) usage; exit 1;;
+    esac
 done
 
 shift $((OPTIND-1))
@@ -261,16 +261,16 @@ USER_ID=${1}
 CERTIFICATE=${2}
 
 if [[ -z ${USER_ID} ]]; then
-	echo "User ID is required."
-	exit 1;
+    echo "User ID is required."
+    exit 1;
 fi
 if [[ -z ${CERTIFICATE} ]]; then
-	echo "Certificate file name is required."
-	exit 1;
+    echo "Certificate file name is required."
+    exit 1;
 fi
 if [[ ! -f ${CERTIFICATE} ]]; then
-	lerror " File not found: ${CERTIFICATE}"
-	exit 1;
+    lerror " File not found: ${CERTIFICATE}"
+    exit 1;
 fi
 
 shareCertificate
