@@ -24,3 +24,4 @@ V	280716225841Z		EA5D6CC8A5910540	unknown	/DC=org/DC=dataone/CN=urn:node:DRP
 V	280810155617Z		EA5D6CC8A5910541	unknown	/DC=org/DC=dataone/CN=urn:node:SDR
 V	281008174821Z		EA5D6CC8A5910542	unknown	/DC=org/DC=dataone/CN=urn:node:RW
 V	281026152650Z		EA5D6CC8A5910543	unknown	/DC=org/DC=dataone/CN=urn:node:mnTestARCTIC
+V	281028232142Z		EA5D6CC8A5910544	unknown	/DC=org/DC=dataone/CN=urn:node:mnTestARCTIC
