@@ -14,6 +14,7 @@ File,Serial,DN,Revoked,Validity,Expire_days,Expires,Created
 "DataONEProdIntCA/certs/urn:node:LTER.pem",EA5D6CC8A591052C,"subject=DC=org,DC=dataone,CN=urn:node:LTER",Not_Revoked,Valid,520,2027-04-30T15:24:55.000+00:00,2024-04-30T15:24:55.000+00:00
 "DataONEProdIntCA/certs/urn:node:FEMC.pem",EA5D6CC8A591053B,"subject=DC=org,DC=dataone,CN=urn:node:FEMC",Not_Revoked,Valid,829,2028-03-03T19:50:59.000+00:00,2025-03-04T19:50:59.000+00:00
 "DataONEProdIntCA/certs/urn:node:TFRI.pem",EA5D6CC8A5910536,"subject=DC=org,DC=dataone,CN=urn:node:TFRI",Not_Revoked,Valid,641,2027-08-29T15:43:05.000+00:00,2024-08-29T15:43:05.000+00:00
+"DataONEProdIntCA/certs/urn:node:IEDA_MGDL-2.pem",EA5D6CC8A5910547,"subject=DC=org,DC=dataone,CN=urn:node:IEDA_MGDL",Not_Revoked,Valid,1094,2028-11-24T18:38:13.000+00:00,2025-11-25T18:38:13.000+00:00
 "DataONEProdIntCA/certs/urn:node:ARM.pem",EA5D6CC8A5910546,"subject=DC=org,DC=dataone,CN=urn:node:ARM",Not_Revoked,Valid,1094,2028-11-24T17:28:16.000+00:00,2025-11-25T17:28:16.000+00:00
 "DataONEProdIntCA/certs/cn-ucsb-1.dataone.org.pem",EA5D6CC8A5910534,"subject=DC=org,DC=dataone,CN=cn-ucsb-1.dataone.org",Not_Revoked,Valid,582,2027-07-01T17:11:20.000+00:00,2024-07-01T17:11:20.000+00:00
 "DataONEProdIntCA/certs/urn:node:mnTestARCTIC-2.pem",EA5D6CC8A5910544,"subject=DC=org,DC=dataone,CN=urn:node:mnTestARCTIC",Not_Revoked,Valid,1068,2028-10-28T23:21:42.000+00:00,2025-10-29T23:21:42.000+00:00
