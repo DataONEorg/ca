@@ -24,7 +24,8 @@ File,Serial,DN,Revoked,Validity,Expire_days,Expires,Created
 "DataONEProdIntCA/certs/urn:node:ARCTIC.pem",EA5D6CC8A591053A,"subject=DC=org,DC=dataone,CN=urn:node:ARCTIC",Not_Revoked,Valid,806,2028-02-24T21:58:46.000+00:00,2025-02-24T21:58:46.000+00:00
 "DataONEProdIntCA/certs/urn:node:RW.pem",EA5D6CC8A5910542,"subject=DC=org,DC=dataone,CN=urn:node:RW",Not_Revoked,Valid,1032,2028-10-08T17:48:21.000+00:00,2025-10-09T17:48:21.000+00:00
 "DataONEProdIntCA/certs/cn-orc-1.dataone.org.pem",EA5D6CC8A5910535,"subject=DC=org,DC=dataone,CN=cn-orc-1.dataone.org",Not_Revoked,Valid,567,2027-07-01T17:16:02.000+00:00,2024-07-01T17:16:02.000+00:00
-"DataONEProdIntCA/certs/urn:node:mnUNM1.pem",EA5D6CC8A591053E,"subject=DC=org,DC=dataone,CN=urn:node:mnUNM1",Not_Revoked,Valid,841,2028-03-30T18:29:44.000+00:00,2025-03-31T18:29:44.000+00:00
+"DataONEProdIntCA/certs/urn:node:SCTLD.pem",EA5D6CC8A591054A,"subject=DC=org,DC=dataone,CN=urn:node:SCTLD",Not_Revoked,Valid,1094,2028-12-09T18:26:05.000+00:00,2025-12-10T18:26:05.000+00:00
+"DataONEProdIntCA/certs/urn:node:mnUNM1.pem",EA5D6CC8A591053E,"subject=DC=org,DC=dataone,CN=urn:node:mnUNM1",Not_Revoked,Valid,840,2028-03-30T18:29:44.000+00:00,2025-03-31T18:29:44.000+00:00
 "DataONEProdIntCA/certs/urn:node:mnORC1.pem",EA5D6CC8A591053D,"subject=DC=org,DC=dataone,CN=urn:node:mnORC1",Not_Revoked,Valid,840,2028-03-30T17:51:39.000+00:00,2025-03-31T17:51:39.000+00:00
 "DataONEProdIntCA/certs/urn:node:NMEPSCOR.pem",EA5D6CC8A5910533,"subject=DC=org,DC=dataone,CN=urn:node:NMEPSCOR",Not_Revoked,Valid,541,2027-06-05T17:56:00.000+00:00,2024-06-05T17:56:00.000+00:00
 "DataONEProdIntCA/certs/urn:node:PISCO.pem",EA5D6CC8A591052E,"subject=DC=org,DC=dataone,CN=urn:node:PISCO",Not_Revoked,Valid,519,2027-05-14T17:42:32.000+00:00,2024-05-14T17:42:32.000+00:00
