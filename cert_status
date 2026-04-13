@@ -59,7 +59,7 @@ function usage() {
 cat << EOF
 ${APPNAME} version ${VERSION}
 
-usage: ${APPNAME} OPTIONS TARGET 
+usage: ${APPNAME} OPTIONS TARGET
 
 Report on the status of a PEM format certificate(s)
 
@@ -91,14 +91,14 @@ cat << EOF
 
 Example - Show status of a single certificate in test environment:
 
-  ./${APPNAME} -A DataONETestIntCA/certs/urn\:node\:mnTestGulfWatch.pem  
+  ./${APPNAME} -A DataONETestIntCA/certs/urn\:node\:mnTestGulfWatch.pem
 
-Example - Show status of a single certificate in production environment, 
+Example - Show status of a single certificate in production environment,
 using the default locations for certificates:
 
   ./${APPNAME} -A -P DataONEProdIntCA/certs/urn\:node\:GULFWATCH.pem
- 
-Example - Show status of a single certificate in production environment, 
+
+Example - Show status of a single certificate in production environment,
 explicitly indicating which certificates to use:
 
   ./${APPNAME} -A \\
@@ -106,18 +106,18 @@ explicitly indicating which certificates to use:
     -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \\
     DataONEProdIntCA/certs/urn\\:node\\:GULFWATCH.pem
 
-Example - Generate a pipe delimited text file reporting on all the 
+Example - Generate a pipe delimited text file reporting on all the
 test certificates:
 
   ./${APPNAME} -S > testcerts.csv; \\
   for f in \$(find DataONETestIntCA/certs -name *.pem); \\
     do ./${APPNAME} -A -s \$f >> testcerts.csv; done
-  
+
 OR:
 
    ./${APPNAME} -s -A DataONETestIntCA/certs
 
-Example - Generate a pipe delimited text file reporting on all the 
+Example - Generate a pipe delimited text file reporting on all the
 production certificates:
 
   ./${APPNAME} -H > testcerts.csv; \\
@@ -126,14 +126,14 @@ production certificates:
    -a DataONEProdIntCA/certs/DataONEProdIntCA.pem \\
    -c DataONEProdRootCA/certs/DataONEProdRootCA.pem \\
   \$f >> prodcerts.csv; done
- 
+
 OR:
 
   ./${APPNAME} -s -A -P DataONEProdIntCA/certs
 
-Example - Generate a calendar of events in .ics format for production 
+Example - Generate a calendar of events in .ics format for production
 environment certificate expirations. Output is to the file "Prod_events.ics" for the production
-environment or "Test_events.ics" for the test environment. The 
+environment or "Test_events.ics" for the test environment. The
 calendar can be subscribed to using the respective SVN URL.
 
   ./${APPNAME} -P -L
@@ -142,7 +142,7 @@ calendar can be subscribed to using the respective SVN URL.
 Example - Check the client certificate installed on a CN, performed when
 logged on to a CN.
 
-  
+
 EOF
 }
 
@@ -183,10 +183,10 @@ function toSerialDate() {
     fi
 }
 
-function joinBy { 
-  local IFS="$1"; 
-  shift; 
-  echo "$*"; 
+function joinBy {
+  local IFS="$1";
+  shift;
+  echo "$*";
 }
 
 function splitBy() {
@@ -241,7 +241,7 @@ function getCertificateInfo() {
 		        | awk -F= ' /notAfter/ { printf("%s\n",$NF); } ');
 	c_expire_date=$(toSerialDate "${_TMP}")
 	_TMP=$(openssl x509 -startdate -noout -in ${CERTIFICATE} \
-		        | awk -F= ' /notBefore/ { printf("%s\n",$NF); } ');		
+		        | awk -F= ' /notBefore/ { printf("%s\n",$NF); } ');
 	c_create_date=$(toSerialDate "${_TMP}")
 	_TMP=$(openssl x509 -serial -noout -in ${CERTIFICATE})
 	c_serial=${_TMP##*=}
@@ -367,7 +367,7 @@ function generateEventCalendar() {
     	if [[ ${c_revoked} == "Not_Revoked" ]]; then
     		log "${c_DN} expires $(fromSerialDate ${c_expire_date})"
 			ICAL_EVENT=$(serialDateToVCalendar "${c_expire_date}" \
-				"${CERT_ENVIRONMENT} Cert ${c_DN} expires.\nSerial:${c_serial}")
+				"${CERT_ENVIRONMENT} Cert $(echo ${c_DN} | sed 's/.*CN=\([^,]*\).*/\1/') expires
 			printf "${ICAL_EVENT}\n" >> ${c_file}
 		fi
     done
