@@ -366,8 +366,13 @@ function generateEventCalendar() {
     	getCertificateInfo
     	if [[ ${c_revoked} == "Not_Revoked" ]]; then
     		log "${c_DN} expires $(fromSerialDate ${c_expire_date})"
-			ICAL_EVENT=$(serialDateToVCalendar "${c_expire_date}" \
-				"${CERT_ENVIRONMENT} Cert $(echo ${c_DN} | sed 's/.*CN=\([^,]*\).*/\1/') expires")
+      # Extract CN from the normalized DN string. If CN isn't present, fall back to the full DN.
+      c_CN=$(printf '%s' "${c_DN}" | sed -n 's/.*CN=\([^,]*\).*/\1/p')
+      if [[ -z "${c_CN}" ]]; then
+        c_CN="${c_DN}"
+      fi
+			ICAL_EVENT=$(serialDateToVCalendar \
+			  "${c_expire_date}" "${CERT_ENVIRONMENT} Cert ${c_CN} expires")
 			printf "${ICAL_EVENT}\n" >> ${c_file}
 		fi
     done
