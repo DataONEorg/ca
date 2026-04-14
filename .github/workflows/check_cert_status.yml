@@ -5,7 +5,8 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: "3 3 * * 1"
+    # - cron: "3 3 * * 1"
+    - cron: "21 16 * * *"
 jobs:
   cert-status:
     runs-on: ubuntu-latest
