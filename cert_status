@@ -154,18 +154,18 @@ function showVersion() {
 
 function log() {
 	if [[ ! -z ${VERBOSE} ]]; then
-		echo "LOG: $@" 1>&2;
+		echo "LOG: $*" 1>&2;
 	fi
 }
 
 
 function lwarn() {
-	echo "WARN: $@" 1>&2;
+	echo "WARN: $*" 1>&2;
 }
 
 
 function lerror() {
-	echo "ERROR: $@" 1>&2;
+	echo "ERROR: $*" 1>&2;
 }
 
 
@@ -367,7 +367,7 @@ function generateEventCalendar() {
     	if [[ ${c_revoked} == "Not_Revoked" ]]; then
     		log "${c_DN} expires $(fromSerialDate ${c_expire_date})"
 			ICAL_EVENT=$(serialDateToVCalendar "${c_expire_date}" \
-				"${CERT_ENVIRONMENT} Cert $(echo ${c_DN} | sed 's/.*CN=\([^,]*\).*/\1/') expires
+				"${CERT_ENVIRONMENT} Cert $(echo ${c_DN} | sed 's/.*CN=\([^,]*\).*/\1/') expires")
 			printf "${ICAL_EVENT}\n" >> ${c_file}
 		fi
     done
@@ -420,7 +420,7 @@ if [[ -f ${TARGET} ]]; then
 	CERTIFICATE=${TARGET}
 	log "Certificate file: ${CERTIFICATE}"
 	if [[ ! -z ${DUMPCERT} ]]; then
-		DUMPCERTificate
+		dumpcertificate
 		exit 0;
 	fi
 	getCertificateInfo
